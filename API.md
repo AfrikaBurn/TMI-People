@@ -28,37 +28,37 @@ These agreements represent relationships between participants and include:
 >* any other kind of agreement our community may wish to create.
 
 
-## Agreement schema
+### Agreement schema
 
 TODOC
 
 
-## List Agreements
+### List Agreements
 
 TODOC
 
 
-## Find Agreements
+### Find Agreements
 
 TODOC
 
 
-## Create Agreement(s)
+### Create Agreement(s)
 
 TODOC
 
 
-## Update Agreement(s)
+### Update Agreement(s)
 
 TODOC
 
 
-## Delete Agreement(s)
+### Delete Agreement(s)
 
 TODOC
 
 
-## Agreement types
+### Agreement types
 
 ```
 http://127.0.0.1:3000/agreement
