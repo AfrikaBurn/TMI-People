@@ -1,426 +1,114 @@
 # TMI People
 
 
-TMI People is a hybrid MicroServices-Monolith.
+People is the backbone of TMI and manages users, collectives, profiles,
+agreements and posts. It enforces positionality and access to only allow a user
+to interact with the information they own or curate in ways the owners of said
+information have consented to.
+
+TMI People is implemented using a monolyth-microservices hybrid model
 It exposes endpoints for managing Agreement types, Agreements, Collectives,
 Post types, Posts, Profile types, Profiles and Users.
 
+[Check out the API](./API.md).
 
-## Index
+## Prerequisites
 
-* [Agreements](#agreements)
-  * [Agreement types](#agreement-types)
-    * [Agreement type schema](#greement-type-schema)
-    * [List Agreement types](#list-agreement-types)
-    * [Find agreement types](#find-agreement-types)
-    * [Create agreement type(s)](#create-agreement-types)
-    * [Update agreement type(s)](#update-agreement-types)
-    * [Delete agreement type(s)](#delete-agreement-types)
-  * [Agreement schema](#agreement-schema) TODOC
-  * [List agreements](#list-agreements) TODOC
-  * [Find agreement](#find-agreements) TODOC
-  * [Create agreement](#create-agreements) TODOC
-  * [Update agreement](#update-agreements) TODOC
-  * [Delete agreement](#delete-agreements) TODOC
-
-* Collectives (TODOC)
-* Posts (TODOC)
-* Profiles (TODOC)
-* Users (TODOC)
-
-<br />
-
----
+* [Nodejs](https://nodejs.org) runtime is required to install and run TMI
+  People.
 
 
-## Agreements
+## Recommended
 
->Agreements are forged between users; collectives; and users and collectives.
-These agreements represent relationships within the system and include:
->
->* friendship between users
->* invitations to, and member- and moderatorship between users and collectives
->* registration of projects between collectives.
->* any other kind of agreement our community wishes to create.
+* [Visual Studio](https://visualstudio.microsoft.com) recommended for
+  development & debugging.
+* [Postman](https://www.getpostman.com) recommended for testing API endpoints.
 
 
-## Agreement types
+## Installing people
 
+
+Within a terminal, inside the downloaded TMI directory:
 ```
-http://127.0.0.1:3000/agreement
+cd people
+npm install
 ```
 
->The root endpoint of agreements allows management of *agreement types*.
 
-<br />
+## Running people
 
-### Agreement type schema
-
-|||
---- | ---
-Authentication| **`Required`**
-Endpoint|`http://127.0.0.1:3000/agreement`
-Request type| `GET`
-Content-Type| `application/json;schema`
-
-<br /><details><summary>Expected response</summary>
-
-```JSON
-{
-    "code": 200,
-    "schema": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "$id": "http://tmi.mobi/agreement/agreement.schema.json",
-        "definitions": {
-            "uei": {
-                "$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"
-            },
-            "participantRef": {
-                "$ref": "http://tmi.mobi/root.schema.json#/definitions/participantRef"
-            }
-        },
-        "type": "object",
-        "title": "string",
-        "name": "string",
-        "properties": {
-            "id": {
-                "$ref": "#/definitions/uei"
-            },
-            "owner": {
-                "$ref": "#/definitions/participantRef"
-            },
-            "schema": {
-                "type": "object"
-            }
-        },
-        "required": [
-            "name",
-            "owner",
-            "schema"
-        ]
-    }
-}
+Within a terminal, inside the downloaded TMI directory:
+```
+node people
 ```
 
-Where ```schema:``` is the
-[JSON schema](endpoints/agreement/agreement.schema.json) that
-defines agreement types.
+You should see startup output ending in:
 
-</details><br />
+```
+Spinning up MINImal MIcroservices for TMI People
 
----
+    WARNING: Memory stashes intended for testing only!
+    They evaporate once the server stops!
+    WARNING: Using memory based stash for session storage!
+    It will fail with multiple connections!
+    Use another stash for production.
 
-### List agreement types
 
-|||
---- | ---
-Authentication| **`Required`**
-Endpoint|`http://127.0.0.1:3000/agreement`
-Request type| `GET`
-Content-Type| `application/json`
+Occupying http://127.0.0.1:3000
 
-<br /><details><summary>Expected response</summary>
-
-```JSON
-{
-    "status": "Success",
-    "code": 200,
-    "expose": true,
-    "entities": [
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "administrator",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/agreement/administrator/administrator.schema.json",
-                "type": "object",
-                "title": "Administrator Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ]
-            },
-            "id": 0
-        },
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "moderator",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/default/moderator.json",
-                "type": "object",
-                "title": "Moderator Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ]
-            },
-            "id": 1
-        },
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "member",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/agreement/default/member.agreement.schema.json",
-                "type": "object",
-                "title": "Membership Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ]
-            },
-            "id": 2
-        },
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "guest",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/default/guest.json",
-                "type": "object",
-                "title": "Guest Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ]
-            },
-            "id": 3
-        }
-    ]
-}
+TMI People is ready.
 ```
 
-</details><br />
+This means the people services are running and awaiting requests.
+Warnings will be present in the startup output until database integration has
+been completed.
 
----
-### Find agreement types
+**For now TMI People runs in memory alone.**
 
-|||
---- | ---
-Authentication| **`Required`**
-Endpoint|`http://127.0.0.1:3000/agreement?property=value&anotherProperty=etc`
-Request type| `GET`
-Content-Type| `application/json`
+For more detailed output, run people with the verbose switch:
 
-Where "property" and "anotherProperty" represent properties of the schema type,
-eg.
-
-`http://127.0.0.1:3000/agreement?name=guest`
-
-<br /><details><summary>Expected response</summary>
-
-```JSON
-{
-    "status": "Success",
-    "code": 200,
-    "expose": true,
-    "entities": [
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "guest",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/default/guest.json",
-                "type": "object",
-                "title": "Guest Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ]
-            },
-            "id": 3
-        }
-    ]
-}
+```
+node people -v
 ```
 
-</details><br />
 
----
+## Testing people
 
-
-### Create agreement type(s)
-
-|||
---- | ---
-Authentication| **`Required`**
-Endpoint|`http://127.0.0.1:3000/agreement`
-Request type| `POST`
-Content-Type| `application/json`
-
-<details><summary>Request body</summary>
-
-```JSON
-[
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "test-agreement",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/test-agreement",
-                "type": "object",
-                "title": "Test Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ],
-                "properties": {
-                    "newProp": {
-                        "type": "string"
-                    }
-                }
-            },
-            "id": 4
-        }
-    ]
+Fire up postman and import the
+[test collection](https://github.com/AfrikaBurn/tmi-people/blob/master/testing.postman_collection.json) at:
+```
+people/testing.postman_collection.json
 ```
 
-</details><br />
+You may start up the test runner in postman and execute the whole TMI collection
+, or fire them seperately as examples of requests to direct at the people
+services. Note that the tests are not idempotent and some will fail on
+subsequent test runs.
 
-<details><summary>Expected response</summary>
+**It is best to restart people before running the whole suite again**.
 
-```JSON
-{
-    "status": "Entities created",
-    "code": 201,
-    "expose": true,
-    "entities": [
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "test-agreement",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/test-agreement",
-                "type": "object",
-                "title": "Test Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ],
-                "properties": {
-                    "newProp": {
-                        "type": "string"
-                    }
-                }
-            },
-            "id": 4
-        }
-    ]
-}
+
+## Stopping people
+
+In the terminal where people is running simply press CTRL-C to terminate the
+process.
+
+The output should be:
 ```
+^C Kill command received:
 
-</details><br />
+Retiring / endpoint... done.
+Retiring /agreement endpoint... done.
+Retiring /collective endpoint... done.
+Retiring /post endpoint... done.
+Retiring /profile endpoint... done.
+Retiring /user endpoint... done.
+Retiring /agreement/administrator endpoint... done.
+Retiring /agreement/moderator endpoint... done.
+Retiring /agreement/member endpoint... done.
+Retiring /agreement/guest endpoint... done.
+Retiring /post/article endpoint... done.
+Retiring /post/comment endpoint... done.
 
-Creates a new agreement type and enpoint, in this case:
+TMI People is done.
 ```
-/agreement/test-agreement
-```
-that may now be used to create instances of the agreement type "test-agreement",
-as per the provided name and schema.
-
-<br />
-
----
-
-### Update agreement type(s)
-
-|||
---- | ---
-Authentication| **`Required`**
-Endpoint|`http://127.0.0.1:3000/agreement`
-Request type| `PUT`
-Content-Type| `application/json`
-
-<details><summary>Request body</summary>
-
-```JSON
-[
-	{
-		"owner": {"entityType": "collective", "id": 0},
-		"name": "test-agreement",
-		"schema": {
-			"$schema": "http://json-schema.org/draft-07/schema#",
-			"$id": "http://tmi.mobi/schemas/agreement/default/guest.json",
-
-			"type": "object",
-			"title": "Test Agreement",
-
-			"allOf": [
-				{"$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"}
-			],
-			"properties": {
-				"newProp": "boolean"
-			}
-		}
-	}
-]
-```
-</details>
-
-</details><br />
-<details><summary>Expected response</summary>
-
-```JSON
-{
-    "status": "Success",
-    "code": 200,
-    "expose": true,
-    "entities": [
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "test-agreement",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/test-agreement",
-                "type": "object",
-                "title": "Test Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ],
-                "properties": {
-                    "newProp": {
-                        "type": "boolean"
-                    }
-                }
-            },
-            "id": 4
-        }
-    ]
-}
-```
-
-</details><br />
