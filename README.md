@@ -6,15 +6,21 @@ agreements and posts. It enforces positionality and access to only allow a user
 to interact with the information they own or curate in ways the owners of said
 information have consented to.
 
-![People Entity Relationships](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Entity-Relationships.svg)
-
-TMI People is implemented using a monolyth-microservices hybrid model
-It exposes endpoints for managing Agreement types, Agreements, Collectives,
-Post types, Posts, Profile types, Profiles and Users.
-
-![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Class-Diagram.svg)
-
+TMI People is implemented using a monolyth-microservices hybrid model and
+it exposes endpoints for managing Agreement types, Agreements, Collectives,
+Post types, Posts, Profile types, Profiles and Users through the
 [People API](./API.md).
+
+
+## Entity relationships
+
+![People Entity Relationships](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Entity-Relationships.svg?sanitize=true)
+
+
+## Entity Classes
+
+![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Class-Diagram.svg?sanitize=true)
+
 
 ## Prerequisites
 
