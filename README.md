@@ -19,7 +19,7 @@ Post types, Posts, Profile types, Profiles and Users through the
 
 ## Entity Classes
 
-![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Class-Diagram.svg?sanitize=true)
+![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Entity-Classes.svg?sanitize=true)
 
 
 ## Prerequisites

@@ -23,11 +23,13 @@ class RootPosition extends core.processors.UniformProcessor {
     }
   }
 
+
   /* ----- Method responders ----- */
 
 
   /**
    * Loads requesting user positions.
+   * TODO: Move to agreement loader
    * @inheritDoc
    */
   process(req, res) {
