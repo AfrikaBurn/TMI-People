@@ -113,7 +113,7 @@ class MemoryStash extends Stash {
   delete(user, criteria){
 
     var
-      toDelete = this.read(user, criteria, false).entities,
+      toDelete = this.read(user, criteria, false).data,
       deleted = []
 
     while(toDelete.length){

@@ -21,7 +21,7 @@ class RestStashProcessor extends RestProcessor {
    */
   get(req, res) {
     return req.header('Content-Type') == 'application/json;schema'
-      ? { code: 200, schema: this.endpoint.schema }
+      ? { status: 200, data: this.endpoint.schema }
       : this.endpoint.stash.read(req.user, req.query)
   }
 

@@ -14,7 +14,7 @@ class CollectiveInstaller extends core.installers.Installer{
     return this.endpoint.stash.read(
       {id: -1},
       [{id: 0}, {id: 1}]
-    ).entities.length != 2
+    ).data.length != 2
   }
 
   /**
@@ -27,7 +27,7 @@ class CollectiveInstaller extends core.installers.Installer{
     ['Administrator', 'Community'].forEach(
       (label, index) => {
         try{
-          if (this.endpoint.stash.read({}, {id: index}).entities.length == 0){
+          if (this.endpoint.stash.read({}, {id: index}).data.length == 0){
 
             utility.log(
               '\x1b[37mCreating \x1b[0m' +

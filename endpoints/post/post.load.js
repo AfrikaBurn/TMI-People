@@ -47,7 +47,7 @@ class PostLoader extends core.processors.Processor{
         process: false,
         fields: ['id', 'owner']
       }
-    ).entities
+    ).data
 
     req.exising = req.exising || {}
 

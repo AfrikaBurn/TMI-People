@@ -34,7 +34,7 @@ class AgreementEndpoint extends core.endpoints.MetaEndpoint {
                 }
               }
             // Boil entities down to collective ids only
-            ).entities.reduce(
+            ).data.reduce(
               (collectives, agreement) => collectives.concat(agreement.promisee.id),
               []
             )

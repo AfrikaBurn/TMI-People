@@ -230,11 +230,11 @@ class Stash {
 // ----- Statuses -----
 
 
-Stash.SUCCESS = {status: 'Success', code: 200, expose: true}
-Stash.CREATED = {status: 'Entities created', code: 201, expose: true}
-Stash.INVALID = {error: 'Failed validation', code: 422, expose: true}
-Stash.PROCESSOR_NOT_FOUND = {error: 'Schema field processor not found!', code: 500}
-Stash.NOT_FOUND = {status: 'Entity not found', code: 404, expose: true}
+Stash.SUCCESS = {status: 'Success', status: 200, expose: true}
+Stash.CREATED = {status: 'Entities created', status: 201, expose: true}
+Stash.INVALID = {error: 'Failed validation', status: 422, expose: true}
+Stash.PROCESSOR_NOT_FOUND = {error: 'Schema field processor not found!', status: 500}
+Stash.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
 
 
 // ----- Shared Validation -----

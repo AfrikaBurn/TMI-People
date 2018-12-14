@@ -59,7 +59,7 @@ class CollectiveLoader extends Processor{
         process: false,
         fields: ['id', 'owner', 'defer', 'exposure']
       }
-    ).entities
+    ).data
 
     req.target.collectives.forEach(
       (collective) => {
@@ -101,7 +101,7 @@ class CollectiveLoader extends Processor{
               process: false,
               fields: ['id', 'defer']
             }
-          ).entities[0],
+          ).data[0],
           type
         )
       )

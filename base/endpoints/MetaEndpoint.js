@@ -31,7 +31,7 @@ class MetaEndpoint extends Endpoint{
    * @inheritDoc
    */
   loadChildren(){
-    this.stash.read({id: -1}, {fields: ['name', 'schema']}).entities.forEach(
+    this.stash.read({id: -1}, {fields: ['name', 'schema']}).data.forEach(
       (child) => {
         this.createSubEndpoint(child)
       }

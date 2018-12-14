@@ -14,7 +14,7 @@ class UserInstaller extends core.installers.Installer{
     return this.endpoint.stash.read(
       {id: -1},
       [{id: 0}]
-    ).entities.length == 0
+    ).data.length == 0
   }
 
   /**
@@ -24,7 +24,7 @@ class UserInstaller extends core.installers.Installer{
     ['Anonymous', 'Administrator'].forEach(
       (label, index) => {
         try{
-          if (this.endpoint.stash.read({}, {id: index}).entities.length == 0){
+          if (this.endpoint.stash.read({}, {id: index}).data.length == 0){
 
             utility.log(
               '\x1b[37mCreating \x1b[0m' + label + '\x1b[37m user.\x1b[0m',

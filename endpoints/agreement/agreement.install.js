@@ -19,7 +19,7 @@ class AgreementInstaller extends core.installers.Installer{
         {name: "Member"},
         {name: "Guest"}
       ]
-    ).entities.length != 4
+    ).data.length != 4
   }
 
   /**

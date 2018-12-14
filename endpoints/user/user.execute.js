@@ -75,7 +75,7 @@ class UserExecutor extends core.processors.RestStashProcessor {
     var
       result = super.post(req, res),
       user = result.code === 201
-        ? result.entities[0]
+        ? result.data[0]
         : false
 
     if (req.user.is.anonymous && user){
@@ -108,7 +108,7 @@ class UserExecutor extends core.processors.RestStashProcessor {
         {},
         {username: username },
         {process: false}
-      ).entities.shift()
+      ).data.shift()
 
     switch(true){
       case !user:
@@ -142,10 +142,11 @@ UserExecutor.LOGIN = (req, res, next) => {
         user,
         function(error) {
           if (error) throw error
-          res.json(
+          bootstrap.respondJSON(
+            res, 200,
             Object.assign(
               utility.clone(Processor.SUCCESS),
-              { user: user }
+              { data: user }
             )
           )
         }
@@ -166,7 +167,7 @@ UserExecutor.LOGOUT = (req, res, next) => {
       () => {
         req.logout()
         res.clearCookie('connect.sid', {path: "/"})
-        res.data = Processor.SUCCESS
+        res.data = utility.response(Processor.SUCCESS)
         next()
       }
     )
@@ -186,8 +187,16 @@ UserExecutor.serializeUser = (user, done) => {
 /* ----- Static Response types ----- */
 
 
-UserExecutor.INVALID_ACCOUNT = { error: "Invalid account", code: 401, expose: true }
-UserExecutor.INVALID_CREDENTIALS = { error: "Invalid credentials", code: 401, expose: true }
+UserExecutor.INVALID_ACCOUNT = {
+  errors: [{title: "Invalid account"}],
+  status: 401,
+  expose: true
+}
+UserExecutor.INVALID_CREDENTIALS = {
+  error: [{title: "Invalid credentials"}],
+  status: 401,
+  expose: true
+}
 
 
 module.exports = UserExecutor

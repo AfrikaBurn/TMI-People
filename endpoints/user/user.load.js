@@ -47,7 +47,7 @@ class UserLoader extends core.processors.Processor{
         process: false,
         fields: ['id']
       }
-    ).entities
+    ).data
   }
 }
 

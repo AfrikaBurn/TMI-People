@@ -193,7 +193,7 @@ class Bootstrap {
     )
 
     if (res.data){
-      res.status(res.data.code).json(res.data)
+      bootstrap.respondJSON(res, res.data.status, res.data)
     } else next()
   }
 
@@ -212,17 +212,17 @@ class Bootstrap {
         ? console.log('\x1b[33m%s\x1b[0m' + exception.stack)
         : utility.log(exception)
     } else {
-      if (exception.error){
-        utility.log('\x1b[33m' + req.method + ' ' + req.url + ': ' + exception.error, {verbose: false, time: true})
-      } else {
-        utility.log('\x1b[32m' + req.method + ' ' + req.url + ': ' + exception.status, {time: true})
-      }
+      utility.log(
+        '\x1b[33m' + req.method + ' ' + req.url + ': ' +
+        exception.status +
+        (exception.errors ? exception.errors[0].title : ''),
+        {verbose: false, time: true})
     }
 
     if (exception.expose){
-      res.status(exception.code || 500).json(exception)
+      bootstrap.respondJSON(res, exception.status || 500, exception)
     } else {
-      res.status(500).end('Internal Server Error')
+      bootstrap.respondRaw(res, 500, 'Internal Server Error')
     }
   }
 
@@ -233,7 +233,37 @@ class Bootstrap {
    */
   handleNotFound(req, res){
     utility.log('\x1b[33m' + req.method + ' ' + req.url + ': not found', {verbose: false, time: true})
-    res.status(404).json({"error": 'Not found!'})
+    bootstrap.respondJSON(res, 404, Bootstrap.NOT_FOUND)
+  }
+
+  /**
+   * Send JSON response to client.
+   * @param {object} Express Response object
+   * @param {int} status Http status code
+   * @param {object} data Response
+   */
+  respondJSON(res, status, data = {}){
+    res.status(status).json(
+      {
+        errors: data.errors,
+        data: data.data
+      }
+    )
+  }
+
+  /**
+   * Send raw response to client.
+   * @param {object} Express Response object
+   * @param {int} status Http status code
+   * @param {object} data Response
+   */
+  respondRaw(res, status, data = {}){
+    res.status(status).end(
+      {
+        error: data.error,
+        data: data.data
+      }
+    )
   }
 }
 
@@ -287,7 +317,7 @@ global.utility = {
    * @param {array} entities Associated entities
    */
   response: (status, entities = []) => {
-    return Object.assign({}, status, {entities: entities})
+    return Object.assign({}, status, {data: entities})
   },
 
   /**
@@ -329,6 +359,16 @@ global.utility = {
       }
     } else console.log(message.message, message.stack)
   }
+}
+
+
+// ----- Response Types -----
+
+
+Bootstrap.NOT_FOUND = {
+  errors: [{title: "Not found"}],
+  code: 404,
+  expose: true
 }
 
 

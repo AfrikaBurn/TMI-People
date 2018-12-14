@@ -63,7 +63,7 @@ class SessionLoader extends Processor {
       {id: 0},
       {id: id},
       {processing: false}
-    ).entities
+    ).data
 
     done(
       users && users.length == 0 ? SessionLoader.ACCOUNT_GONE : null,

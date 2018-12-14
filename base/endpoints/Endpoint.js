@@ -319,7 +319,9 @@ class Endpoint {
 
 
 Endpoint.INVALID_SCHEMA = {
-  error: "Invalid schema", code: 422, expose: true
+  errors: [{title: "Invalid schema"}],
+  status: 422,
+  expose: true
 }
 
 

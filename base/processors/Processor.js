@@ -115,10 +115,19 @@ Processor.LOG_REQUEST = function consoleLog(req, res, next) {
 // ----- Response Types -----
 
 
-Processor.INVALID_REQUEST = { error: "Invalid request", code: 400, expose: true }
-Processor.SUCCESS = { status: "Success", code: 200, expose: true }
+Processor.INVALID_REQUEST = {
+  errors: [{title: "Invalid request"}],
+  status: 400,
+  expose: true
+}
+Processor.SUCCESS = {
+  status: 200,
+  expose: true
+}
 Processor.FORBIDDEN = {
-  error: "Forbidden to unauthorised users", code: 403, expose: true
+  errors: [{title: "Forbidden to unauthorised users"}],
+  status: 403,
+  expose: true
 }
 
 
