@@ -9,7 +9,7 @@ const
   Processor = core.processors.Processor
 
 
-class CollectiveExecutor extends core.processors.RestStashProcessor {}
+class CollectiveExecutor extends core.processors.RestStoreProcessor {}
 
 
 module.exports = CollectiveExecutor

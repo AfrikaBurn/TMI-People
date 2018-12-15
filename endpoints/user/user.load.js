@@ -40,7 +40,7 @@ class UserLoader extends core.processors.Processor{
 
     req.target = req.target || {}
 
-    req.target.users = this.endpoint.stash.read(
+    req.target.users = this.endpoint.store.read(
       req.user,
       req.query,
       {

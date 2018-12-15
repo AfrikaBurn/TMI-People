@@ -40,7 +40,7 @@ class PostLoader extends core.processors.Processor{
 
     req.target = req.target || {}
 
-    req.target.posts = this.endpoint.stash.read(
+    req.target.posts = this.endpoint.store.read(
       req.user,
       req.query,
       {

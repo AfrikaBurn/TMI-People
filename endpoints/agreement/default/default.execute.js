@@ -5,7 +5,7 @@
 "use strict"
 
 
-class DefaultAgreementExecutor extends core.processors.RestStashProcessor {}
+class DefaultAgreementExecutor extends core.processors.RestStoreProcessor {}
 
 
 module.exports = DefaultAgreementExecutor

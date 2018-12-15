@@ -25,7 +25,7 @@ class AgreementEndpoint extends core.endpoints.MetaEndpoint {
         positions.forEach(
           (position) => {
             // Read position agreements where user is promisor
-            user.positions[position] = this.endpoints[position].stash.read(
+            user.positions[position] = this.endpoints[position].store.read(
               user,
               {
                 promisor: {

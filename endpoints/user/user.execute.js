@@ -11,7 +11,7 @@ const
   Processor = core.processors.Processor
 
 
-class UserExecutor extends core.processors.RestStashProcessor {
+class UserExecutor extends core.processors.RestStoreProcessor {
 
 
   /* ----- Construction ----- */
@@ -104,7 +104,7 @@ class UserExecutor extends core.processors.RestStashProcessor {
   authenticate(username, password, done){
 
     var
-      user = this.endpoint.stash.read(
+      user = this.endpoint.store.read(
         {},
         {username: username },
         {process: false}
@@ -113,8 +113,8 @@ class UserExecutor extends core.processors.RestStashProcessor {
     switch(true){
       case !user:
         return done(UserExecutor.INVALID_ACCOUNT, false)
-      case core.stashes.Stash.HASHER.verify(password, user.password):
-        this.endpoint.stash.process([user], 'committed')
+      case core.stores.Store.HASHER.verify(password, user.password):
+        this.endpoint.store.process([user], 'committed')
         return done(null, user)
       default:
       return done(UserExecutor.INVALID_CREDENTIALS, false)

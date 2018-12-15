@@ -278,13 +278,13 @@ global.core = {
     Processor: require('./base/processors/Processor'),
     UniformProcessor: require('./base/processors/UniformProcessor'),
     RestProcessor: require('./base/processors/RestProcessor'),
-    RestStashProcessor: require('./base/processors/RestStashProcessor'),
+    RestStoreProcessor: require('./base/processors/RestStoreProcessor'),
     EndpointProcessor: require('./base/processors/EndpointProcessor')
   },
 
-  stashes: {
-    Stash: require('./base/stashes/Stash'),
-    MemoryStash: require('./base/stashes/MemoryStash')
+  stores: {
+    Store: require('./base/stores/Store'),
+    MemoryStore: require('./base/stores/MemoryStore')
   },
 
   endpoints: {

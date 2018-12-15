@@ -1,23 +1,23 @@
 /**
- * @file MemoryStash.js
- * Memory Based Stash.
+ * @file MemoryStore.js
+ * Memory Based Store.
  */
 
 "use strict"
 
 
 const
-  Stash = require('./Stash')
+  Store = require('./Store')
 
 
-class MemoryStash extends Stash {
+class MemoryStore extends Store {
 
 
   /* ----- Construction ----- */
 
 
   /**
-   * Creates a new memory based data stash.
+   * Creates a new memory based data store.
    * @inheritDoc
    */
   constructor(name, config, schema){
@@ -46,7 +46,7 @@ class MemoryStash extends Stash {
 
     this.process(entities, 'committed')
 
-    return utility.response(Stash.CREATED, entities)
+    return utility.response(Store.CREATED, entities)
   }
 
   /**
@@ -60,7 +60,7 @@ class MemoryStash extends Stash {
       matches = utility.clone(
         this.cache.filter(
           (element) => {
-            return MemoryStash.matches(element, criteria)
+            return MemoryStore.matches(element, criteria)
           }
         )
       )
@@ -80,7 +80,7 @@ class MemoryStash extends Stash {
 
     if (process) this.process(matches, 'retrieved')
 
-    return utility.response(Stash.SUCCESS, matches)
+    return utility.response(Store.SUCCESS, matches)
   }
 
   /**
@@ -91,12 +91,12 @@ class MemoryStash extends Stash {
     var
       toUpdate = this.cache.filter(
         (element) => {
-          return MemoryStash.matches(element, criteria)
+          return MemoryStore.matches(element, criteria)
         }
       ),
       updated = []
 
-    if (toUpdate.length == 0) throw Stash.NOT_FOUND
+    if (toUpdate.length == 0) throw Store.NOT_FOUND
     // TODO: partially validate "entity"
     this.validate([entity])
     toUpdate.forEach((element) => Object.assign(element, entity))
@@ -104,7 +104,7 @@ class MemoryStash extends Stash {
 
     this.process(entities, 'committed')
 
-    return utility.response(Stash.SUCCESS, entities)
+    return utility.response(Store.SUCCESS, entities)
   }
 
   /**
@@ -128,7 +128,7 @@ class MemoryStash extends Stash {
 
     this.process(deleted, 'deleted')
 
-    return utility.response(Stash.SUCCESS, deleted)
+    return utility.response(Store.SUCCESS, deleted)
   }
 }
 
@@ -142,10 +142,10 @@ class MemoryStash extends Stash {
  * @param  {object} criteria [description]
  * @return {boolean}         true if matching, false if not.
  */
-MemoryStash.matches = (element, criteria) => {
+MemoryStore.matches = (element, criteria) => {
   for(let property in criteria){
     if (typeof criteria[property] == 'object'){
-      if (!MemoryStash.matches(element[property], criteria[property]))
+      if (!MemoryStore.matches(element[property], criteria[property]))
         return false
     } else {
       if (element[property] != criteria[property]) return false
@@ -155,4 +155,4 @@ MemoryStash.matches = (element, criteria) => {
 }
 
 
-module.exports = MemoryStash
+module.exports = MemoryStore

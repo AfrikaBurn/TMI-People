@@ -59,7 +59,7 @@ class SessionLoader extends Processor {
    */
   deserializeUser(id, done){
 
-    var users = bootstrap.endpoints['/user'].stash.read(
+    var users = bootstrap.endpoints['/user'].store.read(
       {id: 0},
       {id: id},
       {processing: false}
@@ -81,7 +81,7 @@ class SessionLoader extends Processor {
   expressSession(path) {
 
     var
-      sessionStore = this.endpoint.stash.toSessionStore()
+      sessionStore = this.endpoint.store.toSessionStore()
 
     return expressSession(
       {

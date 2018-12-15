@@ -45,7 +45,7 @@ class Endpoint {
     )
 
     this.loadSchema()
-    this.loadStash()
+    this.loadStore()
     this.loadProcessors()
     this.loadChildren()
 
@@ -75,7 +75,7 @@ class Endpoint {
       this.schema = this.schemaSource || require(
         this.getLoadName('schema.json')
       )
-      core.stashes.Stash.VALIDATOR.addSchema(this.schema, this.name)
+      core.stores.Store.VALIDATOR.addSchema(this.schema, this.name)
 
       utility.log(
         this.schemaSource
@@ -94,22 +94,22 @@ class Endpoint {
   }
 
   /**
-   * Load the endpoint stash, inherit from parent if that fails.
+   * Load the endpoint store, inherit from parent if that fails.
    */
-  loadStash(){
+  loadStore(){
 
     try{
 
-      var name = this.getLoadName('stash.js')
+      var name = this.getLoadName('store.js')
 
-      this.stash = new (require(name))(
+      this.store = new (require(name))(
         this.name,
         bootstrap.config.endpoints[this.url],
         this.schema
       )
 
       utility.log(
-        '\x1b[0mstash\x1b[1m\t\t\t' +
+        '\x1b[0mstore\x1b[1m\t\t\t' +
         pathUtil.relative(this.source, name) +
         '\x1b[0m',
         {indent: 4}
@@ -117,19 +117,19 @@ class Endpoint {
 
     } catch(error){
       if (error.code == 'MODULE_NOT_FOUND'){
-        this.stash = this.getStash()
+        this.store = this.getStore()
         utility.log(
-          this.stash
-            ? '\x1b[0mstash\x1b[0m inherited'
-            : '\x1b[37mstash\t\t\tNONE\x1b[0m',
+          this.store
+            ? '\x1b[0mstore\x1b[0m inherited'
+            : '\x1b[37mstore\t\t\tNONE\x1b[0m',
           {indent: 4}
         )
       } else throw error
     }
 
-    if (this.stash instanceof core.stashes.MemoryStash){
+    if (this.store instanceof core.stores.MemoryStore){
       utility.log(
-        '\x1b[33mWARNING: Memory stashes intended for testing only!\n' +
+        '\x1b[33mWARNING: Memory stores intended for testing only!\n' +
         '\x1b[33mThey evaporate once the server stops!\x1b[0m',
         {indent: 4, verbose: false, once: true}
       )
@@ -303,13 +303,13 @@ class Endpoint {
   }
 
   /**
-   * Gets a stash by checking ancestors.
+   * Gets a store by checking ancestors.
    */
-  getStash(){
-    return this.stash
-      ? this.stash
+  getStore(){
+    return this.store
+      ? this.store
       : typeof this.parent == 'Endpoint'
-        ? this.parent.getStash()
+        ? this.parent.getStore()
         : false
   }
 }

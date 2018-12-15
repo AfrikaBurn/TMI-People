@@ -1,6 +1,6 @@
 /**
  * @file Store.js
- * Basic Data Stash.
+ * Basic Data Store.
  */
 "use strict"
 
@@ -10,14 +10,14 @@ const
   passwordHash = require('password-hash')
 
 
-class Stash {
+class Store {
 
 
   /* ----- Construction ----- */
 
 
   /**
-   * Creates a new data stash.
+   * Creates a new data store.
    * @param  {object} config endpoint configuration.
    */
   constructor(name, config, schema){
@@ -27,7 +27,7 @@ class Stash {
   }
 
 
-  // ----- Stash Setup -----
+  // ----- Store Setup -----
 
 
   /**
@@ -36,11 +36,11 @@ class Stash {
   install(){}
 
 
-  // ----- Stash Cleanup -----
+  // ----- Store Cleanup -----
 
 
   /**
-   * Closes the data stash.
+   * Closes the data store.
    * @return {boolean}  True if close is successfull, false if not.
    */
   close(){
@@ -65,7 +65,7 @@ class Stash {
 
     this.process(entities, 'committed')
 
-    return utility.response(Stash.CREATED, entities)
+    return utility.response(Store.CREATED, entities)
   }
 
   /**
@@ -89,7 +89,7 @@ class Stash {
 
     if (process) this.process(entities, 'retrieved')
 
-    return utility.response(Stash.SUCCESS, entities)
+    return utility.response(Store.SUCCESS, entities)
   }
 
   /**
@@ -109,7 +109,7 @@ class Stash {
 
     this.process(entities, 'retrieved')
 
-    return utility.response(Stash.SUCCESS, entities)
+    return utility.response(Store.SUCCESS, entities)
   }
 
   /**
@@ -125,7 +125,7 @@ class Stash {
 
     this.process(entities, 'deleted')
 
-    return utility.response(Stash.SUCCESS, entities)
+    return utility.response(Store.SUCCESS, entities)
   }
 
 
@@ -133,13 +133,13 @@ class Stash {
 
 
   /**
-   * Validate an array of entities against the stash schema.
+   * Validate an array of entities against the store schema.
    * @param {array} entities
    */
   validate(entities){
 
     if (!Array.isArray(entities)) throw utility.error(
-      Stash.INVALID,
+      Store.INVALID,
       ["Array expected"]
     )
 
@@ -150,16 +150,16 @@ class Stash {
     entities.forEach(
       (entity, index) => {
         if (
-          !Stash.VALIDATOR.validate(
+          !Store.VALIDATOR.validate(
             this.name,
             entity
           )
-        ) errors[index] = Stash.normaliseErrors(Stash.VALIDATOR.errors)
+        ) errors[index] = Store.normaliseErrors(Store.VALIDATOR.errors)
 
       }
     )
 
-    if (errors.length) throw utility.error(Stash.INVALID, errors)
+    if (errors.length) throw utility.error(Store.INVALID, errors)
     else this.process(entities, 'validated')
   }
 
@@ -184,14 +184,14 @@ class Stash {
         if (processors && Object.keys(processors).length){
           for (let property in processors){
 
-            var processor = Stash.PROCESSORS[processors[property]]
+            var processor = Store.PROCESSORS[processors[property]]
 
             if (processor){
               if (entity[property])
                 entity[property] = processor(entity[property])
             } else {
               throw Object.assign(
-                Stash.PROCESSOR_NOT_FOUND,
+                Store.PROCESSOR_NOT_FOUND,
                 {processorName: processors[property]}
               )
             }
@@ -212,14 +212,14 @@ class Stash {
 
 
   /**
-   * Returns a passport compatible session store version of this stash.
+   * Returns a passport compatible session store version of this store.
    * @return {object}
    */
   toSessionStore(){
     utility.log(
-      '\x1b[33mWARNING: Using memory based stash for session storage!\n' +
+      '\x1b[33mWARNING: Using memory based store for session storage!\n' +
       '\x1b[33mIt will fail with multiple connections!\n' +
-      '\x1b[33mUse another stash for production.\x1b[0m',
+      '\x1b[33mUse another store for production.\x1b[0m',
       {indent: 4, verbose: false, once: true}
     );
     return undefined;
@@ -230,29 +230,29 @@ class Stash {
 // ----- Statuses -----
 
 
-Stash.SUCCESS = {status: 'Success', status: 200, expose: true}
-Stash.CREATED = {status: 'Entities created', status: 201, expose: true}
-Stash.INVALID = {error: 'Failed validation', status: 422, expose: true}
-Stash.PROCESSOR_NOT_FOUND = {error: 'Schema field processor not found!', status: 500}
-Stash.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
+Store.SUCCESS = {status: 'Success', status: 200, expose: true}
+Store.CREATED = {status: 'Entities created', status: 201, expose: true}
+Store.INVALID = {error: 'Failed validation', status: 422, expose: true}
+Store.PROCESSOR_NOT_FOUND = {error: 'Schema field processor not found!', status: 500}
+Store.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
 
 
 // ----- Shared Validation -----
 
 
-Stash.VALIDATOR = new Ajv({ allErrors: true, jsonPointers: true })
+Store.VALIDATOR = new Ajv({ allErrors: true, jsonPointers: true })
 
 
 // ----- Validation error messages -----
 
 
-require('ajv-errors')(Stash.VALIDATOR);
+require('ajv-errors')(Store.VALIDATOR);
 
 /**
 * Normalise error messages returned by the validator.
  * @param {array} errors
  */
-Stash.normaliseErrors = (errors) => {
+Store.normaliseErrors = (errors) => {
   return [{}].concat(errors).reduce(
 
     (cache, next) => {
@@ -279,11 +279,11 @@ Stash.normaliseErrors = (errors) => {
 // ----- Static text processors -----
 
 
-Stash.HASHER = passwordHash
+Store.HASHER = passwordHash
 
-Stash.PROCESSORS = {}
-Stash.PROCESSORS.HASH = (value) => {
-  return Stash.HASHER.generate(
+Store.PROCESSORS = {}
+Store.PROCESSORS.HASH = (value) => {
+  return Store.HASHER.generate(
     value,
     {
       algorithm: 'sha512',
@@ -291,8 +291,8 @@ Stash.PROCESSORS.HASH = (value) => {
     }
   )
 }
-Stash.PROCESSORS.BLANK = (value) => { return '*' }
-Stash.PROCESSORS.LOWERCASE = (value) => { return value.toLowerCase() }
+Store.PROCESSORS.BLANK = (value) => { return '*' }
+Store.PROCESSORS.LOWERCASE = (value) => { return value.toLowerCase() }
 
 
-module.exports = Stash
+module.exports = Store

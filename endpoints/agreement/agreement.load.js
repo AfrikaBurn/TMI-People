@@ -40,7 +40,7 @@ class AgreementLoader extends core.processors.Processor{
 
     req.target = req.target || {}
 
-    req.target.agreements = this.endpoint.stash.read(
+    req.target.agreements = this.endpoint.store.read(
       req.user,
       req.query,
       {

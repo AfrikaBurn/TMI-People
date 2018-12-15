@@ -21,7 +21,7 @@ class PostInstaller extends core.installers.Installer{
 
     var installed = true;
 
-    core.stashes.Stash.VALIDATOR.addSchema(
+    core.stores.Store.VALIDATOR.addSchema(
       require('./base.post.schema.json'),
       'post-base'
     );

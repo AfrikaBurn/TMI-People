@@ -11,7 +11,7 @@ class AgreementInstaller extends core.installers.Installer{
    * @inheritDoc
    */
   toInstall(){
-    return this.endpoint.stash.read(
+    return this.endpoint.store.read(
       {id: -1},
       [
         {name: "Administrator"},
@@ -29,7 +29,7 @@ class AgreementInstaller extends core.installers.Installer{
 
     var installed = true;
 
-    core.stashes.Stash.VALIDATOR.addSchema(
+    core.stores.Store.VALIDATOR.addSchema(
       require('./base.agreement.schema.json'),
       'agreement-base'
     );

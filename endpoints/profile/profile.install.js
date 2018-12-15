@@ -21,7 +21,7 @@ class ProfileInstaller extends core.installers.Installer{
 
     var installed = true;
 
-    core.stashes.Stash.VALIDATOR.addSchema(
+    core.stores.Store.VALIDATOR.addSchema(
       require('./base.profile.schema.json'),
       'profile-base'
     );

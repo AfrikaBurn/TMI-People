@@ -52,7 +52,7 @@ class CollectiveLoader extends Processor{
 
     req.target = req.target || {}
 
-    req.target.collectives = this.endpoint.stash.read(
+    req.target.collectives = this.endpoint.store.read(
       req.user,
       req.query,
       {
@@ -94,7 +94,7 @@ class CollectiveLoader extends Processor{
       deferedTo.concat(
         this.loadDeferanceChain(
           user,
-          this.endpoint.stash.read(
+          this.endpoint.store.read(
             user,
             {id: collective.defer[type].id},
             {

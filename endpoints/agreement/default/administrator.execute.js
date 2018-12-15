@@ -5,7 +5,7 @@
 "use strict"
 
 
-class AdministratorAgreementExecutor extends core.processors.RestStashProcessor {}
+class AdministratorAgreementExecutor extends core.processors.RestStoreProcessor {}
 
 
 module.exports = AdministratorAgreementExecutor

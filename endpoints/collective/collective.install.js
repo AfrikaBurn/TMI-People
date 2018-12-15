@@ -11,7 +11,7 @@ class CollectiveInstaller extends core.installers.Installer{
    * @inheritDoc
    */
   toInstall(){
-    return this.endpoint.stash.read(
+    return this.endpoint.store.read(
       {id: -1},
       [{id: 0}, {id: 1}]
     ).data.length != 2
@@ -27,7 +27,7 @@ class CollectiveInstaller extends core.installers.Installer{
     ['Administrator', 'Community'].forEach(
       (label, index) => {
         try{
-          if (this.endpoint.stash.read({}, {id: index}).data.length == 0){
+          if (this.endpoint.store.read({}, {id: index}).data.length == 0){
 
             utility.log(
               '\x1b[37mCreating \x1b[0m' +
@@ -36,7 +36,7 @@ class CollectiveInstaller extends core.installers.Installer{
               {indent: 4}
             )
 
-            this.endpoint.stash.create(
+            this.endpoint.store.create(
               {id: -1},
               [CollectiveInstaller.SYSTEM_COLLECTIVES[index]]
             )
