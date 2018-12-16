@@ -6,10 +6,10 @@
   "title": "Post Base",
 
   "definitions": {
-    "collectiveRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/collectiveRef"}
+    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
   },
 
   "properties":{
-    "owner": {"$ref": "#/definitions/collectiveRef"}
+    "owner": {"$ref": "#/definitions/groupRef"}
   }
 }

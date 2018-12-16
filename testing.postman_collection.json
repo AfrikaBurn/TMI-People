@@ -15,16 +15,16 @@
 							"listen": "test",
 							"script": {
 								"id": "31887572-edcf-4547-b343-214f5f983c94",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"pm.test(\"Session cookie set\", () => pm.expect(postman.getResponseCookie('connect.sid')).to.not.eql(undefined))",
 									"",
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.test(\"Logged in as Administrator\", () => pm.expect(jsonData.user.username).to.eql(\"Administrator\"))",
+									"pm.test(\"Logged in as Administrator\", () => pm.expect(jsonData.data.username).to.eql(\"Administrator\"))",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -134,13 +134,12 @@
 					"response": []
 				},
 				{
-					"name": "System Collectives",
+					"name": "System Groups",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "6fc595b9-99a1-4367-9f84-b8679f79b14a",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -184,13 +183,14 @@
 									");",
 									"",
 									"for (let i=0; i<EXPECTED.length; i++){        ",
-									"    pm.test(EXPECTED[i].name + \" collective\", ",
+									"    pm.test(EXPECTED[i].name + \" group\", ",
 									"        () => {",
 									"            pm.expect(jsonData.data[i]).to.eql(EXPECTED[i])",
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -207,13 +207,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/collective",
+							"raw": "localhost:3000/group",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"collective"
+								"group"
 							]
 						}
 					},
@@ -226,7 +226,6 @@
 							"listen": "test",
 							"script": {
 								"id": "79eea4f5-d3de-46df-a27f-aa3f299fbcb3",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -234,7 +233,7 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"administrator\",",
@@ -253,7 +252,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"moderator\",",
@@ -272,7 +271,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"member\",",
@@ -291,7 +290,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"guest\",",
@@ -325,7 +324,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -361,7 +361,6 @@
 							"listen": "test",
 							"script": {
 								"id": "1f563bda-7a2a-43d1-8c45-383464f83b71",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -373,7 +372,7 @@
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -395,7 +394,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -432,7 +432,6 @@
 							"listen": "test",
 							"script": {
 								"id": "ddcbcf7d-1a67-49a2-8c13-9c5b9ab4915a",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -444,7 +443,7 @@
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -466,7 +465,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -503,7 +503,6 @@
 							"listen": "test",
 							"script": {
 								"id": "797730d1-665e-4ae3-b51b-42282d0dcf93",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -515,7 +514,7 @@
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -537,7 +536,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -574,7 +574,6 @@
 							"listen": "test",
 							"script": {
 								"id": "797730d1-665e-4ae3-b51b-42282d0dcf93",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -586,7 +585,7 @@
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"collective\",",
+									"                \"entityType\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -608,7 +607,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1087,7 +1087,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Collective",
+					"name": "Group",
 					"item": [
 						{
 							"name": "Schema",
@@ -1101,8 +1101,8 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"",
-											"pm.test(\"Collective schema\", function () {",
-											"  pm.expect(jsonData.data[\"$id\"]).to.eql(\"http://tmi.mobi/collective/collective.schema.json\");",
+											"pm.test(\"Group schema\", function () {",
+											"  pm.expect(jsonData.data[\"$id\"]).to.eql(\"http://tmi.mobi/group/group.schema.json\");",
 											"});",
 											""
 										],
@@ -1123,13 +1123,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/collective",
+									"raw": "localhost:3000/group",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"collective"
+										"group"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1143,12 +1143,12 @@
 									"listen": "test",
 									"script": {
 										"id": "b10a915b-d5c5-48a2-b859-ed4750c86e5f",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 											"",
 											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1165,13 +1165,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/collective",
+									"raw": "localhost:3000/group",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"collective"
+										"group"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1185,11 +1185,11 @@
 									"listen": "test",
 									"script": {
 										"id": "170f9ae3-a67a-426c-8f8b-0f325642793f",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1206,13 +1206,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/collective?name=Participants",
+									"raw": "localhost:3000/group?name=Participants",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"collective"
+										"group"
 									],
 									"query": [
 										{
@@ -1232,10 +1232,10 @@
 									"listen": "test",
 									"script": {
 										"id": "4d7fe3fe-6b75-4634-a991-65cc34517d41",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Should not be allowed\", () => pm.response.to.have.status(403))"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1249,16 +1249,16 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Collective\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/collective",
+									"raw": "localhost:3000/group",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"collective"
+										"group"
 									]
 								},
 								"description": "Create a user"
@@ -1427,7 +1427,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"owner\": {\"entityType\": \"collective\", \"id\": 0},\n\t\t\"name\": \"test-agreement\",\n\t\t\"schema\": {\n\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\n\t\t\t\"type\": \"object\",\n\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\n\t\t\t\"allOf\": [\n\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t],\n\t\t\t\"properties\": {\n\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t}\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\t\"name\": \"test-agreement\",\n\t\t\"schema\": {\n\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\n\t\t\t\"type\": \"object\",\n\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\n\t\t\t\"allOf\": [\n\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t],\n\t\t\t\"properties\": {\n\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t}\n\t\t}\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/agreement",
@@ -1469,7 +1469,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"owner\": {\"entityType\": \"collective\", \"id\": 0},\n\t\"name\": \"test-agreement\",\n\t\"schema\": {\n\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\n\t\t\"type\": \"object\",\n\t\t\"title\": \"Test Agreement\",\n\t\t\n\t\t\"allOf\": [\n\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t],\n\t\t\"properties\": {\n\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t}\n\t}\n}"
+									"raw": "{\n\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\"name\": \"test-agreement\",\n\t\"schema\": {\n\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\n\t\t\"type\": \"object\",\n\t\t\"title\": \"Test Agreement\",\n\t\t\n\t\t\"allOf\": [\n\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t],\n\t\t\"properties\": {\n\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t}\n\t}\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/agreement?name=test-agreement",
@@ -1932,7 +1932,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Collective",
+					"name": "Group",
 					"item": [
 						{
 							"name": "Create",
@@ -1960,16 +1960,16 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Collective\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/collective",
+									"raw": "localhost:3000/group",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"collective"
+										"group"
 									]
 								},
 								"description": "Create a user"

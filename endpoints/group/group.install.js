@@ -1,11 +1,11 @@
 /**
- * @file CollectiveInstaller.js
+ * @file GroupInstaller.js
  * User endpoint installer.
  */
 "use strict"
 
 
-class CollectiveInstaller extends core.installers.Installer{
+class GroupInstaller extends core.installers.Installer{
 
   /**
    * @inheritDoc
@@ -32,13 +32,13 @@ class CollectiveInstaller extends core.installers.Installer{
             utility.log(
               '\x1b[37mCreating \x1b[0m' +
               label +
-              '\x1b[37m collective.\x1b[0m',
+              '\x1b[37m group.\x1b[0m',
               {indent: 4}
             )
 
             this.endpoint.store.create(
               {id: -1},
-              [CollectiveInstaller.SYSTEM_COLLECTIVES[index]]
+              [GroupInstaller.SYSTEM_COLLECTIVES[index]]
             )
           }
         } catch(e) {
@@ -53,10 +53,10 @@ class CollectiveInstaller extends core.installers.Installer{
 }
 
 
-/* ----- System Collectives ----- */
+/* ----- System Groups ----- */
 
 
-CollectiveInstaller.SYSTEM_COLLECTIVES = [
+GroupInstaller.SYSTEM_COLLECTIVES = [
   {
     name: 'System',
     description: 'System operators of this tribe.',
@@ -81,4 +81,4 @@ CollectiveInstaller.SYSTEM_COLLECTIVES = [
 ]
 
 
-module.exports = CollectiveInstaller
+module.exports = GroupInstaller

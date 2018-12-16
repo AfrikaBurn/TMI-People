@@ -45,7 +45,7 @@ class PostInstaller extends core.installers.Installer{
             {
               user: { id: -1, is: { administrator: true }},
               body: [{
-                owner: {entityType: 'collective', id: 0},
+                owner: {entityType: 'group', id: 0},
                 name: machineName,
                 schema: require(
                   './install/' + machineName + '.post.schema.json'

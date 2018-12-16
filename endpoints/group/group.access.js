@@ -1,6 +1,6 @@
 /**
- * @file CollectiveAccess.js
- * Collective access processor.
+ * @file GroupAccess.js
+ * Group access processor.
  */
 "use strict"
 
@@ -9,7 +9,7 @@ const
   AccessProcessor = core.processors.AccessProcessor
 
 
-class CollectiveAccess extends AccessProcessor {
+class GroupAccess extends AccessProcessor {
 
 
   // ----- Request Routing -----
@@ -60,4 +60,4 @@ class CollectiveAccess extends AccessProcessor {
 }
 
 
-module.exports = CollectiveAccess
+module.exports = GroupAccess

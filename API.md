@@ -80,10 +80,11 @@ Content-Type| `application/json;schema`
 
 <br /><details><summary>Expected response</summary>
 
+>HTTP Status: 200
+
 ```JSON
 {
-    "code": 200,
-    "schema": {
+    "data": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "$id": "http://tmi.mobi/agreement/agreement.schema.json",
         "definitions": {
@@ -117,7 +118,6 @@ Content-Type| `application/json;schema`
 }
 ```
 
-Where ```schema:``` is the
 [JSON schema](endpoints/agreement/agreement.schema.json) that
 defines agreement types.
 
@@ -138,10 +138,7 @@ Content-Type| `application/json`
 
 ```JSON
 {
-    "status": "Success",
-    "code": 200,
-    "expose": true,
-    "entities": [
+    "data": [
         {
             "owner": {
                 "entityType": "collective",
@@ -243,10 +240,7 @@ eg.
 
 ```JSON
 {
-    "status": "Success",
-    "code": 200,
-    "expose": true,
-    "entities": [
+    "data": [
         {
             "owner": {
                 "entityType": "collective",
@@ -288,31 +282,31 @@ Content-Type| `application/json`
 
 ```JSON
 [
-        {
-            "owner": {
-                "entityType": "collective",
-                "id": 0
-            },
-            "name": "test-agreement",
-            "schema": {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "$id": "http://tmi.mobi/schemas/agreement/test-agreement",
-                "type": "object",
-                "title": "Test Agreement",
-                "allOf": [
-                    {
-                        "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
-                    }
-                ],
-                "properties": {
-                    "newProp": {
-                        "type": "string"
-                    }
+    {
+        "owner": {
+            "entityType": "collective",
+            "id": 0
+        },
+        "name": "test-agreement",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "$id": "http://tmi.mobi/schemas/agreement/test-agreement",
+            "type": "object",
+            "title": "Test Agreement",
+            "allOf": [
+                {
+                    "$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"
                 }
-            },
-            "id": 4
-        }
-    ]
+            ],
+            "properties": {
+                "newProp": {
+                    "type": "string"
+                }
+            }
+        },
+        "id": 4
+    }
+]
 ```
 
 </details><br />

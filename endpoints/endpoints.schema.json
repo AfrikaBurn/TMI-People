@@ -70,7 +70,7 @@
       "type": "string",
       "enum": [
         "agreement",
-        "collective",
+        "group",
         "profile",
         "schema",
         "post",
@@ -114,17 +114,17 @@
       }
     },
 
-    "collectiveRef": {
+    "groupRef": {
       "type": "object",
-      "description": "Collective reference",
+      "description": "Group reference",
       "properties": {
         "entityType":{
           "allOf": [
             {"$ref": "#/definitions/entityType"},
             {
-              "enum": ["collective"],
-              "errorMessage": "Inappropriate reference type. Must be 'collective'.",
-              "default": "collective"
+              "enum": ["group"],
+              "errorMessage": "Inappropriate reference type. Must be 'group'.",
+              "default": "group"
             }
           ]
         },
@@ -134,14 +134,14 @@
 
     "participantRef": {
       "type": "object",
-      "description": "User or Collective reference",
+      "description": "User or Group reference",
       "properties": {
         "entityType":{
           "allOf": [
             {"$ref": "#/definitions/entityType"},
             {
-              "enum": ["collective", "user"],
-              "errorMessage": "Inappropriate reference type. Must be 'collective' or 'user'."
+              "enum": ["group", "user"],
+              "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."
             }
           ]
         },

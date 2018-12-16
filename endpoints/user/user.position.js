@@ -40,13 +40,13 @@ class UserPosition extends core.processors.UniformProcessor {
         user.position.on[index] = {
           owner: user.id == target.id || user.is.administrator,
           member: user.positions.member.filter(
-            (collectiveId) => target.positions.member.indexOf(collectiveId) >= 0
+            (groupId) => target.positions.member.indexOf(groupId) >= 0
           ).length > 0,
           moderator: user.positions.moderator.filter(
-            (collectiveId) => target.positions.member.indexOf(collectiveId) >= 0
+            (groupId) => target.positions.member.indexOf(groupId) >= 0
           ).length > 0,
           administrator: user.positions.administrator.filter(
-            (collectiveId) => target.positions.member.indexOf(collectiveId) >= 0
+            (groupId) => target.positions.member.indexOf(groupId) >= 0
           ).length > 0
         }
 

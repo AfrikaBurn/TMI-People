@@ -1,11 +1,11 @@
 /**
- * @file CollectiveModifier.js
+ * @file GroupModifier.js
  * A basic processor template.
  */
 "use strict"
 
 
-class CollectiveModifier extends core.processors.UniformProcessor {
+class GroupModifier extends core.processors.UniformProcessor {
 
 
   /* ----- Request Routing ----- */
@@ -30,7 +30,7 @@ class CollectiveModifier extends core.processors.UniformProcessor {
 
 
   /**
-   * Establish requesting user positionality to target collectives.
+   * Establish requesting user positionality to target groups.
    * @inheritDoc
    */
   process(req, res){
@@ -45,26 +45,26 @@ class CollectiveModifier extends core.processors.UniformProcessor {
       on: []
     }
 
-    req.target.collectives.forEach(
+    req.target.groups.forEach(
 
-      (collective, index) => {
+      (group, index) => {
 
         user.position.on[index] = {
-          owner: user.id == collective.owner.id,
+          owner: user.id == group.owner.id,
           administrator: user.positions.administrator.filter(
-            (collectiveId) =>
-              collective.deferred.administration.indexOf(collectiveId) != -1
+            (groupId) =>
+              group.deferred.administration.indexOf(groupId) != -1
           ).length > 0,
           moderator: user.positions.moderator.filter(
-            (collectiveId) =>
-              collective.deferred.moderation.indexOf(collectiveId) != -1
+            (groupId) =>
+              group.deferred.moderation.indexOf(groupId) != -1
           ).length > 0,
-          member: user.positions.member.indexOf(collective.id) != -1,
-          guest: user.positions.guest.indexOf(collective.id) != -1,
+          member: user.positions.member.indexOf(group.id) != -1,
+          guest: user.positions.guest.indexOf(group.id) != -1,
         }
         user.position.on[index].observer =
-          user.position.on[index][collective.exposure] ||
-          user.is[[collective.exposure]]
+          user.position.on[index][group.exposure] ||
+          user.is[[group.exposure]]
 
         user.position.owner &= user.position.on[index].owner
         user.position.administrator &= user.position.on[index].administrator
@@ -81,4 +81,4 @@ class CollectiveModifier extends core.processors.UniformProcessor {
 }
 
 
-module.exports = CollectiveModifier
+module.exports = GroupModifier

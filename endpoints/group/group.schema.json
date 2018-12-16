@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://tmi.mobi/collective/collective.schema.json",
+  "$id": "http://tmi.mobi/group/group.schema.json",
 
   "definitions": {
     "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
@@ -9,19 +9,19 @@
     "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"},
     "status": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/status"},
     "participantRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participantRef"},
-    "collectiveRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/collectiveRef"}
+    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
   },
 
   "type": "object",
-  "title": "Collective",
+  "title": "Group",
   "properties": {
 
     "id":  {
       "allOf": [
         {"$ref": "#/definitions/uei"},
         {
-          "title": "Collective ID",
-          "description": "Unique collective identifier."
+          "title": "Group ID",
+          "description": "Unique group identifier."
         }
       ],
       "isUniqueKey": true
@@ -31,8 +31,8 @@
       "allOf": [
         {"$ref": "#/definitions/name"},
         {
-          "title": "Collective name",
-          "Description": "Name of the collective."
+          "title": "Group name",
+          "Description": "Name of the group."
         }
       ],
       "isUniqueKey": true
@@ -43,15 +43,15 @@
         {"$ref": "#/definitions/description"},
         {
           "title": "Description",
-          "Description": "A short description of the collective."
+          "Description": "A short description of the group."
         }
       ]
     },
 
     "profiles": {
-      "title": "Collective profiles",
+      "title": "Group profiles",
       "type": "array",
-      "description": "Profiles this collective collects.",
+      "description": "Profiles this group collects.",
       "properties": {
         "profileId": {
           "type": "number"
@@ -69,7 +69,7 @@
     "agreements": {
       "title": "Agreements",
       "type": "array",
-      "description": "Agreements between members of this collective.",
+      "description": "Agreements between members of this group.",
       "items": {
         "type": "object",
         "properties": {
@@ -92,8 +92,8 @@
     "exposure": {"$ref": "#/definitions/exposure"},
     "membership": {"$ref": "#/definitions/exposure"},
     "delegate": {
-      "administration": {"$ref": "#/definitions/collectiveRef"},
-      "moderation": {"$ref": "#/definitions/collectiveRef"}
+      "administration": {"$ref": "#/definitions/groupRef"},
+      "moderation": {"$ref": "#/definitions/groupRef"}
     }
   },
 

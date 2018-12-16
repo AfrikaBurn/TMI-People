@@ -1,6 +1,6 @@
 /**
  * @file load.js
- * Collective loading.
+ * Group loading.
  */
 "use strict"
 
@@ -11,7 +11,7 @@ const
   Processor = core.processors.Processor
 
 
-class CollectiveLoader extends Processor{
+class GroupLoader extends Processor{
 
 
   /* ----- Routing ----- */
@@ -33,11 +33,11 @@ class CollectiveLoader extends Processor{
 
 
   /**
-   * Load request target collectives.
+   * Load request target groups.
    * @inheritDoc
    */
   get(req, res){
-    this.loadTargetCollectives(req)
+    this.loadTargetGroups(req)
   }
 
 
@@ -45,14 +45,14 @@ class CollectiveLoader extends Processor{
 
 
   /**
-   * Load target collectives IDs, ownership, deference and exposure.
+   * Load target groups IDs, ownership, deference and exposure.
    * @param  {object} req Express request object
    */
-  loadTargetCollectives(req){
+  loadTargetGroups(req){
 
     req.target = req.target || {}
 
-    req.target.collectives = this.endpoint.store.read(
+    req.target.groups = this.endpoint.store.read(
       req.user,
       req.query,
       {
@@ -61,17 +61,17 @@ class CollectiveLoader extends Processor{
       }
     ).data
 
-    req.target.collectives.forEach(
-      (collective) => {
-        collective.deferred = {
+    req.target.groups.forEach(
+      (group) => {
+        group.deferred = {
           moderation: this.loadDeferanceChain(
             req.user,
-            collective,
+            group,
             'moderation'
           ),
           administration: this.loadDeferanceChain(
             req.user,
-            collective,
+            group,
             'administration'
           )
         }
@@ -81,22 +81,22 @@ class CollectiveLoader extends Processor{
 
 
   /**
-   * Get the deferred administration or moderation chain of a collective.
+   * Get the deferred administration or moderation chain of a group.
    * @param {object} user Requesting user.
-   * @param {object} collective Collective to trace.
+   * @param {object} group Group to trace.
    * @param {string} type Deference type to trace [administrator|moderator].
    */
-  loadDeferanceChain(user, collective, type){
+  loadDeferanceChain(user, group, type){
 
-    var deferedTo = [collective.id]
+    var deferedTo = [group.id]
 
-    if (collective.defer && collective.defer[type]) {
+    if (group.defer && group.defer[type]) {
       deferedTo.concat(
         this.loadDeferanceChain(
           user,
           this.endpoint.store.read(
             user,
-            {id: collective.defer[type].id},
+            {id: group.defer[type].id},
             {
               process: false,
               fields: ['id', 'defer']
@@ -112,4 +112,4 @@ class CollectiveLoader extends Processor{
 }
 
 
-module.exports = CollectiveLoader
+module.exports = GroupLoader

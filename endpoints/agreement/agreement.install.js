@@ -51,7 +51,7 @@ class AgreementInstaller extends core.installers.Installer{
             {
               user: { id: -1, is: { administrator: true }},
               body: [{
-                owner: {entityType: 'collective', id: 0},
+                owner: {entityType: 'group', id: 0},
                 name: machineName,
                 schema: require(
                   './install/' + machineName + '.agreement.schema.json'
@@ -65,7 +65,7 @@ class AgreementInstaller extends core.installers.Installer{
               user: { id: -1, is: { administrator: true }},
               body: [{
                 promisor: {entityType: 'user', id: 1},
-                promisee: {entityType: 'collective', id: 0},
+                promisee: {entityType: 'group', id: 0},
               }]
             }
           )

@@ -4,7 +4,7 @@
 
   "definitions": {
     "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
-    "collectiveRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/collectiveRef"}
+    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
   },
 
   "type": "object",
@@ -13,7 +13,7 @@
 
   "properties": {
     "id": {"$ref": "#/definitions/uei"},
-    "owner": {"$ref": "#/definitions/collectiveRef"},
+    "owner": {"$ref": "#/definitions/groupRef"},
     "schema": {"type": "object"}
   },
 
