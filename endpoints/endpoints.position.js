@@ -1,11 +1,11 @@
 /**
- * @file endpoint.position.js
+ * @file endpoints.position.js
  * Loads requesting user agreed positions.
  */
 "use strict"
 
 
-class RootPosition extends core.processors.UniformProcessor {
+class RootPosition extends core.processors.Processor {
 
   /**
    * @inheritDoc
@@ -33,7 +33,7 @@ class RootPosition extends core.processors.UniformProcessor {
    * @inheritDoc
    */
   process(req, res) {
-    bootstrap.endpoints['/agreement'].agreedPositions(
+    bootstrap.endpoints['/agreements'].agreedPositions(
       [req.user],
       ['administrator', 'moderator', 'member', 'guest']
     )

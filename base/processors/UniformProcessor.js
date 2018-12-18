@@ -19,26 +19,21 @@ class UniformProcessor extends Processor {
    * @inheritDoc
    */
   routes(path){
+
+    var responder = (req, res, next) => { this.process(req, res); next() }
+
     return {
       [path]: {
-        'all': [],
+        'get': [responder],
+        'post': [responder],
+        'put': [responder],
+        'delete': [responder],
       }
     }
   }
 
 
-  /* ----- Method responders ----- */
-
-
-  /**
-   * @inheritDoc
-   */
-  all(req, res) {
-    this.process(req, res)
-  }
-
-
-  /* ----- Positionality calculation ----- */
+  /* ----- Responder ----- */
 
 
   /**

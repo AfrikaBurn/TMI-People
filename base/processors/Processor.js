@@ -106,7 +106,7 @@ class Processor {
 
 Processor.PARSE_BODY  = bodyParser.json()
 Processor.PARSE_QUERY = bodyParser.urlencoded({ extended: false })
-Processor.LOG_REQUEST = function consoleLog(req, res, next) {
+Processor.LOG_REQUEST = (req, res, next) => {
   utility.log('Processing '+ req.method + ': ' + req.url)
   next()
 }

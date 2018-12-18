@@ -186,14 +186,8 @@ class Bootstrap {
    * @param  {Function} next Next middleware
    */
   handleResponse(req, res, next){
-
-    utility.log(
-      '\x1b[32m' + req.method + ' ' + req.url + '\x1b[0m',
-      {verbose: true, time: true}
-    )
-
     if (res.data){
-      bootstrap.respondJSON(res, res.data.status, res.data)
+      bootstrap.respond(req, res, res.data.status, res.data)
     } else next()
   }
 
@@ -207,22 +201,15 @@ class Bootstrap {
   handleException(exception, req, res, next){
 
     if (exception instanceof Error){
-      utility.log('\x1b[33m' + req.method + ' ' + req.url, {verbose: false, time: true})
       exception.stack
         ? console.log('\x1b[33m%s\x1b[0m' + exception.stack)
         : utility.log(exception)
-    } else {
-      utility.log(
-        '\x1b[33m' + req.method + ' ' + req.url + ': ' +
-        exception.status +
-        (exception.errors ? exception.errors[0].title : ''),
-        {verbose: false, time: true})
     }
 
     if (exception.expose){
-      bootstrap.respondJSON(res, exception.status || 500, exception)
+      bootstrap.respond(req, res, exception.status || 500, exception)
     } else {
-      bootstrap.respondRaw(res, 500, 'Internal Server Error')
+      bootstrap.respond(res, 500, 'Internal Server Error')
     }
   }
 
@@ -232,38 +219,35 @@ class Bootstrap {
    * @param  {object} res  Express response object
    */
   handleNotFound(req, res){
-    utility.log('\x1b[33m' + req.method + ' ' + req.url + ': not found', {verbose: false, time: true})
-    bootstrap.respondJSON(res, 404, Bootstrap.NOT_FOUND)
+    bootstrap.respond(req, res, 404, Bootstrap.NOT_FOUND)
   }
 
   /**
-   * Send JSON response to client.
+   * Send response to client.
+   * @param {object} Express Request object
    * @param {object} Express Response object
    * @param {int} status Http status code
    * @param {object} data Response
    */
-  respondJSON(res, status, data = {}){
-    res.status(status).json(
-      {
-        errors: data.errors,
-        data: data.data
-      }
-    )
-  }
+  respond(req, res, status, data = {}){
 
-  /**
-   * Send raw response to client.
-   * @param {object} Express Response object
-   * @param {int} status Http status code
-   * @param {object} data Response
-   */
-  respondRaw(res, status, data = {}){
-    res.status(status).end(
-      {
-        error: data.error,
-        data: data.data
-      }
+    utility.log(
+      (status == 200 ? '\x1b[32m' : '\x1b[33m') +
+      req.method + ' ' +
+      req.url + ' ' +
+      status +
+      (data.errors ? ' ' + data.errors[0].title : ''),
+      {verbose: status == 200, time: true}
     )
+
+    typeof data != 'string'
+      ? res.status(status).json(
+          {
+            errors: data.errors,
+            data: data.data
+          }
+        )
+      : res.status(status).end(data)
   }
 }
 
@@ -279,6 +263,8 @@ global.core = {
     UniformProcessor: require('./base/processors/UniformProcessor'),
     RestProcessor: require('./base/processors/RestProcessor'),
     RestStoreProcessor: require('./base/processors/RestStoreProcessor'),
+    JsonApiProcessor: require('./base/processors/JsonApiProcessor'),
+    JsonApiStoreProcessor: require('./base/processors/JsonApiStoreProcessor'),
     EndpointProcessor: require('./base/processors/EndpointProcessor')
   },
 

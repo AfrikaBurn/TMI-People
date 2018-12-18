@@ -1,15 +1,15 @@
 /**
- * @file RestStoreProcessor.js
- * Basic RESTful processor for basic HTTP methods with persistance.
+ * @file JsonApiStoreProcessor.js
+ * Processor for RESTful JSONAPI methods with persistance.
  */
 "use strict"
 
 
 const
-  RestProcessor = require('./RestProcessor')
+  JsonApiProcessor = require('./JsonApiProcessor')
 
 
-class RestStoreProcessor extends RestProcessor {
+class JsonApiStoreProcessor extends JsonApiProcessor {
 
   /**
    * Process a GET request from storage.
@@ -55,4 +55,4 @@ class RestStoreProcessor extends RestProcessor {
 }
 
 
-module.exports = RestStoreProcessor
+module.exports = JsonApiStoreProcessor

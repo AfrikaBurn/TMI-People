@@ -1,5 +1,5 @@
 /**
- * @file endpoint.load.js
+ * @file endpoints.load.js
  * Session retrieval.
  */
 "use strict"
@@ -59,7 +59,7 @@ class SessionLoader extends Processor {
    */
   deserializeUser(id, done){
 
-    var users = bootstrap.endpoints['/user'].store.read(
+    var users = bootstrap.endpoints['/users'].store.read(
       {id: 0},
       {id: id},
       {processing: false}
@@ -89,13 +89,13 @@ class SessionLoader extends Processor {
         resave: true,
         saveUninitialized: true,
         store: sessionStore,
+        name: 'tmi.mobi.session',
 
         cookie: {
           path: '/',
           httpOnly: false,
           secure: false,
-          maxAge: null,
-          name: this.cookieName
+          maxAge: null
         }
       }
     )

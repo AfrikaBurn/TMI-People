@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a35c160f-da0a-45c6-8452-af1a437ce76c",
+		"_postman_id": "481ace46-4015-418b-bc55-cf1e92c51bec",
 		"name": "tmi people",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -41,13 +41,54 @@
 							"raw": "{\n  \"username\": \"Administrator\", \n  \"password\": \"Administrator\"\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/user/login",
+							"raw": "localhost:3000/users/login",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "31887572-edcf-4547-b343-214f5f983c94",
+								"exec": [
+									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+									"",
+									"var jsonData = pm.response.json();",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
 								"login"
 							]
 						}
@@ -61,7 +102,6 @@
 							"listen": "test",
 							"script": {
 								"id": "1c1be6a8-47d6-437d-a2ee-5bcf5abfe932",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -104,7 +144,8 @@
 									"        }",
 									"    );",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -121,13 +162,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/user",
+							"raw": "localhost:3000/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user"
+								"users"
 							]
 						}
 					},
@@ -207,13 +248,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/group",
+							"raw": "localhost:3000/groups",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"group"
+								"groups"
 							]
 						}
 					},
@@ -342,13 +383,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/agreement",
+							"raw": "localhost:3000/agreements",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"agreement"
+								"agreements"
 							]
 						}
 					},
@@ -412,13 +453,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/agreement/administrator",
+							"raw": "localhost:3000/agreements/administrator",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"agreement",
+								"agreements",
 								"administrator"
 							]
 						}
@@ -483,13 +524,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/agreement/moderator",
+							"raw": "localhost:3000/agreements/moderator",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"agreement",
+								"agreements",
 								"moderator"
 							]
 						}
@@ -554,13 +595,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/agreement/member",
+							"raw": "localhost:3000/agreements/member",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"agreement",
+								"agreements",
 								"member"
 							]
 						}
@@ -625,13 +666,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/agreement/guest",
+							"raw": "localhost:3000/agreements/guest",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"agreement",
+								"agreements",
 								"guest"
 							]
 						}
@@ -699,13 +740,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user/logout",
+									"raw": "localhost:3000/users/logout",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user",
+										"users",
 										"logout"
 									]
 								},
@@ -717,7 +758,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "User",
+					"name": "Users",
 					"item": [
 						{
 							"name": "Schema",
@@ -753,13 +794,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -793,13 +834,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Retrieves a list of users"
@@ -833,13 +874,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Test",
+									"raw": "localhost:3000/users?username=Test",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -911,13 +952,13 @@
 									"raw": "[\n\t{\n\t\t\"username\": \"Authenticated\",\n\t\t\"email\": {\n\t\t\t\"value\": \"Tester@Tester.com\",\n\t\t\t\"privacy\": \"owner\"\n\t\t},\n\t\t\"password\": \"Authenticated\"\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Create a user"
@@ -954,13 +995,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user/logout",
+									"raw": "localhost:3000/users/logout",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user",
+										"users",
 										"logout"
 									]
 								},
@@ -995,13 +1036,13 @@
 									"raw": "{\n  \"username\": \"Authenticated\",\n  \"email\": \"a@b.c\", \n  \"password\": \"TEST\"\n}"
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Authenticated",
+									"raw": "localhost:3000/users?username=Authenticated",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -1041,13 +1082,13 @@
 									"raw": "{\n  \"username\": \"Test\",\n  \"email\": \"a@b.c\", \n  \"password\": \"TEST\"\n}"
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Test",
+									"raw": "localhost:3000/users?username=Test",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -1087,7 +1128,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Group",
+					"name": "Groups",
 					"item": [
 						{
 							"name": "Schema",
@@ -1123,13 +1164,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/group",
+									"raw": "localhost:3000/groups",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"group"
+										"groups"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1165,13 +1206,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/group",
+									"raw": "localhost:3000/groups",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"group"
+										"groups"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1212,7 +1253,7 @@
 									],
 									"port": "3000",
 									"path": [
-										"group"
+										"groups"
 									],
 									"query": [
 										{
@@ -1252,13 +1293,13 @@
 									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/group",
+									"raw": "localhost:3000/groups",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"group"
+										"groups"
 									]
 								},
 								"description": "Create a user"
@@ -1269,7 +1310,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Agreement",
+					"name": "Agreements",
 					"item": [
 						{
 							"name": "Schema",
@@ -1300,13 +1341,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/agreement",
+									"raw": "localhost:3000/agreements",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"agreement"
+										"agreements"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1342,13 +1383,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/agreement",
+									"raw": "localhost:3000/agreements",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"agreement"
+										"agreements"
 									]
 								}
 							},
@@ -1389,7 +1430,7 @@
 									],
 									"port": "3000",
 									"path": [
-										"agreement"
+										"agreements"
 									],
 									"query": [
 										{
@@ -1430,13 +1471,13 @@
 									"raw": "[\n\t{\n\t\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\t\"name\": \"test-agreement\",\n\t\t\"schema\": {\n\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\n\t\t\t\"type\": \"object\",\n\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\n\t\t\t\"allOf\": [\n\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t],\n\t\t\t\"properties\": {\n\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t}\n\t\t}\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/agreement",
+									"raw": "localhost:3000/agreements",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"agreement"
+										"agreements"
 									]
 								},
 								"description": "Create a user"
@@ -1478,7 +1519,7 @@
 									],
 									"port": "3000",
 									"path": [
-										"agreement"
+										"agreements"
 									],
 									"query": [
 										{
@@ -1553,13 +1594,13 @@
 									"raw": "{\n  \"username\": \"Administrator\", \n  \"password\": \"Administrator\"\n}"
 								},
 								"url": {
-									"raw": "localhost:3000/user/login",
+									"raw": "localhost:3000/users/login",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user",
+										"users",
 										"login"
 									]
 								}
@@ -1570,7 +1611,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "User",
+					"name": "Users",
 					"item": [
 						{
 							"name": "Schema",
@@ -1606,13 +1647,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Retrieves the User schema"
@@ -1682,13 +1723,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Retrieves a list of users"
@@ -1735,13 +1776,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Authenticated",
+									"raw": "localhost:3000/users?username=Authenticated",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -1821,13 +1862,13 @@
 									"raw": "[\n\t{\n\t\t\"username\": \"Tester\",\n        \"email\": {\n        \t\"value\": \"Tester@Tester.com\",\n        \t\"privacy\": \"owner\"\n        },\n        \"password\": \"Tester0\"\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/user",
+									"raw": "localhost:3000/users",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									]
 								},
 								"description": "Create a user"
@@ -1862,13 +1903,13 @@
 									"raw": "{\n  \"username\": \"Tester\",\n  \"email\": {\n  \t\"value\": \"a@b.com\",\n  \t\"privacy\": \"member\"\n  },\n  \"password\": \"TEST\"\n}"
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Tester",
+									"raw": "localhost:3000/users?username=Tester",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -1909,13 +1950,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/user?username=Tester",
+									"raw": "localhost:3000/users?username=Tester",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"user"
+										"users"
 									],
 									"query": [
 										{
@@ -1932,7 +1973,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Group",
+					"name": "Groups",
 					"item": [
 						{
 							"name": "Create",
@@ -1963,13 +2004,13 @@
 									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
-									"raw": "localhost:3000/group",
+									"raw": "localhost:3000/groups",
 									"host": [
 										"localhost"
 									],
 									"port": "3000",
 									"path": [
-										"group"
+										"groups"
 									]
 								},
 								"description": "Create a user"
@@ -2016,13 +2057,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/user/logout",
+							"raw": "localhost:3000/users/logout",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user",
+								"users",
 								"logout"
 							]
 						},
@@ -2063,13 +2104,13 @@
 							"raw": "{\n  \"username\": \"Authenticated\", \n  \"password\": \"Authenticated\"\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/user/login",
+							"raw": "localhost:3000/users/login",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user",
+								"users",
 								"login"
 							]
 						}
@@ -2110,13 +2151,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/user",
+							"raw": "localhost:3000/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user"
+								"users"
 							]
 						},
 						"description": "Retrieves the User schema"
@@ -2184,13 +2225,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/user",
+							"raw": "localhost:3000/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user"
+								"users"
 							]
 						},
 						"description": "Retrieves a list of users"

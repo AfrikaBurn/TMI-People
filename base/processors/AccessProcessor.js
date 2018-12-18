@@ -49,14 +49,19 @@ class AccessProcessor extends RestProcessor {
 }
 
 
+/* ----- Access controllers ----- */
+
+
 AccessProcessor.GRANT = (req) => {
   if (req.header('Content-Type') == 'application/json;access') {
     throw Processor.SUCCESS
   }
 }
 
-AccessProcessor.DENY = (req) => {
-  throw Processor.FORBIDDEN
+AccessProcessor.DENY = (message = false) => {
+  if (message)
+    throw Object.assign({}, Processor.FORBIDDEN, {errors: [{title: message}]})
+  else throw Processor.FORBIDDEN
 }
 
 
