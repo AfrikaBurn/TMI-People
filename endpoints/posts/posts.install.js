@@ -11,7 +11,10 @@ class PostInstaller extends core.installers.Installer{
    * @inheritDoc
    */
   toInstall(){
-    return true
+    return this.endpoint.store.read(
+      {id: -1},
+      [{id: 0}, {id: 1}]
+    ).data.length != 2
   }
 
   /**

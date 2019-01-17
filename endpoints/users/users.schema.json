@@ -39,28 +39,13 @@
     },
 
     "email":  {
-      "title": "Email",
-      "description": "Email address used for login retrieval and notification",
-      "type": "object",
-      "properties": {
-        "value": {"$ref": "#/definitions/email"},
-        "privacy": {
-          "allOf": [
-            {"$ref": "#/definitions/exposure"},
-            {
-              "not": {
-                "enum": ["anonymous"]
-              },
-              "errorMessage": "Unacceptible level of exposure."
-            }
-          ]
+      "allOf": [
+        {"$ref": "#/definitions/email"},
+        {
+          "title": "Email",
+          "Description": "Email address to retrieve login details."
         }
-      },
-      "required": ["value", "privacy"],
-      "isUniqueKey": true,
-      "processors": {
-        "raw": {"value": "LOWERCASE"}
-      }
+      ]
     },
 
     "password":  {"$ref": "#/definitions/password"},
@@ -70,6 +55,7 @@
   "required": ["username", "email", "password"],
 
   "processors": {
+    "raw": {"email": "LOWERCASE"},
     "validated": {"password": "HASH"},
     "committed": {"password": "BLANK"},
     "deleted":   {"password": "BLANK"},

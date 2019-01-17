@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "481ace46-4015-418b-bc55-cf1e92c51bec",
+		"_postman_id": "51188261-ae08-4dc2-ad92-579c1ed2099b",
 		"name": "tmi people",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,7 +17,7 @@
 								"id": "31887572-edcf-4547-b343-214f5f983c94",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
-									"pm.test(\"Session cookie set\", () => pm.expect(postman.getResponseCookie('connect.sid')).to.not.eql(undefined))",
+									"pm.test(\"Session cookie set\", () => pm.expect(postman.getResponseCookie('tmi.mobi.session')).to.not.eql(undefined))",
 									"",
 									"var jsonData = pm.response.json();",
 									"",
@@ -111,20 +111,14 @@
 									"            \"username\": \"Anonymous\",",
 									"            \"password\": \"*\",",
 									"            \"status\": \"active\",",
-									"            \"email\": {",
-									"                \"value\": \"no-reply@system.com\",",
-									"                \"privacy\": \"owner\"",
-									"            },",
+									"            \"email\": \"no-reply@system.com\",",
 									"            \"id\": 0",
 									"        },",
 									"        {",
 									"            \"username\": \"Administrator\",",
 									"            \"password\": \"*\",",
 									"            \"status\": \"active\",",
-									"            \"email\": {",
-									"                \"value\": \"no-reply@system.com\",",
-									"                \"privacy\": \"owner\"",
-									"            },",
+									"            \"email\": \"no-reply@system.com\",",
 									"            \"id\": 1",
 									"        }",
 									"    ]",
@@ -900,7 +894,6 @@
 									"listen": "test",
 									"script": {
 										"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status CREATED\", () => pm.response.to.have.status(201))",
 											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
@@ -920,13 +913,10 @@
 											"        pm.expect(jsonData.data[i].username).to.not.eql(undefined)",
 											"    });",
 											"    pm.test(i + \": Email property set\", function () {",
-											"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
+											"        pm.expect(jsonData.data[i].email).to.not.eql(undefined)",
 											"    });",
 											"    pm.test(i + \": Email property lowercased\", function () {",
-											"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
-											"    });",
-											"    pm.test(i + \": Email privacy set\", function () {",
-											"        pm.expect(jsonData.data[i].email.privacy).to.eql(\"owner\")",
+											"        pm.expect(jsonData.data[i].email).to.eql(jsonData.data[i].email.toLowerCase())",
 											"    });",
 											"    pm.test(i + \": Password property set\", function () {",
 											"        pm.expect(jsonData.data[i].password).to.not.eql(undefined)",
@@ -935,7 +925,8 @@
 											"        pm.expect(jsonData.data[i].password).to.eql(\"*\")",
 											"    });",
 											"}"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -949,7 +940,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"username\": \"Authenticated\",\n\t\t\"email\": {\n\t\t\t\"value\": \"Tester@Tester.com\",\n\t\t\t\"privacy\": \"owner\"\n\t\t},\n\t\t\"password\": \"Authenticated\"\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"username\": \"Authenticated\",\n\t\t\"email\": \"Tester@Tester.com\",\n\t\t\"password\": \"Authenticated\"\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -1247,7 +1238,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/group?name=Participants",
+									"raw": "localhost:3000/groups?name=Participants",
 									"host": [
 										"localhost"
 									],
@@ -1424,7 +1415,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:3000/agreement?name=guest",
+									"raw": "localhost:3000/agreements?name=guest",
 									"host": [
 										"localhost"
 									],
@@ -1513,7 +1504,7 @@
 									"raw": "{\n\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\"name\": \"test-agreement\",\n\t\"schema\": {\n\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\n\t\t\"type\": \"object\",\n\t\t\"title\": \"Test Agreement\",\n\t\t\n\t\t\"allOf\": [\n\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t],\n\t\t\"properties\": {\n\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t}\n\t}\n}"
 								},
 								"url": {
-									"raw": "localhost:3000/agreement?name=test-agreement",
+									"raw": "localhost:3000/agreements?name=test-agreement",
 									"host": [
 										"localhost"
 									],
@@ -1573,11 +1564,11 @@
 									"listen": "test",
 									"script": {
 										"id": "c6487877-4fd2-4717-8c9e-b3fc707c8b4a",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
-											"pm.test(\"Logged in\", () => pm.expect(postman.getResponseCookie('connect.sid')).to.not.eql(undefined))"
-										]
+											"pm.test(\"Logged in\", () => pm.expect(postman.getResponseCookie('tmi.mobi.session')).to.not.eql(undefined))"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1667,7 +1658,6 @@
 									"listen": "test",
 									"script": {
 										"id": "4dee1b45-6a06-443a-871c-7c036c375119",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 											"",
@@ -1688,13 +1678,10 @@
 											"        pm.expect(jsonData.data[i].username).to.not.eql(undefined)",
 											"    });",
 											"    pm.test(i + \": Email property set\", function () {",
-											"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
+											"        pm.expect(jsonData.data[i].email).to.not.eql(undefined)",
 											"    });",
 											"    pm.test(i + \": Email property lowercased\", function () {",
-											"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
-											"    });",
-											"    pm.test(i + \": Email privacy set\", function () {",
-											"        pm.expect(jsonData.data[i].email.privacy).to.eql(\"owner\")",
+											"        pm.expect(jsonData.data[i].email).to.eql(jsonData.data[i].email.toLowerCase())",
 											"    });",
 											"    pm.test(i + \": Password property set\", function () {",
 											"        pm.expect(jsonData.data[i].password).to.not.eql(undefined)",
@@ -1703,7 +1690,8 @@
 											"        pm.expect(jsonData.data[i].password).to.eql(\"*\")",
 											"    });",
 											"}"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1802,50 +1790,39 @@
 									"listen": "test",
 									"script": {
 										"id": "c77e2209-c623-4c68-bebe-218b68ac109f",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status CREATED\", () => pm.response.to.have.status(201))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
 											"",
+											"const EXPECTED = 1",
 											"var jsonData = pm.response.json();",
 											"",
-											"pm.test(\"Error object is undefined\", function () {",
-											"    pm.expect(jsonData.error).to.eql(undefined);",
+											"pm.test(\"Response is an array of \" + EXPECTED, function () {",
+											"    pm.expect(jsonData.data.length).to.eql(EXPECTED)",
 											"});",
 											"",
-											"pm.test(\"Response is an array of 1\", function () {",
-											"    pm.expect(jsonData.data.length).to.eql(1);",
-											"});",
-											"",
-											"pm.test(\"Id property set\", function () {",
-											"    pm.expect(jsonData.data[0].id).to.not.eql(undefined);",
-											"});",
-											"",
-											"pm.test(\"Username property set\", function () {",
-											"    pm.expect(jsonData.data[0].username).to.eql(\"Tester\");",
-											"});",
-											"",
-											"pm.test(\"Email property set\", function () {",
-											"    pm.expect(jsonData.data[0].email.value).to.not.eql(undefined);",
-											"});",
-											"",
-											"pm.test(\"Email property lowercased\", function () {",
-											"    pm.expect(jsonData.data[0].email.value).to.eql(\"tester@tester.com\");",
-											"});",
-											"",
-											"pm.test(\"Email privacy set\", function () {",
-											"    pm.expect(jsonData.data[0].email.privacy).to.eql(\"owner\");",
-											"});",
-											"",
-											"pm.test(\"Password property set\", function () {",
-											"    pm.expect(jsonData.data[0].password).to.not.eql(undefined);",
-											"});",
-											"",
-											"pm.test(\"Password property blanked\", function () {",
-											"    pm.expect(jsonData.data[0].password).to.eql(\"*\");",
-											"});",
-											"",
-											""
-										]
+											"for (let i=0; i<EXPECTED; i++){        ",
+											"    pm.test(i + \": Id property set\", function () {",
+											"        pm.expect(jsonData.data[i].id).to.not.eql(undefined)",
+											"    });",
+											"    pm.test(i + \": Username property set\", function () {",
+											"        pm.expect(jsonData.data[i].username).to.not.eql(undefined)",
+											"    });",
+											"    pm.test(i + \": Email property set\", function () {",
+											"        pm.expect(jsonData.data[i].email).to.not.eql(undefined)",
+											"    });",
+											"    pm.test(i + \": Email property lowercased\", function () {",
+											"        pm.expect(jsonData.data[i].email).to.eql(jsonData.data[i].email.toLowerCase())",
+											"    });",
+											"    pm.test(i + \": Password property set\", function () {",
+											"        pm.expect(jsonData.data[i].password).to.not.eql(undefined)",
+											"    });",
+											"    pm.test(i + \": Password property blanked\", function () {",
+											"        pm.expect(jsonData.data[i].password).to.eql(\"*\")",
+											"    });",
+											"}"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1859,7 +1836,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"username\": \"Tester\",\n        \"email\": {\n        \t\"value\": \"Tester@Tester.com\",\n        \t\"privacy\": \"owner\"\n        },\n        \"password\": \"Tester0\"\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"username\": \"Tester\",\n        \"email\": \"Tester@Tester.com\",\n        \"password\": \"Tester0\"\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -1882,11 +1859,11 @@
 									"listen": "test",
 									"script": {
 										"id": "19ee65ef-74b1-468a-9b2f-de3bd07c4d9b",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1900,7 +1877,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"Tester\",\n  \"email\": {\n  \t\"value\": \"a@b.com\",\n  \t\"privacy\": \"member\"\n  },\n  \"password\": \"TEST\"\n}"
+									"raw": "{\n  \"username\": \"Tester\",\n  \"email\": \"a@b.com\",\n  \"password\": \"TEST\"\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users?username=Tester",
@@ -2083,11 +2060,11 @@
 							"listen": "test",
 							"script": {
 								"id": "9c86c721-4ca8-435f-b318-29ee2d40a62f",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
-									"pm.test(\"Logged in\", () => pm.expect(postman.getResponseCookie('connect.sid')).to.not.eql(undefined))"
-								]
+									"pm.test(\"Logged in\", () => pm.expect(postman.getResponseCookie('tmi.mobi.session')).to.not.eql(undefined))"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2171,7 +2148,6 @@
 							"listen": "test",
 							"script": {
 								"id": "7c432c58-d993-49dc-b6b5-76684300d573",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
 									"",
@@ -2190,13 +2166,10 @@
 									"        pm.expect(jsonData.data[i].username).to.not.eql(undefined)",
 									"    });",
 									"    pm.test(i + \": Email property set\", function () {",
-									"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
+									"        pm.expect(jsonData.data[i].email).to.not.eql(undefined)",
 									"    });",
 									"    pm.test(i + \": Email property lowercased\", function () {",
-									"        pm.expect(jsonData.data[i].email.value).to.not.eql(undefined)",
-									"    });",
-									"    pm.test(i + \": Email privacy set\", function () {",
-									"        pm.expect(jsonData.data[i].email.privacy).to.eql(\"owner\")",
+									"        pm.expect(jsonData.data[i].email).to.eql(jsonData.data[i].email.toLowerCase())",
 									"    });",
 									"    pm.test(i + \": Password property set\", function () {",
 									"        pm.expect(jsonData.data[i].password).to.not.eql(undefined)",
@@ -2205,7 +2178,8 @@
 									"        pm.expect(jsonData.data[i].password).to.eql(\"*\")",
 									"    });",
 									"}"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],

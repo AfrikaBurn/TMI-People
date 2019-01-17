@@ -31,6 +31,17 @@ class JsonApiProcessor extends RestProcessor {
             }
           ],
 
+          'put':[
+            Processor.PARSE_QUERY,
+            Processor.PARSE_BODY,
+            JsonApiProcessor.PARSE_ID,
+
+            (req, res, next) => {
+              res.data = this.put(req, res)
+              next()
+            }
+          ],
+
           'patch':[
             Processor.PARSE_QUERY,
             Processor.PARSE_BODY,

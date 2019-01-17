@@ -100,7 +100,7 @@ class Store {
    * @param  {object} partial   Partial entity to apply update from.
    * @return {array}            Array of updated entities
    */
-  update(user, criteria){
+  update(user, criteria, partial){
 
     //TODO: partially validate
     this.validate(entities)
@@ -292,7 +292,7 @@ Store.PROCESSORS.HASH = (value) => {
   )
 }
 Store.PROCESSORS.BLANK = (value) => { return '*' }
-Store.PROCESSORS.LOWERCASE = (value) => { return value.toLowerCase() }
+Store.PROCESSORS.LOWERCASE = (value) => { return value.toString().toLowerCase() }
 
 
 module.exports = Store

@@ -14,8 +14,8 @@ class UserInstaller extends core.installers.Installer{
     return this.endpoint.store.read(
       {id: -1},
       [{id: 0}]
-    ).data.length == 0
-  }
+      ).data.length == 0
+    }
 
   /**
    * @inheritDoc
@@ -59,14 +59,16 @@ UserInstaller.CREATING =
 
 UserInstaller.SYSTEM_ACCOUNTS = [
   {
-    'username': 'Anonymous', 'password': 'none',
+    'username': 'Anonymous',
+    'password': 'none',
     'status': 'active',
-    'email': { 'value': 'no-reply@system.com', 'privacy': 'owner'}
+    'email': 'no-reply@system.com'
   },
   {
-    'username': 'Administrator', 'password': 'Administrator',
+    'username': 'Administrator',
+    'password': 'Administrator',
     'status': 'active',
-    'email': { 'value': 'no-reply@system.com', 'privacy': 'owner'}
+    'email': 'no-reply@system.com'
   }
 ]
 

@@ -24,9 +24,9 @@ class UserAccess extends AccessProcessor {
         [path + '/login']: {
           'post': [
             (req, res, next) => {
-              req.user.is.authenticated
-                ? AccessProcessor.DENY('Forbidden to authorised users')
-                : AccessProcessor.GRANT(req)
+              req.user.is.anonymous
+                ? AccessProcessor.GRANT(req)
+                : AccessProcessor.DENY('Forbidden to authorised users')
               next()
             }
           ],
@@ -74,10 +74,10 @@ class UserAccess extends AccessProcessor {
    * @inheritDoc
    */
   post(req, res){
-    (req.user.is.anonymous && req.body.length > 1) ||
-    (req.user.is.authenticated && !req.user.is.administrator)
-      ? AccessProcessor.DENY()
-      : AccessProcessor.GRANT(req)
+    (req.user.is.anonymous && req.body.length == 1) ||
+    (req.user.is.authenticated && req.user.is.administrator)
+      ? AccessProcessor.GRANT(req)
+      : AccessProcessor.DENY()
   }
 
   /**
