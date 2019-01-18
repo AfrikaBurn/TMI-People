@@ -40,16 +40,15 @@ Post types, Posts, Profile types, Profiles and Users through the
 
 Within a terminal, inside the downloaded TMI directory:
 ```
-cd people
 npm install
 ```
 
 
 ## Running people
 
-Within a terminal, inside the downloaded TMI directory:
+Within a terminal, one directory up from the downloaded TMI directory:
 ```
-node people
+node TMI-People/
 ```
 
 You should see startup output ending in:
@@ -73,12 +72,13 @@ This means the people services are running and awaiting requests.
 Warnings will be present in the startup output until database integration has
 been completed.
 
+
 **For now TMI People runs in memory alone.**
 
 For more detailed output, run people with the verbose switch:
 
 ```
-node people -v
+node TMI-People/ -v
 ```
 
 
