@@ -38,8 +38,9 @@ Post types, Posts, Profile types, Profiles and Users through the
 ## Installing people
 
 
-Within a terminal, inside the downloaded TMI directory:
+Within a terminal:
 ```
+git clone git@github.com:AfrikaBurn/TMI-People.git people
 cd people
 npm install
 ```
@@ -47,7 +48,11 @@ npm install
 
 ## Running people
 
-Within a terminal, inside the downloaded TMI directory:
+Within a terminal in the checked out folder:
+```
+node bootstap.js
+```
+OR within the parent folder:
 ```
 node people
 ```

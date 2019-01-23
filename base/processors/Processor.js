@@ -46,10 +46,10 @@ class Processor {
    *     ...
    *   }
    * }
-   * Method may be any of [get|post|put|delete|...] or 'all' to bind to all
-   * methods. Processor methods named for http methods will
-   * automatically be bound to [path] if it has a method declaration, after any
-   * middleware. Eg:
+   * Method may be any of [get|post|put|patch|delete] or 'all' to bind to
+   * preprocess and 'tail' to postprocess methods. Processor methods named for
+   * http methods will automatically be bound to [path] if it has a method
+   * declaration, after any middleware. Eg:
    * {
    *   [this.path]: {
    *     get: [...],
@@ -78,7 +78,7 @@ class Processor {
       (route) => {
         for (let method in routeMap[route]){
 
-          var routerMethod = method == 'all'
+          var routerMethod = (method == 'all' || method == 'tail')
             ? 'use'
             : method
 

@@ -16,7 +16,7 @@ class JsonApiProcessor extends RestProcessor {
    * @inheritDoc
    */
   routes(path){
-    return Object.assign(
+    var routes = Object.assign(
       super.routes(path),
       {
         [path + '/:id']: {
@@ -65,6 +65,14 @@ class JsonApiProcessor extends RestProcessor {
         }
       }
     )
+
+    routes[path]['tail'] = [
+      (req, res, next) => {
+        JsonApiProcessor.SET_TYPE(req, res, this.endpoint.name, next)
+      }
+    ]
+
+    return routes
   }
 }
 
@@ -74,6 +82,16 @@ class JsonApiProcessor extends RestProcessor {
 
 JsonApiProcessor.PARSE_ID = (req, res, next) => {
   req.query.id = req.params.id
+  next()
+}
+
+JsonApiProcessor.SET_TYPE = (req, res, name, next) => {
+  if (res.data && res.data.data && res.data.data instanceof Array){
+    res.data.data.forEach(
+      (entity) =>
+        entity.type = name.replace(/s$/, '')
+    )
+  }
   next()
 }
 
