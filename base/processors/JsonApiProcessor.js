@@ -68,7 +68,7 @@ class JsonApiProcessor extends RestProcessor {
 
     routes[path]['tail'] = [
       (req, res, next) => {
-        JsonApiProcessor.SET_TYPE(req, res, this.endpoint.name, next)
+        JsonApiProcessor.FORMAT(req, res, this.endpoint.name, next)
       }
     ]
 
@@ -85,11 +85,14 @@ JsonApiProcessor.PARSE_ID = (req, res, next) => {
   next()
 }
 
-JsonApiProcessor.SET_TYPE = (req, res, name, next) => {
+JsonApiProcessor.FORMAT = (req, res, name, next) => {
   if (res.data && res.data.data && res.data.data instanceof Array){
     res.data.data.forEach(
-      (entity) =>
-        entity.type = name.replace(/s$/, '')
+      (entity, index) => res.data.data[index] = {
+        type: name.replace(/s$/, ''),
+        id: entity.id,
+        attributes: entity
+      }
     )
   }
   next()
