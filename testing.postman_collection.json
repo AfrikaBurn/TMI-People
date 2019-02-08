@@ -193,7 +193,7 @@
 									"            \"description\": \"System operators of this tribe.\",",
 									"            \"status\": \"active\",",
 									"            \"owner\": {",
-									"                \"entityType\": \"user\",",
+									"                \"type\": \"user\",",
 									"                \"id\": -1",
 									"            },",
 									"            \"id\": 0",
@@ -276,7 +276,7 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"administrator\",",
@@ -295,7 +295,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"moderator\",",
@@ -314,7 +314,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"member\",",
@@ -333,7 +333,7 @@
 									"        },",
 									"        {",
 									"            \"owner\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"name\": \"guest\",",
@@ -411,11 +411,11 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"promisor\": {",
-									"                \"entityType\": \"user\",",
+									"                \"type\": \"user\",",
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -482,11 +482,11 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"promisor\": {",
-									"                \"entityType\": \"user\",",
+									"                \"type\": \"user\",",
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -553,11 +553,11 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"promisor\": {",
-									"                \"entityType\": \"user\",",
+									"                \"type\": \"user\",",
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -624,11 +624,11 @@
 									"    EXPECTED = [",
 									"        {",
 									"            \"promisor\": {",
-									"                \"entityType\": \"user\",",
+									"                \"type\": \"user\",",
 									"                \"id\": 1",
 									"            },",
 									"            \"promisee\": {",
-									"                \"entityType\": \"group\",",
+									"                \"type\": \"group\",",
 									"                \"id\": 0",
 									"            },",
 									"            \"id\": 0",
@@ -1289,7 +1289,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/groups",
@@ -1311,6 +1311,35 @@
 				{
 					"name": "Agreements",
 					"item": [
+						{
+							"name": "Administrator",
+							"item": [
+								{
+									"name": "localhost:3000/agreements/administrator",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "localhost:3000/agreements/administrator",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"agreements",
+												"administrator"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
 						{
 							"name": "Schema",
 							"event": [
@@ -1467,7 +1496,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\t\"name\": \"test-agreement\",\n\t\t\"schema\": {\n\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\n\t\t\t\"type\": \"object\",\n\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\n\t\t\t\"allOf\": [\n\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t],\n\t\t\t\"properties\": {\n\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t}\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"owner\": {\"type\": \"group\", \"id\": 0},\n\t\t\"name\": \"test-agreement\",\n\t\t\"schema\": {\n\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\n\t\t\t\"type\": \"object\",\n\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\n\t\t\t\"allOf\": [\n\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t],\n\t\t\t\"properties\": {\n\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t}\n\t\t}\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/agreements",
@@ -1509,7 +1538,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"owner\": {\"entityType\": \"group\", \"id\": 0},\n\t\"name\": \"test-agreement\",\n\t\"schema\": {\n\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\n\t\t\"type\": \"object\",\n\t\t\"title\": \"Test Agreement\",\n\t\t\n\t\t\"allOf\": [\n\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t],\n\t\t\"properties\": {\n\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t}\n\t}\n}"
+									"raw": "{\n\t\"owner\": {\"type\": \"group\", \"id\": 0},\n\t\"name\": \"test-agreement\",\n\t\"schema\": {\n\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\n\t\t\"type\": \"object\",\n\t\t\"title\": \"Test Agreement\",\n\t\t\n\t\t\"allOf\": [\n\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t],\n\t\t\"properties\": {\n\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t}\n\t}\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/agreements?name=test-agreement",
@@ -1986,7 +2015,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"entityType\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/groups",

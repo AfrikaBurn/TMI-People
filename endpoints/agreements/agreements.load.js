@@ -16,6 +16,7 @@ class AgreementLoader extends core.processors.Processor{
    */
   routes(path){
     return {
+
       '/': {
         'use': [
           (req, res, next) => {
@@ -27,11 +28,23 @@ class AgreementLoader extends core.processors.Processor{
           }
         ],
       },
+
       [path]: {
         'get|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
-            this.endpoint.loadTargetAgreements(req, ['id', 'owner'])
+
+            req.target = req.target || {}
+
+            req.target.agreements = this.endpoint.store.read(
+              req.user,
+              req.query,
+              {
+                process: false,
+                fields: ['id', 'owner']
+              }
+            ).data
+
             next()
           }
         ]

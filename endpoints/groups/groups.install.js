@@ -62,7 +62,7 @@ GroupInstaller.SYSTEM_COLLECTIVES = [
     description: 'System operators of this tribe.',
     status: 'active',
     owner: {
-      entityType: 'user',
+      type: 'user',
       id: -1
     }
   },
@@ -71,6 +71,7 @@ GroupInstaller.SYSTEM_COLLECTIVES = [
     description: 'Tribe participation group.',
     status: 'active',
     owner: {
+      type: 'user',
       id: -1
     },
     delegate:{

@@ -67,7 +67,7 @@
       "default": "draft"
     },
 
-    "entityType": {
+    "type": {
       "type": "string",
       "enum": [
         "agreement",
@@ -83,9 +83,9 @@
       "type": "object",
       "description": "Schema reference",
       "properties": {
-        "entityType":{
+        "type":{
           "allOf": [
-            {"$ref": "#/definitions/entityType"},
+            {"$ref": "#/definitions/type"},
             {
               "enum": ["user"],
               "errorMessage": "Inappropriate reference type. Must be 'schema.",
@@ -101,9 +101,9 @@
       "type": "object",
       "description": "User reference",
       "properties": {
-        "entityType":{
+        "type":{
           "allOf": [
-            {"$ref": "#/definitions/entityType"},
+            {"$ref": "#/definitions/type"},
             {
               "enum": ["user"],
               "errorMessage": "Inappropriate reference type. Must be 'user.",
@@ -119,9 +119,9 @@
       "type": "object",
       "description": "Group reference",
       "properties": {
-        "entityType":{
+        "type":{
           "allOf": [
-            {"$ref": "#/definitions/entityType"},
+            {"$ref": "#/definitions/type"},
             {
               "enum": ["group"],
               "errorMessage": "Inappropriate reference type. Must be 'group'.",
@@ -137,9 +137,9 @@
       "type": "object",
       "description": "User or Group reference",
       "properties": {
-        "entityType":{
+        "type":{
           "allOf": [
-            {"$ref": "#/definitions/entityType"},
+            {"$ref": "#/definitions/type"},
             {
               "enum": ["group", "user"],
               "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."

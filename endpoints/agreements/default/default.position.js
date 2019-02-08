@@ -1,6 +1,6 @@
 /**
  * @file default.position.js
- * User access processor.
+ * Default agreement instance position processor.
  */
 "use strict"
 
@@ -9,35 +9,14 @@ const
   Processor = core.processors.Processor
 
 
-class AgreementPosition extends core.processors.UniformProcessor {
-
-
-  /* ----- Request Routing ----- */
+class AgreementPosition extends core.processors.PositionProcessor {
 
 
   /**
-   * Adds middleware to load user and target user positionality.
+   * Establishes user/agreement instance positionality.
    * @inheritDoc
    */
-  routes(path){
-    return {
-      [path]:{
-        'get|put|patch|delete': [
-          (req, res, next) => { this.process(req, res); next() }
-        ],
-      }
-    }
-  }
-
-
-  /* ----- Positionality calculation ----- */
-
-
-  /**
-   * Loads user ownership of target agreements.
-   * @inheritDoc
-   */
-  process(req, res){
+  position(req, res){
 
     var
       user = req.user
@@ -50,17 +29,32 @@ class AgreementPosition extends core.processors.UniformProcessor {
     req.target.agreements.forEach(
       (agreement, index) => {
         user.position.on[index] = {
-          owner: agreement.owner.type === 'user'
-            ? agreement.owner.id === user.id
-            : user.positions.administrator.indexOf(agreement.owner.id) >= 0
+          promisor:
+            agreement.promisor.type === 'user' &&
+            agreement.promisor.id == user.id,
+          promisee:
+            agreement.promisee.type === 'user' &&
+            agreement.promisee.id == user.id,
+          moderator:
+            agreement.promisee.type === 'group' &&
+            user.positions.moderator.indexOf(agreement.promisee.id) >= 0,
+          administrator:
+            agreement.promisee.type === 'group' &&
+            user.positions.administrator.indexOf(agreement.promisee.id) >= 0
         }
 
-        user.position.owner &= user.position.on[index].owner
+        user.position.promisor &= user.position.on[index].promisor
+        user.position.promisee &= user.position.on[index].promisee
+        user.position.moderator &= user.position.on[index].moderator
+        user.position.administrator &= user.position.on[index].administrator
       }
     )
 
-    user.position.owner = Boolean(user.position.owner)
-  }
+    user.position.promisor = Boolean(user.position.promisor)
+    user.position.promisee = Boolean(user.position.promisee)
+    user.position.moderator = Boolean(user.position.moderator)
+    user.position.administrator = Boolean(user.position.administrator)
+}
 }
 
 

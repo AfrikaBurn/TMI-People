@@ -20,10 +20,18 @@ class DefaultLoader extends core.processors.RestProcessor{
         'get|post|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
-            bootstrap.endpoints['/agreements'].loadTargetAgreements(
-              req,
-              ['id', 'owner', 'promisor', 'promisee']
-            )
+
+            req.target = req.target || {}
+
+            req.target.agreements = this.endpoint.store.read(
+              req.user,
+              req.query,
+              {
+                process: false,
+                fields: ['id', 'owner', 'promisor', 'promisee']
+              }
+            ).data
+
             next()
           }
         ]
