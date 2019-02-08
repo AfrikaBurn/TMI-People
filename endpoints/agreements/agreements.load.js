@@ -16,41 +16,27 @@ class AgreementLoader extends core.processors.Processor{
    */
   routes(path){
     return {
+      '/': {
+        'use': [
+          (req, res, next) => {
+            this.endpoint.loadAgreedPositions(
+              [req.user],
+              ['administrator', 'moderator', 'member', 'guest']
+            )
+            next()
+          }
+        ],
+      },
       [path]: {
-        'all': [
+        'get|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
-            this.loadTargetAgreements(req)
+            this.endpoint.loadTargetAgreements(req, ['id', 'owner'])
             next()
           }
         ]
       }
     }
-  }
-
-
-  /* ----- Utility ----- */
-
-
-  /**
-   * Load request target agreement IDs and owners.
-   * @param {object} req Express request object
-   */
-  loadTargetAgreements(req){
-
-    req.target = req.target || {}
-
-    req.target.agreements = this.endpoint.store.read(
-      req.user,
-      req.query,
-      {
-        process: false,
-        fields: ['id', 'owner']
-      }
-    ).data
-
-    req.exising = req.exising || {}
-
   }
 }
 

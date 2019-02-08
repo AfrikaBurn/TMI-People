@@ -1,17 +1,43 @@
 /**
- * @file agreement.position.js
- * Resource positioning processor.
+ * @file default.position.js
+ * User access processor.
  */
 "use strict"
 
 
-class AgreementPosition extends core.processors.PositionProcessor {
+const
+  Processor = core.processors.Processor
+
+
+class AgreementPosition extends core.processors.UniformProcessor {
+
+
+  /* ----- Request Routing ----- */
+
 
   /**
-   * Establish user/agreement positionality.
+   * Adds middleware to load user and target user positionality.
    * @inheritDoc
    */
-  position(req, res){
+  routes(path){
+    return {
+      [path]:{
+        'get|put|patch|delete': [
+          (req, res, next) => { this.process(req, res); next() }
+        ],
+      }
+    }
+  }
+
+
+  /* ----- Positionality calculation ----- */
+
+
+  /**
+   * Loads user ownership of target agreements.
+   * @inheritDoc
+   */
+  process(req, res){
 
     var
       user = req.user

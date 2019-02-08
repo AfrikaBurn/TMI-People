@@ -17,7 +17,7 @@ class PostLoader extends core.processors.Processor{
   routes(path){
     return {
       [path]: {
-        'all': [
+        'get|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
             this.loadTargetPosts(req)
@@ -48,10 +48,6 @@ class PostLoader extends core.processors.Processor{
         fields: ['id', 'owner']
       }
     ).data
-
-    req.exising = req.exising || {}
-
-
   }
 }
 

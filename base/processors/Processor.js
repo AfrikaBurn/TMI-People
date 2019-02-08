@@ -46,14 +46,15 @@ class Processor {
    *     ...
    *   }
    * }
-   * Method may be any of [get|post|put|patch|delete] or 'all' to bind to
-   * preprocess and 'tail' to postprocess methods. Processor methods named for
-   * http methods will automatically be bound to [path] if it has a method
-   * declaration, after any middleware. Eg:
+   * Method may be any number of [get|post|put|patch|delete] to bind to
+   * processors. Eg. 'post|put' will bind to both post and put methods.
+   * Processor methods named for http methods will automatically be bound to
+   * [path] if it has a method declaration, after any middleware. Eg:
    * {
-   *   [this.path]: {
+   *   [path]: {
    *     get: [...],
-   *     post: [...]
+   *     post: [...],
+   *     'get|post': [...]
    *   }
    * }
    * Will map reqs to:
@@ -78,25 +79,31 @@ class Processor {
       (route) => {
         for (let method in routeMap[route]){
 
-          var routerMethod = (method == 'all' || method == 'tail')
-            ? 'use'
-            : method
+          method.split('|').forEach(
 
-          routeMap[route][method].forEach(
-            (middleware) => router[routerMethod](route, middleware)
-          )
+            (subMethod) => {
 
-          if (route == path && this[method]){
-            router[routerMethod](route,
-              (req, res, next) => {
-                res.data =  this[method](req, res, next)
-                if (res.data !== false) next()
+              routeMap[route][method].forEach(
+                (middleware) => router[subMethod](route, middleware)
+              )
+
+              if (route == path && this[subMethod]){
+                router[subMethod](route,
+                  (req, res, next) => {
+                    res.data =  this[subMethod](req, res, next)
+                    if (res.data !== false) next()
+                  }
+                )
               }
-            )
-          }
+            }
+          )
         }
       }
     )
+  }
+
+  attachMethod(){
+
   }
 }
 

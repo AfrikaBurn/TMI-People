@@ -1,6 +1,6 @@
 /**
  * @file posts.position.js
- * User access processor.
+ * Post positionality processor.
  */
 "use strict"
 
@@ -9,36 +9,14 @@ const
   Processor = core.processors.Processor
 
 
-class PostPosition extends core.processors.UniformProcessor {
+class PostPosition extends core.processors.PositionProcessor {
 
 
-  /* ----- Request Routing ----- */
-
-
-  /**
-   * Adds middleware to load user and target user positionality.
+/**
+   * Establish user/post positionality.
    * @inheritDoc
    */
-  routes(path){
-    return {
-      [path]:{
-        'get':    [],
-        'put':    [],
-        'patch':  [],
-        'delete': [],
-      }
-    }
-  }
-
-
-  /* ----- Positionality calculation ----- */
-
-
-  /**
-   * Loads user ownership of target post.
-   * @inheritDoc
-   */
-  process(req, res){
+  position(req, res){
 
     var
       user = req.user

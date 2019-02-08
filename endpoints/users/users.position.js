@@ -1,27 +1,23 @@
 /**
  * @file users.position.js
- * A basic processor template.
+ * User positionality processor.
  */
 "use strict"
 
 
-class UserPosition extends core.processors.UniformProcessor {
-
-
-  /* ----- Positionality calculation ----- */
-
+class UserPosition extends core.processors.PositionProcessor {
 
   /**
-   * Establish requesting user positionality to target users.
+   * Establish user/user positionality.
    * @inheritDoc
    */
-  process(req, res){
+  position(req, res){
 
     var
       user = req.user,
       users = req.target.users
 
-    bootstrap.endpoints['/agreements'].agreedPositions(
+    bootstrap.endpoints['/agreements'].loadAgreedPositions(
       req.target.users,
       ['member']
     )

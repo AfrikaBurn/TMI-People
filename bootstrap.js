@@ -277,6 +277,7 @@ global.core = {
 
   processors: {
     AccessProcessor: require('./base/processors/AccessProcessor'),
+    PositionProcessor: require('./base/processors/PositionProcessor'),
     Processor: require('./base/processors/Processor'),
     UniformProcessor: require('./base/processors/UniformProcessor'),
     RestProcessor: require('./base/processors/RestProcessor'),

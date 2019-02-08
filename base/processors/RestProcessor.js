@@ -21,12 +21,9 @@ class RestProcessor extends Processor {
   routes(path){
     return {
       [path]: {
-        'all':    [],
-        'get':    [Processor.PARSE_QUERY],
         'post':   [Processor.PARSE_BODY],
-        'put':    [Processor.PARSE_QUERY, Processor.PARSE_BODY],
-        'delete': [Processor.PARSE_QUERY],
-        'patch':  [Processor.PARSE_QUERY, Processor.PARSE_BODY]
+        'get|delete': [Processor.PARSE_QUERY],
+        'put|patch':  [Processor.PARSE_QUERY, Processor.PARSE_BODY]
       }
     }
   }

@@ -17,7 +17,7 @@ class UserLoader extends core.processors.Processor{
   routes(path){
     return {
       [path]: {
-        'all': [
+        'get|post|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
             this.loadTargetUsers(req)

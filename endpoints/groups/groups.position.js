@@ -5,35 +5,13 @@
 "use strict"
 
 
-class GroupModifier extends core.processors.UniformProcessor {
-
-
-  /* ----- Request Routing ----- */
-
+class GroupModifier extends core.processors.PositionProcessor {
 
   /**
+   * Establish user/group positionality.
    * @inheritDoc
    */
-  routes(path){
-    return {
-      [path]:{
-        'get':    [],
-        'put':    [],
-        'patch':  [],
-        'delete': []
-      }
-    }
-  }
-
-
-  /* ----- Positionality calculation ----- */
-
-
-  /**
-   * Establish requesting user positionality to target groups.
-   * @inheritDoc
-   */
-  process(req, res){
+  position(req, res){
 
     var
       user = req.user

@@ -66,7 +66,7 @@ class JsonApiProcessor extends RestProcessor {
       }
     )
 
-    routes[path]['tail'] = [
+    routes[path]['use'] = [
       (req, res, next) => {
         JsonApiProcessor.FORMAT(req, res, this.endpoint.name, next)
       }
