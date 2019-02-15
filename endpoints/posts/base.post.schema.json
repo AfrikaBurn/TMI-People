@@ -1,15 +1,30 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://tmi.mobi/post/base.profile.schema.json",
-
   "type": "object",
-  "title": "Post Base",
-
-  "definitions": {
-    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
-  },
 
   "properties":{
-    "owner": {"$ref": "#/definitions/groupRef"}
+
+    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+
+    "title": {
+      "title": "Title",
+      "Description": "Title of the post.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,20}$",
+      "errorMessage": "should only be 1 to 20 words",
+      "isUniqueKey": true
+    },
+
+    "body": {
+      "title": "Body",
+      "Description": "Body of the post.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,5000}$",
+      "errorMessage": "should only be 1 to 5000 words",
+      "isUniqueKey": true
+    },
+
+    "owner": {"$ref": "#/definitions/uei"}
   }
 }

@@ -4,149 +4,43 @@
 
   "definitions": {
 
-    "uei": {
-      "title": "Unique Entity Identifier",
+    "id": {
+      "title": "Identifier",
       "type": "number",
       "minimum": -1
-    },
-
-    "email": {
-      "type": "string",
-      "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}",
-      "errorMessage": "invalid email address"
-    },
-
-    "password":{
-      "type": "string",
-      "title": "Password",
-      "description": "Password used to authenticate the account",
-      "minlength": 6
-    },
-
-
-    "name": {
-      "title": "Name",
-      "type": "string",
-      "pattern": "^(\\s?\\S+\\s?){1,20}$",
-      "errorMessage": "should only be 1 to 20 words"
     },
 
     "description": {
       "title": "Description",
       "type": "string",
-      "pattern": "^(\\s?\\S+\\s?){0,500}$",
-      "errorMessage": "should only be up to 500 words"
+      "pattern": "^(\\s?\\S+\\s?){0,100}$",
+      "errorMessage": "should only be up to 100 words"
+    },
+
+    "privacy": {
+      "type": "string",
+      "enum": ["public", "partial", "private"]
     },
 
     "exposure": {
-      "title": "Exposure",
-      "type": "string",
-      "enum": [
-        "owner",
-        "administrator",
-        "moderator",
-        "member",
-        "guest",
-        "authenticated",
-        "anonymous"
-      ],
-      "default": "owner"
-    },
-
-    "status": {
-      "title": "Status",
-      "type": "string",
-      "enum": [
-        "draft",
-        "active",
-        "retired",
-        "locked",
-        "suspended",
-        "deleted"
-      ],
-      "default": "draft"
-    },
-
-    "type": {
-      "type": "string",
-      "enum": [
-        "agreement",
-        "group",
-        "profile",
-        "schema",
-        "post",
-        "user"
-      ]
-    },
-
-    "schemaRef": {
       "type": "object",
-      "description": "Schema reference",
+      "description": "Visibility and Accessibility attributes",
       "properties": {
-        "type":{
-          "allOf": [
-            {"$ref": "#/definitions/type"},
-            {
-              "enum": ["user"],
-              "errorMessage": "Inappropriate reference type. Must be 'schema.",
-              "default": "schema"
-            }
-          ]
-        },
-        "id": {"$ref": "#/definitions/uei"}
+        "visibility": {"$ref": "#/definitions/privacy"},
+        "accessibilty": {"$ref": "#/definitions/privacy"}
       }
     },
 
-    "userRef": {
-      "type": "object",
-      "description": "User reference",
-      "properties": {
-        "type":{
-          "allOf": [
-            {"$ref": "#/definitions/type"},
-            {
-              "enum": ["user"],
-              "errorMessage": "Inappropriate reference type. Must be 'user.",
-              "default": "user"
-            }
-          ]
-        },
-        "id": {"$ref": "#/definitions/uei"}
-      }
-    },
-
-    "groupRef": {
-      "type": "object",
-      "description": "Group reference",
-      "properties": {
-        "type":{
-          "allOf": [
-            {"$ref": "#/definitions/type"},
-            {
-              "enum": ["group"],
-              "errorMessage": "Inappropriate reference type. Must be 'group'.",
-              "default": "group"
-            }
-          ]
-        },
-        "id": {"$ref": "#/definitions/uei"}
-      }
-    },
-
-    "participantRef": {
+    "participant": {
       "type": "object",
       "description": "User or Group reference",
       "properties": {
+        "id": {"$ref": "#/definitions/id"},
         "type":{
-          "allOf": [
-            {"$ref": "#/definitions/type"},
-            {
-              "enum": ["group", "user"],
-              "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."
-            }
-          ]
-        },
-        "id": {"$ref": "#/definitions/uei"}
+          "type": "string",
+          "enum": ["group", "user"],
+          "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."
+        }
       }
     }
   }

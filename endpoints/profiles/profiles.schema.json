@@ -1,19 +1,22 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://tmi.mobi/profile/profile.schema.json",
-
-  "definitions": {
-    "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
-    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
-  },
-
   "type": "object",
-  "title": "string",
-  "name": "string",
-
   "properties": {
-    "id": {"$ref": "#/definitions/uei"},
-    "owner": {"$ref": "#/definitions/groupRef"},
+
+    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+
+    "name": {
+      "title": "Profile name",
+      "Description": "Name of the profile.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,10}$",
+      "errorMessage": "should only be 1 to 10 words",
+      "isUniqueKey": true
+    },
+
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+
     "schema": {"type": "object"}
   },
 

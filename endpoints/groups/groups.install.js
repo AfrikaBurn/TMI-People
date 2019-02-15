@@ -75,8 +75,8 @@ GroupInstaller.SYSTEM_COLLECTIVES = [
       id: -1
     },
     delegate:{
-      moderation: {id: 0},
-      administration: {id: 0}
+      moderation: 0,
+      administration: 0
     }
   }
 ]

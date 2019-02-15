@@ -1,24 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://tmi.mobi/group/group.schema.json",
-
-  "definitions": {
-    "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
-    "name": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/name"},
-    "description": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/description"},
-    "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"},
-    "status": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/status"},
-    "participantRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participantRef"},
-    "groupRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/groupRef"}
-  },
-
   "type": "object",
-  "title": "Group",
+
   "properties": {
 
     "id":  {
       "allOf": [
-        {"$ref": "#/definitions/uei"},
+        {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
         {
           "title": "Group ID",
           "description": "Unique group identifier."
@@ -27,26 +16,39 @@
       "isUniqueKey": true
     },
 
-    "name":  {
-      "allOf": [
-        {"$ref": "#/definitions/name"},
-        {
-          "title": "Group name",
-          "Description": "Name of the group."
-        }
-      ],
+    "name": {
+      "title": "Group name",
+      "Description": "Name of the group.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,10}$",
+      "errorMessage": "should only be 1 to 10 words",
       "isUniqueKey": true
     },
 
-    "description":  {
-      "allOf": [
-        {"$ref": "#/definitions/description"},
-        {
-          "title": "Description",
-          "Description": "A short description of the group."
-        }
-      ]
+    "description": {
+      "title": "Description",
+      "Description": "Description of the group.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,200}$",
+      "errorMessage": "should only be 1 to 200 words",
+      "isUniqueKey": true
     },
+
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "enum": [
+        "active",
+        "retired",
+        "locked",
+        "suspended"
+      ],
+      "default": "active"
+    },
+
+    "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"},
 
     "profiles": {
       "title": "Group profiles",
@@ -62,7 +64,7 @@
         "cardinality": {
           "type": "number"
         },
-        "exposure": {"$ref": "#/definitions/exposure"}
+        "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"}
       }
     },
 
@@ -82,18 +84,14 @@
           "cardinality": {
             "type": "number"
           },
-          "exposure": {"$ref": "#/definitions/exposure"}
+          "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"}
         }
       }
     },
 
-    "owner": {"$ref": "#/definitions/participantRef"},
-    "status": {"$ref": "#/definitions/status"},
-    "exposure": {"$ref": "#/definitions/exposure"},
-    "membership": {"$ref": "#/definitions/exposure"},
     "delegate": {
-      "administration": {"$ref": "#/definitions/groupRef"},
-      "moderation": {"$ref": "#/definitions/groupRef"}
+      "administration": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+      "moderation": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"}
     }
   },
 

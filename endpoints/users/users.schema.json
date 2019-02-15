@@ -4,52 +4,59 @@
 
   "type": "object",
   "title": "User",
-
-  "definitions": {
-    "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
-    "name": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/name"},
-    "email": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/email"},
-    "password": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/password"},
-    "exposure": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/exposure"},
-    "status": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/status"}
-  },
-
   "properties": {
 
     "id":  {
       "allOf": [
-        {"$ref": "#/definitions/uei"},
+        {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
         {
           "title": "User ID",
-          "description": "Unique user identifier"
+          "description": "Unique User Identifier"
         }
       ],
       "isUniqueKey": true
     },
 
-    "username":  {
-      "allOf": [
-        {"$ref": "#/definitions/name"},
-        {
-          "title": "Username",
-          "Description": "Unique chosen name."
-        }
-      ],
+    "username": {
+      "title": "Username",
+      "Description": "Unique chosen name",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-_]{1,50}$",
+      "errorMessage": "should be 1 to 50 characters in length",
       "isUniqueKey": true
     },
 
-    "email":  {
-      "allOf": [
-        {"$ref": "#/definitions/email"},
-        {
-          "title": "Email",
-          "Description": "Email address to retrieve login details."
-        }
-      ]
+    "email": {
+      "title": "Email",
+      "Description": "Email address to retrieve login details.",
+      "type": "string",
+      "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}",
+      "errorMessage": "invalid email address"
     },
 
-    "password":  {"$ref": "#/definitions/password"},
-    "status": {"$ref": "#/definitions/status"}
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "description": "Password used to authenticate the account",
+      "minlength": 6,
+      "maxlength": 50,
+      "errorMessage": "should be 6 to 50 characters in length"
+    },
+
+    "privacy": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/privacy"},
+
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "retired",
+        "locked",
+        "suspended"
+      ],
+      "default": "draft"
+    }
   },
 
   "required": ["username", "email", "password"],

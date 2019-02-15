@@ -96,7 +96,7 @@ class GroupLoader extends Processor{
           user,
           this.endpoint.store.read(
             user,
-            {id: group.defer[type].id},
+            {id: group.defer[type]},
             {
               process: false,
               fields: ['id', 'defer']

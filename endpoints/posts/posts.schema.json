@@ -1,19 +1,22 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://tmi.mobi/post/post.schema.json",
-
-  "definitions": {
-    "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"},
-    "participantRef": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participantRef"}
-  },
-
   "type": "object",
-  "title": "string",
-  "name": "string",
-
   "properties": {
-    "id": {"$ref": "#/definitions/uei"},
-    "owner": {"$ref": "#/definitions/participantRef"},
+
+    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+
+    "Name": {
+      "title": "Name",
+      "Description": "Name of the post type.",
+      "type": "string",
+      "pattern": "^(\\s?\\S+\\s?){1,20}$",
+      "errorMessage": "should only be 1 to 20 words",
+      "isUniqueKey": true
+    },
+
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+
     "schema": {"type": "object"}
   },
 
