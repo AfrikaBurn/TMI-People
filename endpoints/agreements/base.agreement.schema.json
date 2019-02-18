@@ -4,7 +4,18 @@
   "type": "object",
 
   "properties":{
+
     "promisor": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
-    "promisee": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"}
+    "promisee": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+
+    "status": {
+      "type": "string",
+      "enum": [
+        "extended",
+        "active",
+        "terminated",
+        "fulfilled"
+      ]
+    }
   }
 }
