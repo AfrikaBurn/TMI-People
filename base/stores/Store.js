@@ -295,4 +295,57 @@ Store.PROCESSORS.BLANK = (value) => { return '*' }
 Store.PROCESSORS.LOWERCASE = (value) => { return value.toString().toLowerCase() }
 
 
+// ----- Utility -----
+
+
+/**
+ * Computes a diff between two entities
+ * @param {object} e1 first Entity to compare
+ * @param {object} e2 second Entity to compare
+ */
+Store.DIFF = (e1, e2) => {
+
+  var diff = {
+  }
+
+  function propDiff(p1, p2, name = '', prefix = ''){
+
+    if (typeof p1 == 'object' && typeof p2 == 'object'){
+
+      var
+        p1Keys = p1 instanceof Array
+          ? p1.keys()
+          : Object.keys(p1),
+        p2Keys = p2 instanceof Array
+          ? p2.keys()
+          : Object.keys(p2),
+        keys = [...new Set(p1Keys.concat(p2Keys))]
+
+      keys.forEach(
+        (key) => propDiff(
+          p1[key],
+          p2[key],
+          key,
+          [prefix, name].filter((s)=>s!='').join('.')
+        )
+      )
+
+      return
+    }
+
+    if (p1 != p2){
+      diff[[prefix, name].filter((s)=>s!='').join('.')] = {
+        from: p1,
+        to: p2
+      }
+      return
+    }
+  }
+
+  propDiff(e1, e2)
+
+  return diff
+}
+
+
 module.exports = Store

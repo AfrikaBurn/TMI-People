@@ -5,7 +5,7 @@
 "use strict"
 
 
-class UserLoader extends core.processors.Processor{
+class UserLoader extends core.processors.JsonApiProcessor{
 
 
   /* ----- Routing ----- */
@@ -17,7 +17,7 @@ class UserLoader extends core.processors.Processor{
   routes(path){
     return {
       [path]: {
-        'get|post|put|patch|delete': [
+        'use': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
             this.loadTargetUsers(req)

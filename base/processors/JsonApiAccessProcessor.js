@@ -1,16 +1,17 @@
 /**
- * @file JsonApiProcessor.js
- * Processor for RESTful JSONAPI methods.
+ * @file UserAccess.js
+ * JSONAPI access processor.
  */
 "use strict"
 
 
 const
   Processor = require('./Processor'),
-  RestProcessor = require('./RestProcessor')
+  RestAccessProcessor = require('./RestAccessProcessor'),
+  JsonApiProcessor = require('./JsonApiProcessor')
 
 
-class JsonApiProcessor extends RestProcessor {
+class JsonApiAccessProcessor extends RestAccessProcessor {
 
   /**
    * @inheritDoc
@@ -66,46 +67,9 @@ class JsonApiProcessor extends RestProcessor {
       }
     )
 
-    routes[path]['use'] = [
-      (req, res, next) => {
-        JsonApiProcessor.FORMAT(req, res, this.endpoint.name, next)
-      }
-    ]
-
     return routes
   }
 }
 
 
-// ----- param to query Middleware -----
-
-
-JsonApiProcessor.PARSE_ID = (req, res, next) => {
-  if (!isNaN(req.params.id)) req.query.id = req.params.id
-  next()
-}
-
-JsonApiProcessor.FORMAT = (req, res, name, next) => {
-  if (res.data && res.data.data && res.data.data instanceof Array){
-    res.data.data.forEach(
-      (entity, index) => res.data.data[index] = {
-        type: name.replace(/s$/, ''),
-        id: entity.id,
-        attributes: entity
-      }
-    )
-  }
-  next()
-}
-
-JsonApiProcessor.UNFORMAT = (req, res, name, next) => {
-  if (res.data && res.data.data && res.data.data instanceof Array){
-    res.data.data.forEach(
-      (entity, index) => res.data.data[index] = res.data.data[index].attributes
-    )
-  }
-  next()
-}
-
-
-module.exports = JsonApiProcessor
+module.exports = JsonApiAccessProcessor

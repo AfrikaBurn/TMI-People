@@ -5,7 +5,7 @@
 "use strict"
 
 
-class GroupModifier extends core.processors.PositionProcessor {
+class GroupModifier extends core.processors.JsonApiUniformProcessor {
 
   /**
    * Establish user/group positionality.

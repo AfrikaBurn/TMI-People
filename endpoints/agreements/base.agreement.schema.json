@@ -11,8 +11,10 @@
     "status": {
       "type": "string",
       "enum": [
-        "extended",
-        "active",
+        "proposed",
+        "withdrawn",
+        "accepted",
+        "rejected",
         "terminated",
         "fulfilled"
       ]

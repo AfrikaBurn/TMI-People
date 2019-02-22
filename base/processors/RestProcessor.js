@@ -33,13 +33,6 @@ class RestProcessor extends Processor {
 
 
   /**
-   * Process all requests.
-   * @param  {object} req Express request object
-   * @param  {object} res Express response object
-   */
-  all(req, res) {}
-
-  /**
    * Process a GET request.
    * @param  {object} req Express request object
    * @param  {object} res Express response object

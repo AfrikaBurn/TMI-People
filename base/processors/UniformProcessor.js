@@ -1,6 +1,6 @@
 /**
  * @file UniformProcessor.js
- * Basic uniform processor for basic HTTP methods.
+ * Simple uniform processor.
  */
 "use strict"
 
@@ -20,7 +20,7 @@ class UniformProcessor extends Processor {
    */
   routes(path){
     return {
-      [path]: {
+      [path]:{
         'get|post|put|patch|delete': [
           (req, res, next) => { this.process(req, res); next() }
         ],
@@ -29,13 +29,12 @@ class UniformProcessor extends Processor {
   }
 
 
-  /* ----- Responder ----- */
+  /* ----- Processing ----- */
 
 
   /**
-   * Default request processor.
-   * @param  {object} req Express request object
-   * @param  {object} res Express response object
+   * Computes user ownership of target resources.
+   * @inheritDoc
    */
   process(req, res){}
 }

@@ -276,15 +276,21 @@ class Bootstrap {
 global.core = {
 
   processors: {
-    AccessProcessor: require('./base/processors/AccessProcessor'),
-    PositionProcessor: require('./base/processors/PositionProcessor'),
+
     Processor: require('./base/processors/Processor'),
+    AccessProcessor: require('./base/processors/AccessProcessor'),
     UniformProcessor: require('./base/processors/UniformProcessor'),
+    EndpointProcessor: require('./base/processors/EndpointProcessor'),
+
     RestProcessor: require('./base/processors/RestProcessor'),
     RestStoreProcessor: require('./base/processors/RestStoreProcessor'),
+    RestAccessProcessor: require('./base/processors/RestAccessProcessor'),
+    RestUniformProcessor: require('./base/processors/RestUniformProcessor'),
+
     JsonApiProcessor: require('./base/processors/JsonApiProcessor'),
     JsonApiStoreProcessor: require('./base/processors/JsonApiStoreProcessor'),
-    EndpointProcessor: require('./base/processors/EndpointProcessor')
+    JsonApiUniformProcessor: require('./base/processors/JsonApiUniformProcessor'),
+    JsonApiAccessProcessor: require('./base/processors/JsonApiAccessProcessor')
   },
 
   stores: {

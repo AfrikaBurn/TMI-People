@@ -9,7 +9,7 @@ const
   Processor = core.processors.Processor
 
 
-class PostPosition extends core.processors.PositionProcessor {
+class PostPosition extends core.processors.JsonApiUniformProcessor {
 
 
 /**

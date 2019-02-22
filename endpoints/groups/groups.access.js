@@ -9,7 +9,7 @@ const
   AccessProcessor = core.processors.AccessProcessor
 
 
-class GroupAccess extends AccessProcessor {
+class GroupAccess extends core.processors.JsonApiAccessProcessor {
 
 
   // ----- Request Routing -----

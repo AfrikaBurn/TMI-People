@@ -9,7 +9,7 @@ const
   AccessProcessor = core.processors.AccessProcessor
 
 
-class PostAccess extends AccessProcessor {
+class PostAccess extends core.processors.JsonApiAccessProcessor {
 
   /**
    * @inheritDoc

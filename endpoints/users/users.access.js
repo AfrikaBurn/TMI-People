@@ -9,7 +9,7 @@ const
   AccessProcessor = core.processors.AccessProcessor
 
 
-class UserAccess extends AccessProcessor {
+class UserAccess extends core.processors.JsonApiAccessProcessor {
 
   /* ----- Routing ----- */
 

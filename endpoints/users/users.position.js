@@ -5,7 +5,7 @@
 "use strict"
 
 
-class UserPosition extends core.processors.PositionProcessor {
+class UserPosition extends core.processors.JsonApiUniformProcessor {
 
   /**
    * Establish user/user positionality.

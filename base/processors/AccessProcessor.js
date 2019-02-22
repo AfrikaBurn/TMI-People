@@ -1,52 +1,15 @@
 /**
  * @file UserAccess.js
- * User access processor.
+ * Simple access processor.
  */
 "use strict"
 
 
 const
-  Processor = require('./Processor'),
-  RestProcessor = require('./RestProcessor')
+  Processor = require('./Processor')
 
 
-class AccessProcessor extends RestProcessor {
-
-  /**
-   * @inheritDoc
-   */
-  get(req, res){
-    AccessProcessor.GRANT(req)
-  }
-
-  /**
-   * @inheritDoc
-   */
-  post(req, res){
-    AccessProcessor.GRANT(req)
-  }
-
-  /**
-   * @inheritDoc
-   */
-  put(req, res){
-    AccessProcessor.GRANT(req)
-  }
-
-  /**
-   * @inheritDoc
-   */
-  patch(req, res){
-    AccessProcessor.GRANT(req)
-  }
-
-  /**
-   * @inheritDoc
-   */
-  delete(req, res){
-    AccessProcessor.GRANT(req)
-  }
-}
+class AccessProcessor extends Processor {}
 
 
 /* ----- Access controllers ----- */

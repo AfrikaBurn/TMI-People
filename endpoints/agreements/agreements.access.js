@@ -9,7 +9,7 @@ const
   AccessProcessor = core.processors.AccessProcessor
 
 
-class AgreementAccess extends AccessProcessor {
+class AgreementAccess extends core.processors.JsonApiAccessProcessor {
 
   /**
    * @inheritDoc

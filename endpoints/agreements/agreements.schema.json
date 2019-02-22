@@ -27,6 +27,24 @@
       "isUniqueKey": true
     },
 
+    "mutable": {
+      "type": "object",
+      "properties": {
+        "promisor": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "promisee": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
     "schema": {"type": "object"}
   },
 

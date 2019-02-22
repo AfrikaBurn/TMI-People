@@ -11,22 +11,22 @@ const
   Processor = core.processors.Processor
 
 
-class GroupLoader extends Processor{
+class GroupLoader extends core.processors.JsonApiUniformProcessor {
 
 
   /* ----- Routing ----- */
 
 
-  /**
-   * @inheritDoc
-   */
-  routes(path){
-    return {
-      [path]: {
-        'get': [Processor.PARSE_QUERY]
-      }
-    }
-  }
+  // /**
+  //  * @inheritDoc
+  //  */
+  // routes(path){
+  //   return {
+  //     [path]: {
+  //       'get': [Processor.PARSE_QUERY]
+  //     }
+  //   }
+  // }
 
 
   /* ----- Method responders ----- */
@@ -36,7 +36,7 @@ class GroupLoader extends Processor{
    * Load request target groups.
    * @inheritDoc
    */
-  get(req, res){
+  process(req, res){
     this.loadTargetGroups(req)
   }
 

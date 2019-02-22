@@ -5,7 +5,7 @@
 "use strict"
 
 
-class AgreementPosition extends core.processors.PositionProcessor {
+class AgreementPosition extends core.processors.JsonApiUniformProcessor {
 
   /**
    * Establish user/agreement positionality.
