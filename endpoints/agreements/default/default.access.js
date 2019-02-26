@@ -17,8 +17,8 @@ class DefaultAgreementAccess extends core.processors.JsonApiAccessProcessor {
    */
   get(req, res){
     req.user.position.member ||
-    req.user.position.promisor ||
-    req.user.position.promisee
+    req.user.position.promisee ||
+    req.user.position.promisor
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()
   }
@@ -28,8 +28,8 @@ class DefaultAgreementAccess extends core.processors.JsonApiAccessProcessor {
    */
   post(req, res){
     req.user.position.promisee ||
-    req.user.position.administrator ||
-    req.user.position.moderator
+    req.user.position.moderator ||
+    req.user.position.administrator
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()
   }
@@ -38,7 +38,9 @@ class DefaultAgreementAccess extends core.processors.JsonApiAccessProcessor {
    * @inheritDoc
    */
   put(req, res){
-    AccessProcessor.DENY()
+    req.user.is.administrator
+      ? AccessProcessor.GRANT(req)
+      : AccessProcessor.DENY()
   }
 
   /**
@@ -46,35 +48,58 @@ class DefaultAgreementAccess extends core.processors.JsonApiAccessProcessor {
    */
   patch(req, res){
 
-    var invalid = Object.assign({}, Processor.INVALID_REQUEST, {errors: []})
+    if (req.user.is.anonymous) AccessProcessor.DENY()
+
+    var errors = []
 
     req.updates.agreements.forEach(
       (update, index) => {
 
-        req.user.position.promisor && update.status &&
-        (
-          update.status.from == 'proposed' && update.status.to == 'accepted' ||
-          update.status.from == 'accepted' && update.status.to == 'terminated'
-        )
+        var valid =
+          (
+            req.user.position.promisor ||
+            req.user.position.administrator ||
+            req.user.position.moderator
+          ) && update.status && (
+            update.status.from == 'proposed' && update.status.to == 'accepted' ||
+            update.status.from == 'accepted' && update.status.to == 'terminated'
+          )
 
-        req.user.position.promisee && update.status &&
-        (
-          update.status.from == 'proposed' && update.status.to == 'withdrawn' ||
-          update.status.from == 'accepted' && update.status.to == 'terminated'
-        )
+          ||
 
+          (req.user.position.promisee ||
+            req.user.position.administrator ||
+            req.user.position.moderator
+          ) && update.status && (
+            update.status.from == 'proposed' && update.status.to == 'withdrawn' ||
+            update.status.from == 'accepted' && update.status.to == 'terminated'
+          )
+
+        var immutable = this.endpoint.definition.mutable ? Object.keys(update).filter(
+          (fieldName) => this.endpoint.definition.mutable.indexOf(fieldName) < 0
+        ) : Object.keys(update)
+
+        switch (true){
+          case immutable.length > 0:
+            errors[index] = {title: 'Immutable field change'};
+          break;
+          case !valid:
+            errors[index] = {title: 'Invalid state change'};
+          break;
+        }
       }
     )
 
-    req.updates.agreement.updates = ['status']
+    errors
+      ? AccessProcessor.DENY(errors)
+      : AccessProcessor.GRANT(req)
   }
 
   /**
    * @inheritDoc
    */
   delete(req, res){
-    // TODO: Revisioning for existing
-    req.user.is.owner || req.user.is.administrator
+    req.user.is.administrator
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()
   }

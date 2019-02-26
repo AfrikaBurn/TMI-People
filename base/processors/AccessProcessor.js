@@ -23,7 +23,14 @@ AccessProcessor.GRANT = (req) => {
 
 AccessProcessor.DENY = (message = false) => {
   if (message)
-    throw Object.assign({}, Processor.FORBIDDEN, {errors: [{title: message}]})
+    throw Object.assign(
+      {},
+      Processor.FORBIDDEN,
+      {
+        errors: message instanceof Array
+          ? message
+          : [{title: message}]}
+    )
   else throw Processor.FORBIDDEN
 }
 

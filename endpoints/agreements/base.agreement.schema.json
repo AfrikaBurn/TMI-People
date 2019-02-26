@@ -17,7 +17,8 @@
         "rejected",
         "terminated",
         "fulfilled"
-      ]
+      ],
+      "default": "proposed"
     }
   }
 }

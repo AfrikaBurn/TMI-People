@@ -28,21 +28,9 @@
     },
 
     "mutable": {
-      "type": "object",
-      "properties": {
-        "promisor": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "promisee": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
+      "type": "array",
+      "items": {"type": "string"},
+      "default": ["status"]
     },
 
     "schema": {"type": "object"}

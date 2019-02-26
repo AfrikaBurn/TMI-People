@@ -155,7 +155,6 @@ class Store {
             entity
           )
         ) errors[index] = Store.normaliseErrors(Store.VALIDATOR.errors)
-
       }
     )
 
@@ -240,7 +239,13 @@ Store.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
 // ----- Shared Validation -----
 
 
-Store.VALIDATOR = new Ajv({ allErrors: true, jsonPointers: true })
+Store.VALIDATOR = new Ajv(
+  {
+    allErrors: true,
+    jsonPointers: true,
+    useDefaults: true
+  }
+)
 
 
 // ----- Validation error messages -----

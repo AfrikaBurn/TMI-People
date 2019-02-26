@@ -21,11 +21,13 @@ class EndpointProcessor extends RestStoreProcessor {
    */
   post(req, res) {
 
-    req.body.forEach(
+    var persisted = super.post(req, res)
+
+    persisted.data.forEach(
       (endpointDefinition) => this.endpoint.createEndpoint(endpointDefinition)
     )
 
-    return super.post(req, res)
+    return persisted
   }
 }
 

@@ -230,46 +230,37 @@ class Endpoint {
    */
   install(){
 
-    var installed = true
+    var
+      installed = true,
+      path = this.getLoadName('install.js'),
+      installer = false
 
     try{
-
-      var
-        path = this.getLoadName('install.js'),
-        installer = new (require(path))(this)
-
-      if (installer.toInstall()) {
-
-        utility.log(
-          '\x1b[0mInstalling \x1b[1m' + this.name,
-          {indent: 2}
-        )
-
-        installed = installer.install()
-
-        utility.log(
-          installed
-            ? '\x1b[32mDone installing ' + this.name + '.\x1b[0m\n'
-            : '\x1b[31mFAILED installing ' + this.name + '.\x1b[0m!\n',
-          {indent: 2}
-        )
-
-      } else {
-
-        utility.log(
-          '\x1b[37m' +
-          this.name +
-          ' install\t\t\x1b[37mNOTHING TO DO\n',
-          {indent: 4}
-        )
-
-      }
-
+      installer = new (require(path))(this)
     } catch (e) {
-      if (e.code != 'MODULE_NOT_FOUND'){
-        utility.log(e)
-        installed = false
-      }
+      utility.log(
+        '\x1b[37mInstalling ' +
+        '\x1b[0m' + (this.name == 'endpoints' ? 'root' : this.name) +
+        '\t\t\x1b[37mNOTHING TO DO\n',
+        {indent: 2}
+      )
+    }
+
+    if (installer && installer.toInstall()) {
+
+      utility.log(
+        '\x1b[0mInstalling \x1b[1m' + this.name,
+        {indent: 2}
+      )
+
+      installed = installer.install()
+
+      utility.log(
+        installed
+          ? '\x1b[32mDone installing ' + this.name + '.\x1b[0m\n'
+          : '\x1b[31mFAILED installing ' + this.name + '.\x1b[0m!\n',
+        {indent: 2}
+      )
     }
 
     if (installed) this.children.some(

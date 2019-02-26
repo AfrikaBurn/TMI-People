@@ -58,12 +58,15 @@ class MetaEndpoint extends Endpoint{
         '-'
       )
 
-    this.endpoints[name] = new Endpoint(
-      name,
-      this,
-      false,
-      this.source + '/default',
-      endpointDefinition.schema
+    this.endpoints[name] = Object.assign(
+      new Endpoint(
+        name,
+        this,
+        false,
+        this.source + '/default',
+        endpointDefinition.schema
+      ),
+      {definition: endpointDefinition}
     )
   }
 }
