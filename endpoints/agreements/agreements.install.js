@@ -48,13 +48,17 @@ class AgreementInstaller extends core.installers.Installer{
         this.endpoint.processors.execute.post(
           {
             user: { id: -1, is: { administrator: true }},
-            body: [{
-              owner: {type: 'group', id: 0},
-              name: machineName,
-              schema: require(
-                './install/' + machineName + '.agreement.schema.json'
-              )
-            }]
+            body: {
+              data:[
+                {
+                  owner: {type: 'group', id: 0},
+                  name: machineName,
+                  schema: require(
+                    './install/' + machineName + '.agreement.schema.json'
+                  )
+                }
+              ]
+            }
           }
         )
 
@@ -66,10 +70,14 @@ class AgreementInstaller extends core.installers.Installer{
         this.endpoint.endpoints[machineName].processors.execute.post(
           {
             user: { id: -1, is: { administrator: true }},
-            body: [{
-              promisor: {type: 'user', id: 1},
-              promisee: {type: 'group', id: 0},
-            }]
+            body: {
+              data: [
+                {
+                  promisor: {type: 'user', id: 1},
+                  promisee: {type: 'group', id: 0},
+                }
+              ]
+            }
           }
         )
       }

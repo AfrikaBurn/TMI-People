@@ -1,11 +1,23 @@
 /**
- * @file ProfileExecutor.js
+ * @file agreement.execute.js
  * A basic processor template.
  */
 "use strict"
 
 
-class ProfileExecutor extends core.processors.EndpointProcessor {}
+class ProfileExecutor extends core.processors.JsonApiStoreProcessor {
+
+  post(req, res){
+    var persisted = super.post(req, res)
+
+    persisted.data.forEach(
+      (endpointDefinition) => this.endpoint.createEndpoint(endpointDefinition)
+    )
+
+    return persisted
+  }
+
+}
 
 
 module.exports = ProfileExecutor

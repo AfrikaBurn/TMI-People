@@ -93,6 +93,23 @@ class Store {
   }
 
   /**
+   * Persist entities.
+   * @param  {object} user User updating the entities.
+   * @param  {array}  entities  Entities to persist.
+   * @return {array}            Array of updated entities
+   */
+  write(user, entity){
+
+    this.validate(entities)
+
+    // Make changes here
+
+    this.process(entities, 'committed')
+
+    return utility.response(Store.SUCCESS, entities)
+  }
+
+  /**
    * Update entities matching the provided criteria with the properties from
    * partial.
    * @param  {object} user User updating the entities.
@@ -102,8 +119,7 @@ class Store {
    */
   update(user, criteria, partial){
 
-    //TODO: partially validate
-    this.validate(entities)
+    this.validatePartial(entities)
 
     // Make changes here
 
@@ -111,7 +127,6 @@ class Store {
 
     return utility.response(Store.SUCCESS, entities)
   }
-
   /**
    * Delete all entities matching the provided criteria.
    * @param  {object} user User deleting the entities.
@@ -156,6 +171,57 @@ class Store {
           )
         ) errors[index] = Store.normaliseErrors(Store.VALIDATOR.errors)
       }
+    )
+
+    if (errors.length) throw utility.error(Store.INVALID, errors)
+    else this.process(entities, 'validated')
+  }
+
+  /**
+   * Validate an array of entities against the store schema.
+   * @param {array} entities
+   */
+  validatePartial(entities){
+
+    if (!Array.isArray(entities)) throw utility.error(
+      Store.INVALID,
+      ["Array expected"]
+    )
+
+    var errors = []
+
+    this.process(entities, 'raw')
+
+    function validateFields(schema, partial, index){
+
+      if (schema.allOf) {
+        schema.properties = schema.properties || {}
+        schema.allOf.forEach(
+          (id) => Object.assign(
+            schema.properties,
+            Store.VALIDATOR.getSchema(id['$ref']).schema.properties
+          )
+        )
+      }
+
+      if (typeof partial == 'object'){
+        Object.keys(partial).forEach(
+          (property) => {
+            if (property.type == 'object')
+              validateFields(schema[property], partial[property], index)
+            else if (
+              !Store.VALIDATOR.validate(
+                schema.properties[property],
+                partial[property]
+              )
+            ) errors[index] = Store.normaliseErrors(Store.VALIDATOR.errors)
+          }
+        )
+      }
+    }
+
+    entities.forEach(
+      (entity, index) => validateFields(utility.clone(this.schema), entity, index)
     )
 
     if (errors.length) throw utility.error(Store.INVALID, errors)
@@ -241,6 +307,7 @@ Store.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
 
 Store.VALIDATOR = new Ajv(
   {
+    coerceTypes: true,
     allErrors: true,
     jsonPointers: true,
     useDefaults: true
@@ -310,8 +377,7 @@ Store.PROCESSORS.LOWERCASE = (value) => { return value.toString().toLowerCase() 
  */
 Store.DIFF = (e1, e2) => {
 
-  var diff = {
-  }
+  var diff = {}
 
   function propDiff(p1, p2, name = '', prefix = ''){
 

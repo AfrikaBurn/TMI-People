@@ -77,6 +77,9 @@ class Processor {
 
     routes.forEach(
       (route) => {
+
+        var bound = {}
+
         for (let method in routeMap[route]){
 
           method.split('|').forEach(
@@ -87,11 +90,15 @@ class Processor {
                 (middleware) => router[subMethod](route, middleware)
               )
 
-              if (route == path && this[subMethod]){
+              if (route == path && this[subMethod] && !bound[subMethod]){
+                bound[subMethod] = true
                 router[subMethod](route,
                   (req, res, next) => {
-                    res.data =  this[subMethod](req, res, next)
-                    if (res.data !== false) next()
+                    var response = this[subMethod](req, res, next)
+                    if (response !== false) {
+                      res.data = response
+                      next()
+                    }
                   }
                 )
               }

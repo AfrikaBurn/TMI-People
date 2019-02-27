@@ -239,7 +239,7 @@ class Bootstrap {
 
     var errors = [
       data.error,
-      (data.errors ? data.errors[0].title : undefined),
+      (data.errors && data.errors.length ? data.errors[0].title : undefined),
       ''
     ].filter(error => error != undefined).shift()
 
@@ -280,7 +280,6 @@ global.core = {
     Processor: require('./base/processors/Processor'),
     AccessProcessor: require('./base/processors/AccessProcessor'),
     UniformProcessor: require('./base/processors/UniformProcessor'),
-    EndpointProcessor: require('./base/processors/EndpointProcessor'),
 
     RestProcessor: require('./base/processors/RestProcessor'),
     RestStoreProcessor: require('./base/processors/RestStoreProcessor'),

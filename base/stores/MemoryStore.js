@@ -86,7 +86,23 @@ class MemoryStore extends Store {
   /**
    * @inheritDoc
    */
-  update(user, criteria, entity){
+  write(user, entities){
+
+    this.validate(entities)
+
+    entities.forEach(
+      (entity) => this.cache[entity.id] = entity
+    )
+
+    this.process(entities, 'committed')
+
+    return utility.response(Store.SUCCESS, entities)
+  }
+
+  /**
+   * @inheritDoc
+   */
+  update(user, criteria, entities){
 
     var
       toUpdate = this.cache.filter(
@@ -97,9 +113,9 @@ class MemoryStore extends Store {
       updated = []
 
     if (toUpdate.length == 0) throw Store.NOT_FOUND
-    // TODO: partially validate "entity"
-    this.validate([entity])
-    toUpdate.forEach((element) => Object.assign(element, entity))
+
+    this.validatePartial(entities)
+    toUpdate.forEach((element) => Object.assign(element, entities[0]))
     var entities = utility.clone(toUpdate)
 
     this.process(entities, 'committed')

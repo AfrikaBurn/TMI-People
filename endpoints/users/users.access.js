@@ -74,7 +74,7 @@ class UserAccess extends core.processors.JsonApiAccessProcessor {
    * @inheritDoc
    */
   post(req, res){
-    (req.user.is.anonymous && req.body.length == 1) ||
+    (req.user.is.anonymous && req.body.data.length == 1) ||
     (req.user.is.authenticated && req.user.is.administrator)
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()

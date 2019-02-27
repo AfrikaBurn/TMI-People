@@ -6,6 +6,7 @@
 
 
 const
+  bodyParser = require('body-parser'),
   Processor = require('./Processor'),
   RestProcessor = require('./RestProcessor')
 
@@ -16,76 +17,94 @@ class JsonApiProcessor extends RestProcessor {
    * @inheritDoc
    */
   routes(path){
-    var routes = Object.assign(
-      super.routes(path),
-      {
-        [path + '/:id']: {
+    return {
 
-          'get': [
-            Processor.PARSE_QUERY,
-            JsonApiProcessor.PARSE_ID,
+      [path]: {
+        'post':   [
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.FORMAT_REQUEST
+        ],
+        'get|delete': [Processor.PARSE_QUERY],
+        'put|patch':  [
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.FORMAT_REQUEST
+        ],
+        'get|post|put|patch|delete' :[
+          (req, res, next) => {
+            JsonApiProcessor.FORMAT_RESPONSE(req, res, this.endpoint.name, next)
+          }
+        ],
+      },
 
-            (req, res, next) => {
-              res.data = this.get(req, res)
-              next()
-            }
-          ],
+      [path + '/:id']: {
 
-          'put':[
-            Processor.PARSE_QUERY,
-            Processor.PARSE_BODY,
-            JsonApiProcessor.PARSE_ID,
+        'get': [
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_ID,
 
-            (req, res, next) => {
-              res.data = this.put(req, res)
-              next()
-            }
-          ],
+          (req, res, next) => {
+            res.data = this.get(req, res)
+            next()
+          }
+        ],
 
-          'patch':[
-            Processor.PARSE_QUERY,
-            Processor.PARSE_BODY,
-            JsonApiProcessor.PARSE_ID,
+        'put':[
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.PARSE_ID,
+          JsonApiProcessor.FORMAT_REQUEST,
 
-            (req, res, next) => {
-              res.data = this.patch(req, res)
-              next()
-            }
-          ],
+          (req, res, next) => {
+            res.data = this.put(req, res)
+            next()
+          }
+        ],
 
-          'delete': [
-            Processor.PARSE_QUERY,
-            JsonApiProcessor.PARSE_ID,
+        'patch':[
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.PARSE_ID,
+          JsonApiProcessor.FORMAT_REQUEST,
 
-            (req, res, next) => {
-              res.data = this.delete(req, res)
-              next()
-            }
-          ]
-        }
+          (req, res, next) => {
+            res.data = this.patch(req, res)
+            next()
+          }
+        ],
+
+        'delete': [
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_ID,
+
+          (req, res, next) => {
+            res.data = this.delete(req, res)
+            next()
+          }
+        ]
       }
-    )
-
-    routes[path]['use'] = [
-      (req, res, next) => {
-        JsonApiProcessor.FORMAT(req, res, this.endpoint.name, next)
-      }
-    ]
-
-    return routes
+    }
   }
 }
 
 
-// ----- param to query Middleware -----
+// ----- Body parsing middleware -----
+
+
+JsonApiProcessor.PARSE_BODY  = bodyParser.json(
+  { type: ['application/json', 'application/vnd.api+json'] }
+)
+
+
+// ----- Query & Body formatting Middleware -----
 
 
 JsonApiProcessor.PARSE_ID = (req, res, next) => {
-  if (!isNaN(req.params.id)) req.query.id = req.params.id
+  if (!isNaN(req.params.id)) req.query.id = Number(req.params.id)
   next()
 }
 
-JsonApiProcessor.FORMAT = (req, res, name, next) => {
+JsonApiProcessor.FORMAT_RESPONSE = (req, res, name, next) => {
   if (res.data && res.data.data && res.data.data instanceof Array){
     res.data.data.forEach(
       (entity, index) => res.data.data[index] = {
@@ -98,14 +117,25 @@ JsonApiProcessor.FORMAT = (req, res, name, next) => {
   next()
 }
 
-JsonApiProcessor.UNFORMAT = (req, res, name, next) => {
-  if (res.data && res.data.data && res.data.data instanceof Array){
-    res.data.data.forEach(
-      (entity, index) => res.data.data[index] = res.data.data[index].attributes
-    )
+JsonApiProcessor.FORMAT_REQUEST = (req, res, next) => {
+  if (req.body) {
+
+    if (req.body.data && req.body.data.length == undefined) req.body.data = [req.body.data]
+
+    if (req.body.data instanceof Array){
+      req.body.data.forEach(
+        (entity, index) => {
+          if (entity.attributes) req.body.data[index] = Object.assign(
+            {id: entity.id},
+            entity.attributes
+          )
+        }
+      )
+    }
+    next()
   }
-  next()
 }
+
 
 
 module.exports = JsonApiProcessor

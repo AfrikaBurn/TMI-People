@@ -5,6 +5,8 @@
 
   "properties":{
 
+    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+
     "promisor": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
     "promisee": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
 

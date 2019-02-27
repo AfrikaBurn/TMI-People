@@ -39,7 +39,7 @@ class JsonApiUniformProcessor extends RestUniformProcessor {
 
           'put|patch':[
             Processor.PARSE_QUERY,
-            Processor.PARSE_BODY,
+            JsonApiProcessor.PARSE_BODY,
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {

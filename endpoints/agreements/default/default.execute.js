@@ -1,6 +1,6 @@
 /**
  * @file DefaultAgreementExecutor.js
- * A basic processor template.
+ * Default Agreement executor.
  */
 "use strict"
 

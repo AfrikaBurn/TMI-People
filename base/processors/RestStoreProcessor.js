@@ -34,7 +34,7 @@ class RestStoreProcessor extends RestProcessor {
    * @inheritDoc
    */
   put(req, res) {
-    return this.endpoint.store.update(req.user, req.query, req.body)
+    return this.endpoint.store.write(req.user, req.query, req.body)
   }
 
   /**

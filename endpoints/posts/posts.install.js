@@ -47,13 +47,17 @@ class PostInstaller extends core.installers.Installer{
           this.endpoint.processors.execute.post(
             {
               user: { id: -1, is: { administrator: true }},
-              body: [{
-                owner: {type: 'group', id: 0},
-                name: machineName,
-                schema: require(
-                  './install/' + machineName + '.post.schema.json'
-                )
-              }]
+              body: {
+                data: [
+                  {
+                    owner: {type: 'group', id: 0},
+                    name: machineName,
+                    schema: require(
+                      './install/' + machineName + '.post.schema.json'
+                    )
+                  }
+                ]
+              }
             }
           )
 

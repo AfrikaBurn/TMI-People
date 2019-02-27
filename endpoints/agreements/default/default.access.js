@@ -90,7 +90,7 @@ class DefaultAgreementAccess extends core.processors.JsonApiAccessProcessor {
       }
     )
 
-    errors
+    errors.length
       ? AccessProcessor.DENY(errors)
       : AccessProcessor.GRANT(req)
   }
