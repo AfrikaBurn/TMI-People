@@ -59,13 +59,6 @@
     }
   },
 
-  "required": ["username", "email", "password"],
-
-  "processors": {
-    "raw": {"email": "LOWERCASE"},
-    "validated": {"password": "HASH"},
-    "committed": {"password": "BLANK"},
-    "deleted":   {"password": "BLANK"},
-    "retrieved": {"password": "BLANK"}
-  }
+  "mutable": ["username", "email", "password", "privacy", "status"],
+  "required": ["username", "email", "password"]
 }

@@ -7,6 +7,10 @@
 
 class PostExecutor extends core.processors.JsonApiStoreProcessor {
 
+  /**
+   * Create a new post type endpoint.
+   * @inheritDoc
+   */
   post(req, res){
     var persisted = super.post(req, res)
 

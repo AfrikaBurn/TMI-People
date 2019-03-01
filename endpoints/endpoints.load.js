@@ -61,8 +61,7 @@ class SessionLoader extends Processor {
 
     var users = bootstrap.endpoints['/users'].store.read(
       {id: 0},
-      {id: id},
-      {processing: false}
+      {id: id}
     ).data
 
     done(

@@ -17,7 +17,7 @@ class UserLoader extends core.processors.JsonApiProcessor{
   routes(path){
     return {
       [path]: {
-        'use': [
+        'get|post|put|patch|delete': [
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
             this.loadTargetUsers(req)
@@ -43,10 +43,7 @@ class UserLoader extends core.processors.JsonApiProcessor{
     req.target.users = this.endpoint.store.read(
       req.user,
       req.query,
-      {
-        process: false,
-        fields: ['id']
-      }
+      ['id']
     ).data
   }
 }

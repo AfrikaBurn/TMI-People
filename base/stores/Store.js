@@ -6,8 +6,7 @@
 
 
 const
-  Ajv = require('ajv'),
-  passwordHash = require('password-hash')
+  Ajv = require('ajv')
 
 
 class Store {
@@ -53,93 +52,69 @@ class Store {
 
   /**
    * Create entities.
-   * @param  {object} user User creating the entities.
-   * @param  {array} entities Array of data entities to create.
-   * @return {array} Data     Array of entities that were created successfully.
+   * @param  {object}   user      User creating the entities.
+   * @param  {array}    entities  Array of data entities to create.
+   * @param  {boolean}  validated boolean indicating whether the entities have
+   *                              been validated or not. Defaults to false.
+   * @return {array} Data         Array of entities that were created
+   *                              successfully.
    */
-  create(user, entities){
-
-    this.validate(entities)
-
-    // Commit entities here
-
-    this.process(entities, 'committed')
-
+  create(user, entities, validated = false){
+    if (!validated) this.validate(entities)
     return utility.response(Store.CREATED, entities)
   }
 
   /**
    * Read entities matching the provided criteria.
-   * @param  {object} user User reading the entities.
-   * @param  {object} criteria Partial entity to match.
-   * @param  {object} options Options to apply:
-   *                  fields: an optional array of field names to fetch.
-   *                  process: boolean whether to apply schema processing.
-   *                  schemas: optional
+   * @param  {object} user      User reading the entities.
+   * @param  {object} criteria  Partial entity to match.
+   * @param  {object} options   Options to apply:
+   *                            fields: an optional array of field names to
+   *                                    fetch.
    * @return {array} Array of matching entities.
    */
   read(user, criteria, options = {}){
-
-    var
-      fields = options.fields || false,
-      process = options.process != undefined ? options.process : true
-
-    // Read entities here
     var entities = criteria
-
-    if (process) this.process(entities, 'retrieved')
-
     return utility.response(Store.SUCCESS, entities)
   }
 
   /**
    * Persist entities.
-   * @param  {object} user User updating the entities.
-   * @param  {array}  entities  Entities to persist.
-   * @return {array}            Array of updated entities
+   * @param  {object} user        User updating the entities.
+   * @param  {object} criteria    Partial entity to match.
+   * @param  {array}  entities    Entities to persist.
+   * @param  {boolean}  validated boolean indicating whether the entities have
+   *                              been validated or not. Defaults to false.
+   * @return {array}              Array of updated entities
    */
-  write(user, entity){
-
-    this.validate(entities)
-
-    // Make changes here
-
-    this.process(entities, 'committed')
-
+  write(user, criteria, entities, validated = false){
+    if (!validated) this.validate(entities)
     return utility.response(Store.SUCCESS, entities)
   }
 
   /**
    * Update entities matching the provided criteria with the properties from
    * partial.
-   * @param  {object} user User updating the entities.
-   * @param  {object} criteria  Partial entity to match.
-   * @param  {object} partial   Partial entity to apply update from.
-   * @return {array}            Array of updated entities
+   * @param  {object}   user      User updating the entities.
+   * @param  {object}   criteria  Partial entity to match.
+   * @param  {object}   partial   Partial entity to apply update from.
+   * @param  {boolean}  validated boolean indicating whether the entities have
+   *                              been validated or not. Defaults to false.
+   * @return {array}              Array of updated entities
    */
-  update(user, criteria, partial){
-
-    this.validatePartial(entities)
-
-    // Make changes here
-
-    this.process(entities, 'retrieved')
-
+  update(user, criteria, partial, validated = false){
+    if (!validated) this.validatePartial(entities)
     return utility.response(Store.SUCCESS, entities)
   }
+
   /**
    * Delete all entities matching the provided criteria.
-   * @param  {object} user User deleting the entities.
-   * @param  {object} criteria Partial entity to match.
-   * @return {array}           Array of deleted entities
+   * @param  {object} user      User deleting the entities.
+   * @param  {object} criteria  Partial entity to match.
+   * @return {array}            Array of deleted entities
    */
   delete(user, criteria){
-
-    // Delete here
     var entities = criteria
-
-    this.process(entities, 'deleted')
-
     return utility.response(Store.SUCCESS, entities)
   }
 
@@ -160,8 +135,6 @@ class Store {
 
     var errors = []
 
-    this.process(entities, 'raw')
-
     entities.forEach(
       (entity, index) => {
         if (
@@ -174,23 +147,20 @@ class Store {
     )
 
     if (errors.length) throw utility.error(Store.INVALID, errors)
-    else this.process(entities, 'validated')
   }
 
   /**
-   * Validate an array of entities against the store schema.
-   * @param {array} entities
+   * Validate an array of partial entities against the store schema.
+   * @param {array} partials
    */
-  validatePartial(entities){
+  validatePartial(partials){
 
-    if (!Array.isArray(entities)) throw utility.error(
+    if (!Array.isArray(partials)) throw utility.error(
       Store.INVALID,
       ["Array expected"]
     )
 
     var errors = []
-
-    this.process(entities, 'raw')
 
     function validateFields(schema, partial, index){
 
@@ -220,56 +190,11 @@ class Store {
       }
     }
 
-    entities.forEach(
+    partials.forEach(
       (entity, index) => validateFields(utility.clone(this.schema), entity, index)
     )
 
     if (errors.length) throw utility.error(Store.INVALID, errors)
-    else this.process(entities, 'validated')
-  }
-
-
-  // ----- Text Processing -----
-
-
-  /**
-   * Processes entities at a particular stage during req processing.
-   * @param {array} entities
-   */
-  process(entities, stage){
-
-    var processEntity = (entity, schema, stage) => {
-      if (schema.processors){
-
-        for (let property in schema.properties){
-          processEntity(entity[property], schema.properties[property], stage)
-        }
-
-        var processors = schema.processors[stage]
-        if (processors && Object.keys(processors).length){
-          for (let property in processors){
-
-            var processor = Store.PROCESSORS[processors[property]]
-
-            if (processor){
-              if (entity[property])
-                entity[property] = processor(entity[property])
-            } else {
-              throw Object.assign(
-                Store.PROCESSOR_NOT_FOUND,
-                {processorName: processors[property]}
-              )
-            }
-          }
-        }
-      }
-
-      return entity
-    }
-
-    for (let i in entities){
-      entities[i] = processEntity(entities[i], this.schema, stage)
-    }
   }
 
 
@@ -346,25 +271,6 @@ Store.normaliseErrors = (errors) => {
     }
   )
 }
-
-
-// ----- Static text processors -----
-
-
-Store.HASHER = passwordHash
-
-Store.PROCESSORS = {}
-Store.PROCESSORS.HASH = (value) => {
-  return Store.HASHER.generate(
-    value,
-    {
-      algorithm: 'sha512',
-      saltLength: 16
-    }
-  )
-}
-Store.PROCESSORS.BLANK = (value) => { return '*' }
-Store.PROCESSORS.LOWERCASE = (value) => { return value.toString().toLowerCase() }
 
 
 // ----- Utility -----

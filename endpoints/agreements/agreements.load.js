@@ -39,10 +39,7 @@ class AgreementLoader extends core.processors.Processor{
             req.target.agreements = this.endpoint.store.read(
               req.user,
               req.query,
-              {
-                process: false,
-                fields: ['id', 'owner']
-              }
+              ['id', 'owner']
             ).data
 
             next()

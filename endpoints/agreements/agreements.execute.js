@@ -7,6 +7,10 @@
 
 class AgreementExecutor extends core.processors.JsonApiStoreProcessor {
 
+  /**
+   * Create a new agreement type endpoint.
+   * @inheritDoc
+   */
   post(req, res){
     var persisted = super.post(req, res)
 

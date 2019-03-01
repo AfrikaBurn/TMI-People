@@ -1,12 +1,16 @@
 /**
  * @file agreement.execute.js
- * A basic processor template.
+ * Contains profile executor.
  */
 "use strict"
 
 
 class ProfileExecutor extends core.processors.JsonApiStoreProcessor {
 
+  /**
+   * Create a new profile type endpoint.
+   * @inheritDoc
+   */
   post(req, res){
     var persisted = super.post(req, res)
 

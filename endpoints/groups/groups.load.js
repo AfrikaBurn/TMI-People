@@ -55,10 +55,7 @@ class GroupLoader extends core.processors.JsonApiUniformProcessor {
     req.target.groups = this.endpoint.store.read(
       req.user,
       req.query,
-      {
-        process: false,
-        fields: ['id', 'owner', 'defer', 'exposure']
-      }
+      ['id', 'owner', 'defer', 'exposure']
     ).data
 
     req.target.groups.forEach(

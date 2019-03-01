@@ -55,8 +55,7 @@ class DefaultLoader extends core.processors.JsonApiProcessor{
 
     req.target.agreements = this.endpoint.store.read(
       req.user,
-      req.query,
-      { process: false }
+      req.query
     ).data
   }
 

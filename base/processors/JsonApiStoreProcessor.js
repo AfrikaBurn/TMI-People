@@ -34,7 +34,7 @@ class JsonApiStoreProcessor extends JsonApiProcessor {
    * @inheritDoc
    */
   put(req, res) {
-    return this.endpoint.store.write(req.user, req.body.data)
+    return this.endpoint.store.write(req.user, req.query, req.body.data)
   }
 
   /**

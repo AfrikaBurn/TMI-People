@@ -6,33 +6,36 @@
 
 
 const
+  JsonApiStoreProcessor = core.processors.JsonApiStoreProcessor,
+  Processor = core.processors.Processor,
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
-  Processor = core.processors.Processor
+  LocalStrategy = require('passport-local').Strategy
 
 
-class UserExecutor extends core.processors.JsonApiStoreProcessor {
+class UserExecutor extends JsonApiStoreProcessor {
 
 
   /* ----- Construction ----- */
 
 
   /**
-   * Sets up user deserialisation.
+   * Sets up user authentication.
    * @inheritDoc
    */
   constructor(endpoint){
     super(endpoint)
 
     passport.serializeUser(
-      (user, done) => { UserExecutor.serializeUser(user, done) }
+      (user, done) => {
+        done(null, user.id)
+      }
     )
 
     passport.use(
       'login',
       new LocalStrategy(
         (username, password, done) => {
-          return this.authenticate(username, password, done)
+          return this.endpoint.store.authenticate(username, password, done)
         }
       )
     )
@@ -50,7 +53,7 @@ class UserExecutor extends core.processors.JsonApiStoreProcessor {
       super.routes(path),
       {
         [path + '/login']: {
-          'post': [Processor.PARSE_BODY, UserExecutor.LOGIN],
+          'post': [JsonApiStoreProcessor.PARSE_BODY, UserExecutor.LOGIN],
           'get': [UserExecutor.CURRENT]
         }
       },
@@ -90,36 +93,6 @@ class UserExecutor extends core.processors.JsonApiStoreProcessor {
     } else throw result
 
     return false
-  }
-
-
-  /* ----- Authentication ----- */
-
-
-  /**
-   * Authenticates a username and password combination.
-   * @param {String} username Uniquely identifying username to check.
-   * @param {String} password Password associated with the username to check.
-   * @param {Function} done   Callback function upon competion.
-   */
-  authenticate(username, password, done){
-
-    var
-      user = this.endpoint.store.read(
-        {},
-        {username: username },
-        {process: false}
-      ).data.shift()
-
-    switch(true){
-      case !user:
-        return done(UserExecutor.INVALID_ACCOUNT, false)
-      case core.stores.Store.HASHER.verify(password, user.password):
-        this.endpoint.store.process([user], 'committed')
-        return done(null, user)
-      default:
-      return done(UserExecutor.INVALID_CREDENTIALS, false)
-    }
   }
 }
 
@@ -191,30 +164,11 @@ UserExecutor.CURRENT = (req, res, next) => {
   next()
 }
 
-/**
- * Serializes a user into the session.
- * @param {Obect} user    User to serialise.
- * @param {Function} done Callback function upon completion.
- */
-UserExecutor.serializeUser = (user, done) => {
-  done(null, user.id)
-}
-
 
 /* ----- Static Response types ----- */
 
 
-UserExecutor.INVALID_ACCOUNT = {
-  errors: [{title: "Invalid account"}],
-  status: 401,
-  expose: true
-}
 UserExecutor.INVALID_CREDENTIALS = {
-  error: [{title: "Invalid credentials"}],
-  status: 401,
-  expose: true
-}
-UserExecutor.CURRENT_CREDENTIALS = {
   error: [{title: "Invalid credentials"}],
   status: 401,
   expose: true

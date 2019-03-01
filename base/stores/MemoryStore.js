@@ -32,9 +32,9 @@ class MemoryStore extends Store {
   /**
    * @inheritDoc
    */
-  create(user, entities){
+  create(user, entities, validated = false){
 
-    this.validate(entities)
+    if (!validated) this.validate(entities)
 
     entities.forEach(
       (entity) => {
@@ -44,19 +44,15 @@ class MemoryStore extends Store {
     )
     entities = utility.clone(entities)
 
-    this.process(entities, 'committed')
-
     return utility.response(Store.CREATED, entities)
   }
 
   /**
    * @inheritDoc
    */
-  read(user, criteria, options = {}){
+  read(user, criteria, fields = false){
 
     var
-      fields = options.fields || false,
-      process = options.process != undefined ? options.process : true,
       matches = utility.clone(
         this.cache.filter(
           (element) => {
@@ -78,23 +74,31 @@ class MemoryStore extends Store {
         }
     )
 
-    if (process) this.process(matches, 'retrieved')
-
     return utility.response(Store.SUCCESS, matches)
   }
 
   /**
    * @inheritDoc
    */
-  write(user, entities){
+  write(user, criteria, entities, validated = false){
 
-    this.validate(entities)
+    if (!validated) this.validate(entities)
 
-    entities.forEach(
-      (entity) => this.cache[entity.id] = entity
-    )
-
-    this.process(entities, 'committed')
+    if (criteria) {
+      this.read(user, criteria).data.forEach(
+        (entity) => {
+          Object.assign(this.cache[entity.id], entity, {id: entity.id})
+          entity = utility.clone(this.cache[entity.id])
+        }
+      )
+    } else {
+      entities.forEach(
+        (entity) => {
+          Object.assign(this.cache[entity.id], entity)
+          entity = utility.clone(this.cache[entity.id])
+        }
+      )
+    }
 
     return utility.response(Store.SUCCESS, entities)
   }
@@ -102,25 +106,30 @@ class MemoryStore extends Store {
   /**
    * @inheritDoc
    */
-  update(user, criteria, entities){
+  update(user, criteria, entities, validated = false){
 
     var
       toUpdate = this.cache.filter(
         (element) => {
           return MemoryStore.matches(element, criteria)
         }
-      ),
-      updated = []
+      )
 
     if (toUpdate.length == 0) throw Store.NOT_FOUND
+    if (!validated) this.validatePartial(entities)
 
-    this.validatePartial(entities)
-    toUpdate.forEach((element) => Object.assign(element, entities[0]))
-    var entities = utility.clone(toUpdate)
+    toUpdate.forEach(
+      (element) => this.schema.mutable
+        ? this.schema.mutable.forEach(
+            (propName) => {
+              if (element[propName] != undefined)
+                element[propName] = entities[0][propName]
+            }
+          )
+        : Object.assign(element, entities[0], {id: element.id})
+    )
 
-    this.process(entities, 'committed')
-
-    return utility.response(Store.SUCCESS, entities)
+    return utility.response(Store.SUCCESS, utility.clone(toUpdate))
   }
 
   /**
@@ -133,16 +142,16 @@ class MemoryStore extends Store {
       deleted = []
 
     while(toDelete.length){
+
       var
         current = toDelete.pop(),
         index = this.cache.map((e) => {return e.id} ).indexOf(current.id)
-      if (index != -1) {
+
+        if (index != -1) {
         this.cache.splice(index, 1)
         deleted.push(current)
       }
     }
-
-    this.process(deleted, 'deleted')
 
     return utility.response(Store.SUCCESS, deleted)
   }
@@ -159,6 +168,7 @@ class MemoryStore extends Store {
  * @return {boolean}         true if matching, false if not.
  */
 MemoryStore.matches = (element, criteria) => {
+
   for(let property in criteria){
     if (typeof criteria[property] == 'object'){
       if (!MemoryStore.matches(element[property], criteria[property]))
@@ -167,6 +177,7 @@ MemoryStore.matches = (element, criteria) => {
       if (element[property] != criteria[property]) return false
     }
   }
+
   return true
 }
 
