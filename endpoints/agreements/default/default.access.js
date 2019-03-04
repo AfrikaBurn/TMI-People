@@ -6,7 +6,6 @@
 
 
 const
-  Processor = core.processors.Processor,
   AccessProcessor = core.processors.AccessProcessor
 
 

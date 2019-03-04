@@ -36,12 +36,12 @@ class UserPosition extends core.processors.JsonApiUniformProcessor {
         user.position.on[index] = {
           owner: user.id == target.id || user.is.administrator,
           member: user.positions.member.filter(
+            (groupId) => target.positions.member && target.positions.member.indexOf(groupId) >= 0
+          ).length > 0,
+          moderator: user.positions.moderator && user.positions.moderator.filter(
             (groupId) => target.positions.member.indexOf(groupId) >= 0
           ).length > 0,
-          moderator: user.positions.moderator.filter(
-            (groupId) => target.positions.member.indexOf(groupId) >= 0
-          ).length > 0,
-          administrator: user.positions.administrator.filter(
+          administrator: user.positions.administrator && user.positions.administrator.filter(
             (groupId) => target.positions.member.indexOf(groupId) >= 0
           ).length > 0
         }

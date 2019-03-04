@@ -1,6 +1,6 @@
 /**
  * @file agreement.execute.js
- * Contains profile executor.
+ * Profile executor.
  */
 "use strict"
 

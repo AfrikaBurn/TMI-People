@@ -1,6 +1,6 @@
 /**
  * @file agreement.position.js
- * Resource positioning processor.
+ * Agreement positioning processor.
  */
 "use strict"
 

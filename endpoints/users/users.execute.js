@@ -1,6 +1,6 @@
 /**
  * @file UserExecutor.js
- * A basic processor template.
+ * User executor.
  */
 "use strict"
 

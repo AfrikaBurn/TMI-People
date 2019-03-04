@@ -1,6 +1,6 @@
 /**
  * @file groups.position.js
- * A basic processor template.
+ * Groups position processor.
  */
 "use strict"
 

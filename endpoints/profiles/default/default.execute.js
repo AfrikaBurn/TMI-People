@@ -1,6 +1,6 @@
 /**
  * @file DefaultProfileExecutor.js
- * A basic processor template.
+ * Default Profile executor.
  */
 "use strict"
 

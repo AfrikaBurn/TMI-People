@@ -1,6 +1,6 @@
 /**
  * @file posts.load.js
- * Post loading.
+ * Loads target posts.
  */
 "use strict"
 

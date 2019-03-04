@@ -1,6 +1,6 @@
 /**
  * @file PostStore.js
- * User Store.
+ * Default post store.
  */
 "use strict"
 

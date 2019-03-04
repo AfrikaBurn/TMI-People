@@ -1,6 +1,6 @@
 /**
  * @file DefaultPostExecutor.js
- * A basic processor template.
+ * Default Post Executor.
  */
 "use strict"
 

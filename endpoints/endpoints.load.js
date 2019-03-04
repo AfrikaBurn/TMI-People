@@ -1,6 +1,6 @@
 /**
  * @file endpoints.load.js
- * Session retrieval.
+ * Retrieves session and assigns user system roles.
  */
 "use strict"
 

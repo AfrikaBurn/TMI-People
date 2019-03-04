@@ -1,6 +1,6 @@
 /**
  * @file agreement.store.js
- * User Store.
+ * Agreement Store.
  */
 "use strict"
 

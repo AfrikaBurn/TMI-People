@@ -1,6 +1,6 @@
 /**
  * @file users.load.js
- * User loading.
+ * Loads target users.
  */
 "use strict"
 
@@ -21,6 +21,26 @@ class UserLoader extends core.processors.JsonApiProcessor{
           core.processors.Processor.PARSE_QUERY,
           (req, res, next) => {
             this.loadTargetUsers(req)
+            next()
+          }
+        ]
+      },
+
+      [path + '/login']: {
+        'get|post' : [
+          (req, res, next) => {
+            req.target = req.target || {}
+            req.target.users = [req.user]
+            next()
+          }
+        ]
+      },
+
+      [path + '/logout']: {
+        'get|post' : [
+          (req, res, next) => {
+            req.target = req.target || {}
+            req.target.users = [req.user]
             next()
           }
         ]

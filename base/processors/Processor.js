@@ -108,10 +108,6 @@ class Processor {
       }
     )
   }
-
-  attachMethod(){
-
-  }
 }
 
 

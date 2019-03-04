@@ -1,6 +1,6 @@
 /**
  * @file groups.store.js
- * User Store.
+ * Group Store.
  */
 "use strict"
 
@@ -9,7 +9,7 @@ const
   Store = core.stores.MemoryStore
 
 
-class UserStore extends Store {}
+class GroupStore extends Store {}
 
 
-module.exports = UserStore
+module.exports = GroupStore

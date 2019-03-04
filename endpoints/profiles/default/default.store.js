@@ -1,6 +1,6 @@
 /**
  * @file ProfileStore.js
- * User Store.
+ * Default profile Store.
  */
 "use strict"
 

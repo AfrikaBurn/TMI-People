@@ -1,32 +1,11 @@
 /**
  * @file groups.load.js
- * Group loading.
+ * Target group loading.
  */
 "use strict"
 
 
-const
-  passport = require('passport'),
-  expressSession = require('express-session'),
-  Processor = core.processors.Processor
-
-
 class GroupLoader extends core.processors.JsonApiUniformProcessor {
-
-
-  /* ----- Routing ----- */
-
-
-  // /**
-  //  * @inheritDoc
-  //  */
-  // routes(path){
-  //   return {
-  //     [path]: {
-  //       'get': [Processor.PARSE_QUERY]
-  //     }
-  //   }
-  // }
 
 
   /* ----- Method responders ----- */

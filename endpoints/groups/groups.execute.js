@@ -1,6 +1,6 @@
 /**
  * @file GroupExecutor.js
- * A basic processor template.
+ * Group executor.
  */
 "use strict"
 

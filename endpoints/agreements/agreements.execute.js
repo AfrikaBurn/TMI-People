@@ -1,6 +1,6 @@
 /**
  * @file agreement.execute.js
- * A basic processor template.
+ * Agrgeement executor.
  */
 "use strict"
 

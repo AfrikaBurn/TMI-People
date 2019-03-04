@@ -1,6 +1,6 @@
 /**
  * @file groups.install.js
- * User endpoint installer.
+ * Group endpoint installer.
  */
 "use strict"
 

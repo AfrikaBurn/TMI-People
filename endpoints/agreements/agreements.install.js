@@ -1,6 +1,6 @@
 /**
  * @file agreements.installer.js
- * User endpoint installer.
+ * Agreement endpoint installer.
  */
 "use strict"
 

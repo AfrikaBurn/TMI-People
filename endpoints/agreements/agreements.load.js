@@ -1,6 +1,6 @@
 /**
  * @file agreements.load.js
- * Agreement loading.
+ * Target agreement loading.
  */
 "use strict"
 
