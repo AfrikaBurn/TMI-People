@@ -6,13 +6,13 @@
 
 
 const
-  JsonApiStoreProcessor = core.processors.JsonApiStoreProcessor,
+  JsonApiProcessor = core.processors.JsonApiProcessor,
   Processor = core.processors.Processor,
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy
 
 
-class UserExecutor extends JsonApiStoreProcessor {
+class UserExecutor extends core.processors.JsonApiStoreProcessor {
 
 
   /* ----- Construction ----- */
@@ -53,7 +53,7 @@ class UserExecutor extends JsonApiStoreProcessor {
       super.routes(path),
       {
         [path + '/login']: {
-          'post': [JsonApiStoreProcessor.PARSE_BODY, UserExecutor.LOGIN],
+          'post': [JsonApiProcessor.PARSE_BODY, UserExecutor.LOGIN],
           'get': [UserExecutor.CURRENT]
         }
       },
@@ -169,7 +169,7 @@ UserExecutor.CURRENT = (req, res, next) => {
 
 
 UserExecutor.INVALID_CREDENTIALS = {
-  error: [{title: "Invalid credentials"}],
+  error: "Invalid credentials",
   status: 401,
   expose: true
 }

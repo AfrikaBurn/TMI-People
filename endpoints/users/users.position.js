@@ -11,7 +11,7 @@ class UserPosition extends core.processors.JsonApiUniformProcessor {
    * Establish user/user positionality.
    * @inheritDoc
    */
-  position(req, res){
+  process(req, res){
 
     var
       user = req.user,

@@ -81,6 +81,12 @@ class JsonApiProcessor extends RestProcessor {
             res.data = this.delete(req, res)
             next()
           }
+        ],
+
+        'get|put|patch|delete':[
+          (req, res, next) => {
+            JsonApiProcessor.FORMAT_RESPONSE(req, res, this.endpoint.name, next)
+          }
         ]
       }
     }
@@ -119,6 +125,8 @@ JsonApiProcessor.FORMAT_RESPONSE = (req, res, name, next) => {
 
 JsonApiProcessor.FORMAT_REQUEST = (req, res, next) => {
   if (req.body) {
+
+    if (!req.body.data) req.body.data = req.body
 
     if (req.body.data && req.body.data.length == undefined) req.body.data = [req.body.data]
 
