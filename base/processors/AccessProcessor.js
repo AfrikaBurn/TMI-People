@@ -17,7 +17,7 @@ class AccessProcessor extends Processor {}
 
 AccessProcessor.GRANT = (req) => {
   if (req.header('Content-Type') == 'application/json;access') {
-    throw Processor.SUCCESS
+    throw utility.clone(Processor.SUCCESS)
   }
 }
 

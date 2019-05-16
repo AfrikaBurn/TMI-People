@@ -5,11 +5,7 @@
 "use strict"
 
 
-const
-  Processor = core.processors.Processor
-
-
-class GroupExecutor extends core.processors.RestStoreProcessor {}
+class GroupExecutor extends core.processors.JsonApiStoreProcessor {}
 
 
 module.exports = GroupExecutor

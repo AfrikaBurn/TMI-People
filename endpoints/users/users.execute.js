@@ -146,7 +146,7 @@ UserExecutor.LOGOUT = (req, res, next) => {
       () => {
         req.logout()
         res.clearCookie('tmi.mobi.session', {path: "/"})
-        res.data = utility.response(Processor.SUCCESS)
+        res.build = utility.response(Processor.SUCCESS)
         next()
       }
     )
@@ -160,7 +160,7 @@ UserExecutor.LOGOUT = (req, res, next) => {
  * @param  {Function} next Next middleware
  */
 UserExecutor.CURRENT = (req, res, next) => {
-  res.data = utility.response(Processor.SUCCESS, req.user)
+  res.build = utility.response(Processor.SUCCESS, req.user)
   next()
 }
 

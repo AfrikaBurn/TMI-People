@@ -95,10 +95,8 @@ class Processor {
                 router[subMethod](route,
                   (req, res, next) => {
                     var response = this[subMethod](req, res, next)
-                    if (response !== false) {
-                      res.data = response
-                      next()
-                    }
+                    if (response) res.build = response
+                    if (response !== false) next()
                   }
                 )
               }

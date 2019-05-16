@@ -19,6 +19,57 @@ class JsonApiProcessor extends RestProcessor {
   routes(path){
     return {
 
+      [path + '/:id']: {
+
+        'get': [
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_ID,
+
+          (req, res, next) => {
+            var response = this.get(req, res)
+            if (response) res.build = response
+            if (response !== false) next()
+          }
+        ],
+
+        'put':[
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.PARSE_ID,
+          JsonApiProcessor.FORMAT_REQUEST,
+
+          (req, res, next) => {
+            var response = this.put(req, res)
+            if (response) res.build = response
+            if (response !== false) next()
+          }
+        ],
+
+        'patch':[
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_BODY,
+          JsonApiProcessor.PARSE_ID,
+          JsonApiProcessor.FORMAT_REQUEST,
+
+          (req, res, next) => {
+            var response = this.patch(req, res)
+            if (response) res.build = response
+            if (response !== false) next()
+          }
+        ],
+
+        'delete': [
+          Processor.PARSE_QUERY,
+          JsonApiProcessor.PARSE_ID,
+
+          (req, res, next) => {
+            var response = this.delete(req, res)
+            if (response) res.build = response
+            if (response !== false) next()
+          }
+        ],
+      },
+
       [path]: {
         'post':   [
           JsonApiProcessor.PARSE_BODY,
@@ -30,60 +81,7 @@ class JsonApiProcessor extends RestProcessor {
           JsonApiProcessor.PARSE_BODY,
           JsonApiProcessor.FORMAT_REQUEST
         ],
-        'get|post|put|patch|delete' :[
-          (req, res, next) => {
-            JsonApiProcessor.FORMAT_RESPONSE(req, res, this.endpoint.name, next)
-          }
-        ],
-      },
-
-      [path + '/:id']: {
-
-        'get': [
-          Processor.PARSE_QUERY,
-          JsonApiProcessor.PARSE_ID,
-
-          (req, res, next) => {
-            res.data = this.get(req, res)
-            next()
-          }
-        ],
-
-        'put':[
-          Processor.PARSE_QUERY,
-          JsonApiProcessor.PARSE_BODY,
-          JsonApiProcessor.PARSE_ID,
-          JsonApiProcessor.FORMAT_REQUEST,
-
-          (req, res, next) => {
-            res.data = this.put(req, res)
-            next()
-          }
-        ],
-
-        'patch':[
-          Processor.PARSE_QUERY,
-          JsonApiProcessor.PARSE_BODY,
-          JsonApiProcessor.PARSE_ID,
-          JsonApiProcessor.FORMAT_REQUEST,
-
-          (req, res, next) => {
-            res.data = this.patch(req, res)
-            next()
-          }
-        ],
-
-        'delete': [
-          Processor.PARSE_QUERY,
-          JsonApiProcessor.PARSE_ID,
-
-          (req, res, next) => {
-            res.data = this.delete(req, res)
-            next()
-          }
-        ],
-
-        'get|put|patch|delete':[
+        'use':[
           (req, res, next) => {
             JsonApiProcessor.FORMAT_RESPONSE(req, res, this.endpoint.name, next)
           }
@@ -111,9 +109,9 @@ JsonApiProcessor.PARSE_ID = (req, res, next) => {
 }
 
 JsonApiProcessor.FORMAT_RESPONSE = (req, res, name, next) => {
-  if (res.data && res.data.data && res.data.data instanceof Array){
-    res.data.data.forEach(
-      (entity, index) => res.data.data[index] = {
+  if (res.build && res.build.data && res.build.data instanceof Array){
+    res.build.data.forEach(
+      (entity, index) => res.build.data[index] = {
         type: name.replace(/s$/, ''),
         id: entity.id,
         attributes: entity

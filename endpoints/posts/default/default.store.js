@@ -5,8 +5,4 @@
 "use strict"
 
 
-const
-  Store = core.stores.MemoryStore
-
-
-module.exports  = class PostStore extends Store {}
+module.exports = class DefaultPostStore extends core.stores.MemoryStore {}

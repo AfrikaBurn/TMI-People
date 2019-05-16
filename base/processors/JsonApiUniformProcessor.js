@@ -1,6 +1,6 @@
 /**
  * @file JsonApiUniformProcessor.js
- * JSON API position processor.
+ * JSON API uniform processor.
  */
 "use strict"
 
@@ -32,7 +32,7 @@ class JsonApiUniformProcessor extends RestUniformProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.process(req, res)
+              res.build = this.process(req, res)
               next()
             }
           ],
@@ -43,7 +43,7 @@ class JsonApiUniformProcessor extends RestUniformProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.process(req, res)
+              res.build = this.process(req, res)
               next()
             }
           ]

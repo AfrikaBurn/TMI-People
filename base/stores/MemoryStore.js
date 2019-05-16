@@ -86,16 +86,20 @@ class MemoryStore extends Store {
 
     if (criteria) {
       this.read(user, criteria).data.forEach(
-        (entity) => {
-          Object.assign(this.cache[entity.id], entity, {id: entity.id})
-          entity = utility.clone(this.cache[entity.id])
+        (stored, index) => {
+          Object.assign(this.cache[index], entity, {id: entity.id})
+          stored = utility.clone(this.cache[index])
         }
       )
     } else {
       entities.forEach(
         (entity) => {
-          Object.assign(this.cache[entity.id], entity)
-          entity = utility.clone(this.cache[entity.id])
+          this.read(user, {id: entity.id}).data.forEach(
+            (stored, index) => {
+              Object.assign(this.cache[index], entity, {id: entity.id})
+              stored = utility.clone(this.cache[index])
+            }
+          )
         }
       )
     }

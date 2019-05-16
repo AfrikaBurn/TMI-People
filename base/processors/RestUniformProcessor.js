@@ -1,6 +1,6 @@
 /**
- * @file agreement.position.js
- * Simple position processor.
+ * @file RestUniformProcessor.js
+ * Simple uniform processor.
  */
 "use strict"
 
@@ -16,7 +16,7 @@ class RestUniformProcessor extends UniformProcessor {
 
 
   /**
-   * Adds middleware to load user and target user positionality.
+   * Adds middleware to process all request methods in the same way.
    * @inheritDoc
    */
   routes(path){

@@ -27,7 +27,7 @@ class JsonApiAccessProcessor extends RestAccessProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.get(req, res)
+              res.build = this.get(req, res)
               next()
             }
           ],
@@ -38,7 +38,7 @@ class JsonApiAccessProcessor extends RestAccessProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.put(req, res)
+              res.build = this.put(req, res)
               next()
             }
           ],
@@ -49,7 +49,7 @@ class JsonApiAccessProcessor extends RestAccessProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.patch(req, res)
+              res.build = this.patch(req, res)
               next()
             }
           ],
@@ -59,7 +59,7 @@ class JsonApiAccessProcessor extends RestAccessProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.data = this.delete(req, res)
+              res.build = this.delete(req, res)
               next()
             }
           ]

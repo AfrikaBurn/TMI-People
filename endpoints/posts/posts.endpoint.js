@@ -5,7 +5,4 @@
 "use strict"
 
 
-class PostEndpoint extends core.endpoints.MetaEndpoint {}
-
-
-module.exports = PostEndpoint
+module.exports = class PostEndpoint extends core.endpoints.MetaEndpoint {}

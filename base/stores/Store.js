@@ -68,12 +68,11 @@ class Store {
    * Read entities matching the provided criteria.
    * @param  {object} user      User reading the entities.
    * @param  {object} criteria  Partial entity to match.
-   * @param  {object} options   Options to apply:
-   *                            fields: an optional array of field names to
-   *                                    fetch.
+   * @param  {object} fields    an optional array of field names to
+   *                            fetch.
    * @return {array} Array of matching entities.
    */
-  read(user, criteria, options = {}){
+  read(user, criteria, fields){
     var entities = criteria
     return utility.response(Store.SUCCESS, entities)
   }
@@ -223,7 +222,6 @@ class Store {
 Store.SUCCESS = {status: 'Success', status: 200, expose: true}
 Store.CREATED = {status: 'Entities created', status: 201, expose: true}
 Store.INVALID = {error: 'Failed validation', status: 422, expose: true}
-Store.PROCESSOR_NOT_FOUND = {error: 'Schema field processor not found!', status: 500}
 Store.NOT_FOUND = {status: 'Entity not found', status: 404, expose: true}
 
 

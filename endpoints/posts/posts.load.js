@@ -43,10 +43,7 @@ class PostLoader extends core.processors.Processor{
     req.target.posts = this.endpoint.store.read(
       req.user,
       req.query,
-      {
-        process: false,
-        fields: ['id', 'owner']
-      }
+      ['id', 'owner']
     ).data
   }
 }

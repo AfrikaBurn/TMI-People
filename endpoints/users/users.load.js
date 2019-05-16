@@ -5,7 +5,7 @@
 "use strict"
 
 
-class UserLoader extends core.processors.JsonApiProcessor{
+class UserLoader extends core.processors.JsonApiUniformProcessor{
 
 
   /* ----- Routing ----- */
@@ -15,41 +15,39 @@ class UserLoader extends core.processors.JsonApiProcessor{
    * @inheritDoc
    */
   routes(path){
-    return {
-      [path]: {
-        'get|post|put|patch|delete': [
-          core.processors.Processor.PARSE_QUERY,
-          (req, res, next) => {
-            this.loadTargetUsers(req)
-            next()
-          }
-        ]
-      },
+    return Object.assign(
+      super.routes(path),
+      {
+        [path + '/login']: {
+          'get|post' : [
+            (req, res, next) => {
+              req.target = req.target || {}
+              req.target.users = [req.user]
+              next()
+            }
+          ]
+        },
 
-      [path + '/login']: {
-        'get|post' : [
-          (req, res, next) => {
-            req.target = req.target || {}
-            req.target.users = [req.user]
-            next()
-          }
-        ]
-      },
-
-      [path + '/logout']: {
-        'get|post' : [
-          (req, res, next) => {
-            req.target = req.target || {}
-            req.target.users = [req.user]
-            next()
-          }
-        ]
+        [path + '/logout']: {
+          'get|post' : [
+            (req, res, next) => {
+              req.target = req.target || {}
+              req.target.users = [req.user]
+              next()
+            }
+         ]
+        }
       }
-    }
+    )
   }
 
 
   /* ----- Utility ----- */
+
+
+  process(req, res){
+    this.loadTargetUsers(req)
+  }
 
 
   /**

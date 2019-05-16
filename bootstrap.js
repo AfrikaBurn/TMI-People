@@ -187,8 +187,8 @@ class Bootstrap {
    * @param  {Function} next Next middleware
    */
   handleResponse(req, res, next){
-    if (res.data){
-      bootstrap.respond(req, res, res.data.status, res.data)
+    if (res.build){
+      bootstrap.respond(req, res, res.build.status, res.build)
     } else next()
   }
 
