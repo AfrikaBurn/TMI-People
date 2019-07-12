@@ -52,7 +52,7 @@ class AgreementInstaller extends core.installers.Installer{
               data:[
                 {
                   owner: {type: 'group', id: 0},
-                  name: machineName,
+                  name: name,
                   schema: require(
                     './install/' + machineName + '.agreement.schema.json'
                   )

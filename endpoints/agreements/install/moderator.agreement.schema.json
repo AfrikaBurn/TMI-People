@@ -5,7 +5,7 @@
   "type": "object",
   "title": "Moderator Agreement",
 
-  "allOf":[
+  "allOf": [
     {"$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"}
   ]
 }

@@ -6,7 +6,7 @@
   "title": "Profile Base",
 
   "definitions": {
-    "uei": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"}
+    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"}
   },
 
   "properties":{

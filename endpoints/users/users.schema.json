@@ -27,11 +27,13 @@
     },
 
     "email": {
-      "title": "Email",
-      "Description": "Email address to retrieve login details.",
-      "type": "string",
-      "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}",
-      "errorMessage": "invalid email address"
+      "allOf": [
+        {"$ref": "http://tmi.mobi/root.schema.json#/definitions/email"},
+        {
+          "title": "Email",
+          "Description": "Email address to retrieve login details."
+        }
+      ]
     },
 
     "password": {

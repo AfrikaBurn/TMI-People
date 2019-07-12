@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://tmi.mobi/profile/demographics/demographics.profile.schema.json",
+
+  "type": "object",
+  "title": "Demographics",
+
+  "allOf": [
+    {"$ref": "http://tmi.mobi/profile/base.profile.schema.json"},
+    {
+      "properties": {
+
+        "identification": {
+          "title": "Passport or South African ID",
+          "type": "string",
+          "pattern": "^[a-zA-Z \\-0-9]+$",
+          "errorMessage": "should only be numbers, letters, spaces and -"
+        },
+
+        "firstName": {
+          "title": "First name",
+          "type": "string",
+          "pattern": "^[a-zA-ZÀ-ÿ]{0,100}$",
+          "errorMessage": "should only be up to 50 letters"
+        },
+
+        "lastName": {
+          "title": "Last name",
+          "type": "string",
+          "pattern": "^[a-zA-ZÀ-ÿ]{0,100}$",
+          "errorMessage": "should only be up to 50 letters"
+        },
+
+        "countryCode": {
+          "title": "Country",
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "errorMessage": "invalid country code"
+        },
+
+        "dateOfBirth": {
+          "title": "Date of birth",
+          "type": "integer"
+        },
+
+        "gender": {
+          "title": "Gender",
+          "type": "string",
+          "enum": ["Woman", "Man", "Non-binary", "Other"]
+        }
+      }
+    }
+  ]
+}

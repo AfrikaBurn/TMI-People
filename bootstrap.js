@@ -115,17 +115,22 @@ class Bootstrap {
 
     this.root = false
 
+    var Endpoint = null
+
     try{
-      var Endpoint = require(bootstrap.endpointRoot + 'endpoint.js')
+      Endpoint = require(bootstrap.endpointRoot + '/endpoints.endpoint.js')
+    } catch (e) {
+      Endpoint = core.endpoints.Endpoint
+    }
+
+    try{
       this.root = new Endpoint('endpoints', this, '/', bootstrap.endpointRoot)
     } catch (e) {
-      if (e.code == 'MODULE_NOT_FOUND'){
-        this.root = new core.endpoints.Endpoint(
-          'endpoints', this, '/', bootstrap.endpointRoot
+      if (e.errors){
+        e.errors.forEach(
+          (error) => utility.log('\x1b[31m' + error)
         )
-      } else {
-        console.log(e)
-      }
+      } else utility.log('\x1b[31m' + e)
     }
   }
 
@@ -361,13 +366,23 @@ global.utility = {
       time = options.time
         ? '\x1b[0m' + new Date(Date.now()).toLocaleString() + ' '
         : '',
-      padding = options.indent ? ' '.repeat(options.indent) : ''
+      padding = options.indent ? ' '.repeat(options.indent) : '',
+      logMessage = message
 
-    if(typeof message == 'string'){
-      if (bootstrap.options.verbose && options.verbose || !options.verbose){
-        console.log(time + padding + message.replace(/\n/g, '\n' + padding))
-      }
-    } else console.log(message.message, message.stack)
+    switch (true){
+      case typeof message == 'string':
+        logMessage = message.replace(/\n/g, '\n' + padding)
+        break
+      case message.message && message.stack:
+        logMessage =
+          message.message.replace(/\n/g, '\n' + padding) + '\n' + padding +
+          message.stack.replace(/\n/g, '\n' + padding)
+        break
+    }
+
+    if (bootstrap.options.verbose && options.verbose || !options.verbose){
+      console.log(time + padding + logMessage)
+    }
   }
 }
 

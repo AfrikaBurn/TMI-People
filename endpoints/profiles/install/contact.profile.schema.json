@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://tmi.mobi/profile/contact/contact.profile.schema.json",
+
+  "type": "object",
+  "title": "Contact details",
+
+  "allOf": [
+    {"$ref": "http://tmi.mobi/profile/base.profile.schema.json"},
+    {
+      "properties": {
+
+        "secondaryEmail": {
+          "allOf": [
+            {"$ref": "http://tmi.mobi/root.schema.json#/definitions/email"},
+            {
+              "title": "Secondary Email",
+              "Description": "Secondary Email address."
+            }
+          ]
+        },
+
+        "mobile": {
+          "title": "Mobile number",
+          "type": "string",
+          "pattern": "/(?:(?:\\+?1\\s*(?:[.-]\\s*)?)?(?:(\\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\\s*(?:[.-]\\s*)?)([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\\s*(?:[.-]\\s*)?([0-9]{4})/",
+          "errorMessage": "invalid phone number"
+        },
+
+        "websites": {
+          "title": "Websites",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "errorMessage": "must be less than 200 characters"
+          }
+        }
+      }
+    }
+  ]
+}

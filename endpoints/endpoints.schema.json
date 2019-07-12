@@ -17,6 +17,14 @@
       "errorMessage": "should only be up to 100 words"
     },
 
+    "email": {
+      "title": "Email",
+      "Description": "Email address.",
+      "type": "string",
+      "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}",
+      "errorMessage": "invalid email address"
+    },
+
     "privacy": {
       "type": "string",
       "enum": ["public", "partial", "private"]

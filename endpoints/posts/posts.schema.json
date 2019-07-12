@@ -6,7 +6,7 @@
 
     "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
 
-    "Name": {
+    "name": {
       "title": "Name",
       "Description": "Name of the post type.",
       "type": "string",
