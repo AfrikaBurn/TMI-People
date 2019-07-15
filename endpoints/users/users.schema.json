@@ -6,16 +6,7 @@
   "title": "User",
   "properties": {
 
-    "id":  {
-      "allOf": [
-        {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
-        {
-          "title": "User ID",
-          "description": "Unique User Identifier"
-        }
-      ],
-      "isUniqueKey": true
-    },
+    "id":  {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
 
     "username": {
       "title": "Username",

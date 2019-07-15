@@ -1,5 +1,5 @@
 /**
- * @file PostStore.js
+ * @file default.store.js
  * Default post store.
  */
 "use strict"

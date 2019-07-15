@@ -1,6 +1,6 @@
 /**
  * @file posts.position.js
- * Post positionality processor.
+ * Post type positionality processor.
  */
 "use strict"
 
@@ -9,14 +9,14 @@ const
   Processor = core.processors.Processor
 
 
-class PostPosition extends core.processors.JsonApiUniformProcessor {
+class PostTypePosition extends core.processors.JsonApiUniformProcessor {
 
 
-/**
+  /**
    * Establish user/post positionality.
    * @inheritDoc
    */
-  position(req, res){
+  process(req, res){
 
     var
       user = req.user
@@ -26,12 +26,12 @@ class PostPosition extends core.processors.JsonApiUniformProcessor {
       on: []
     }
 
-    req.target.post.forEach(
-      (agreement, index) => {
+    req.target.posts.forEach(
+      (post, index) => {
         user.position.on[index] = {
-          owner: agreement.owner.type === 'user'
-            ? agreement.owner.id === user.id
-            : user.positions.administrator.indexOf(agreement.owner.id) >= 0
+          owner: post.owner.type === 'user'
+            ? post.owner.id === user.id
+            : user.positions.administrator.indexOf(post.owner.id) >= 0
         }
 
         user.position.owner &= user.position.on[index].owner
@@ -43,4 +43,4 @@ class PostPosition extends core.processors.JsonApiUniformProcessor {
 }
 
 
-module.exports = PostPosition
+module.exports = PostTypePosition

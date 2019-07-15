@@ -6,8 +6,32 @@
 
     "id": {
       "title": "Identifier",
+      "type": "number"
+    },
+
+    "user": {
+      "title": "Identifier",
       "type": "number",
       "minimum": -1
+    },
+
+    "group": {
+      "title": "Identifier",
+      "type": "number",
+      "minimum": 0
+    },
+
+    "participant": {
+      "type": "object",
+      "description": "User or Group reference",
+      "properties": {
+        "id": {"$ref": "#/definitions/id"},
+        "type":{
+          "type": "string",
+          "enum": ["group", "user"],
+          "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."
+        }
+      }
     },
 
     "description": {
@@ -36,19 +60,6 @@
       "properties": {
         "visibility": {"$ref": "#/definitions/privacy"},
         "accessibilty": {"$ref": "#/definitions/privacy"}
-      }
-    },
-
-    "participant": {
-      "type": "object",
-      "description": "User or Group reference",
-      "properties": {
-        "id": {"$ref": "#/definitions/id"},
-        "type":{
-          "type": "string",
-          "enum": ["group", "user"],
-          "errorMessage": "Inappropriate reference type. Must be 'group' or 'user'."
-        }
       }
     }
   }

@@ -15,7 +15,8 @@
       "isUniqueKey": true
     },
 
-    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+    "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/user"},
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/group"},
 
     "schema": {"type": "object"}
   },

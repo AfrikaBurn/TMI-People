@@ -65,9 +65,9 @@ class Bootstrap {
     }
 
     process.chdir(this.installRoot)
-    process.on('SIGINT',  () => { process.exit() })
+    process.on('SIGINT', () => { process.exit() })
     process.on('SIGTERM', () => { process.exit() })
-    process.on('exit',    () => { this.stop()    })
+    process.on('exit', () => { this.stop() })
   }
 
   /**
@@ -377,6 +377,9 @@ global.utility = {
         logMessage =
           message.message.replace(/\n/g, '\n' + padding) + '\n' + padding +
           message.stack.replace(/\n/g, '\n' + padding)
+        break
+      case message.error != undefined:
+        logMessage = message.error.replace(/\n/g, '\n' + padding) + '\n'
         break
     }
 

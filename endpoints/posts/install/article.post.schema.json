@@ -6,6 +6,17 @@
   "title": "Article Post",
 
   "allOf": [
-    {"$ref": "http://tmi.mobi/post/base.post.schema.json"}
+    {"$ref": "http://tmi.mobi/post/base.post.schema.json"},
+    {
+      "properties":{
+        "title": {
+          "title": "Title",
+          "Description": "Title of the post.",
+          "type": "string",
+          "pattern": "^(\\s?\\S+\\s?){1,20}$",
+          "errorMessage": "should only be 1 to 20 words"
+        }
+      }
+    }
   ]
 }

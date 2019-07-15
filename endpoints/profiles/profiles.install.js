@@ -47,17 +47,16 @@ class ProfileInstaller extends core.installers.Installer{
           this.endpoint.processors.execute.post(
             {
               user: { id: -1, is: { administrator: true }},
-              body: {
-                data: [
-                  {
-                    owner: {type: 'group', id: 0},
-                    name: name,
-                    schema: require(
-                      './install/' + machineName + '.profile.schema.json'
-                    )
-                  }
-                ]
-              }
+              body: [
+                {
+                  author: -1,
+                  owner: 0,
+                  name: name,
+                  schema: require(
+                    './install/' + machineName + '.profile.schema.json'
+                  )
+                }
+              ]
             }
           )
 

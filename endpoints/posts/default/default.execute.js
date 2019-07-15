@@ -1,6 +1,6 @@
 /**
  * @file DefaultPostExecutor.js
- * Default Post Executor.
+ * Default post executor.
  */
 "use strict"
 

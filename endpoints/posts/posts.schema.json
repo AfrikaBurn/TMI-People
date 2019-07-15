@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://tmi.mobi/post/post.schema.json",
   "type": "object",
+
   "properties": {
 
     "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
@@ -15,10 +16,10 @@
       "isUniqueKey": true
     },
 
-    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+    "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/user"},
 
     "schema": {"type": "object"}
   },
 
-  "required": ["name", "owner", "schema"]
+  "required": ["name", "author", "schema"]
 }

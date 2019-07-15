@@ -29,9 +29,9 @@ class AgreementEndpoint extends core.endpoints.MetaEndpoint {
                   id: user.id,
                 }
               }
-            // Boil entities down to group ids only
+            // Boil entities down to promisee ids only
             ).data.reduce(
-              (groups, agreement) => groups.concat(agreement.promisee.id),
+              (promisees, agreement) => promisees.concat(agreement.promisee.id),
               []
             )
           }

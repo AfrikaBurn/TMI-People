@@ -11,7 +11,7 @@ class AgreementPosition extends core.processors.JsonApiUniformProcessor {
    * Establish user/agreement positionality.
    * @inheritDoc
    */
-  position(req, res){
+  process(req, res){
 
     var
       user = req.user

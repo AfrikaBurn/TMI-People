@@ -122,24 +122,26 @@ JsonApiProcessor.FORMAT_RESPONSE = (req, res, name, next) => {
 }
 
 JsonApiProcessor.FORMAT_REQUEST = (req, res, next) => {
-  if (req.body) {
 
-    if (!req.body.data) req.body.data = req.body
+  if (req.body && req.body.data) {
 
-    if (req.body.data && req.body.data.length == undefined) req.body.data = [req.body.data]
+    req.body = req.body.data
 
-    if (req.body.data instanceof Array){
-      req.body.data.forEach(
+    if (req.body.length == undefined) req.body = []
+
+    if (req.body instanceof Array){
+      req.body.forEach(
         (entity, index) => {
-          if (entity.attributes) req.body.data[index] = Object.assign(
+          if (entity.attributes) req.body[index] = Object.assign(
             {id: entity.id},
             entity.attributes
           )
         }
       )
     }
-    next()
   }
+
+  next()
 }
 
 

@@ -26,7 +26,7 @@ class JsonApiStoreProcessor extends JsonApiProcessor {
    * @inheritDoc
    */
   post(req, res) {
-    return this.endpoint.store.create(req.user, req.body.data)
+    return this.endpoint.store.create(req.user, req.body)
   }
 
   /**
@@ -34,7 +34,7 @@ class JsonApiStoreProcessor extends JsonApiProcessor {
    * @inheritDoc
    */
   put(req, res) {
-    return this.endpoint.store.write(req.user, req.query, req.body.data)
+    return this.endpoint.store.write(req.user, req.query, req.body)
   }
 
   /**
@@ -42,7 +42,7 @@ class JsonApiStoreProcessor extends JsonApiProcessor {
    * @inheritDoc
    */
   patch(req, res) {
-    return this.endpoint.store.update(req.user, req.query, req.body.data)
+    return this.endpoint.store.update(req.user, req.query, req.body)
   }
 
   /**

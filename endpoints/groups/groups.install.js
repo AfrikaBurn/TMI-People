@@ -42,7 +42,7 @@ class GroupInstaller extends core.installers.Installer{
             )
           }
         } catch(e) {
-          utility.log(e)
+          utility.log(e, {indent: 4})
           installed = false
         }
       }
@@ -57,28 +57,31 @@ class GroupInstaller extends core.installers.Installer{
 
 
 GroupInstaller.SYSTEM_COLLECTIVES = [
+
   {
     name: 'System',
     description: 'System operators of this tribe.',
+    exposure: {
+      visibility: 'private',
+      accessibility: 'private',
+    },
     status: 'active',
-    owner: {
-      type: 'user',
-      id: -1
-    }
   },
+
   {
     name: 'Participants',
     description: 'Tribe participation group.',
-    status: 'active',
-    owner: {
-      type: 'user',
-      id: -1
+    exposure: {
+      visibility: 'public',
+      accessibility: 'public',
     },
     delegate:{
       moderation: 0,
       administration: 0
-    }
+    },
+    status: 'active'
   }
+
 ]
 
 

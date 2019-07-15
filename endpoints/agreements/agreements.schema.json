@@ -7,6 +7,7 @@
 
     "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
 
+    "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/user"},
     "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
 
     "name": {
@@ -36,5 +37,5 @@
     "schema": {"type": "object"}
   },
 
-  "required": ["name", "owner", "schema"]
+  "required": ["name", "author", "owner", "schema"]
 }

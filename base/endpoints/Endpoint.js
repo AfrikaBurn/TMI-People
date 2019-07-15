@@ -75,7 +75,7 @@ class Endpoint {
       this.schema = this.schemaSource || require(
         this.getLoadName('schema.json')
       )
-      core.stores.Store.VALIDATOR.addSchema(this.schema, this.name)
+      core.stores.Store.VALIDATOR.addSchema(this.schema, this.lineage())
 
       utility.log(
         this.schemaSource
@@ -103,7 +103,7 @@ class Endpoint {
       var name = this.getLoadName('store.js')
 
       this.store = new (require(name))(
-        this.name,
+        this.lineage(),
         bootstrap.config.endpoints[this.url],
         this.schema
       )
@@ -302,6 +302,25 @@ class Endpoint {
       : typeof this.parent == 'Endpoint'
         ? this.parent.getStore()
         : false
+  }
+
+  /**
+   * Returns a string representtion of parentage
+   */
+  lineage(){
+
+    var
+      lineage = [],
+      current = this
+
+    while (current.parent instanceof Endpoint){
+      lineage.push(current.name)
+      current = current.parent
+    }
+
+    lineage.push('root')
+
+    return lineage.reverse().join('.')
   }
 }
 

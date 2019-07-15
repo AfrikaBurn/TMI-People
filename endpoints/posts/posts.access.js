@@ -1,6 +1,6 @@
 /**
  * @file posts.access.js
- * Post access processor.
+ * Post type access processor.
  */
 "use strict"
 
@@ -15,7 +15,7 @@ class PostAccess extends core.processors.JsonApiAccessProcessor {
    * @inheritDoc
    */
   get(req, res){
-    req.user.is.authenticated ||
+    req.user.is.administrator ||
     (req.user.is.anonymous && req.body.length <= 1)
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()
@@ -25,7 +25,7 @@ class PostAccess extends core.processors.JsonApiAccessProcessor {
    * @inheritDoc
    */
   post(req, res){
-    req.user.is.authenticated
+    req.user.is.administrator
       ? AccessProcessor.GRANT(req)
       : AccessProcessor.DENY()
   }

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://tmi.mobi/agreement/privacy/privacy.schema.json",
+
+  "type": "object",
+  "title": "Privacy Agreement",
+
+  "allOf": [
+    {"$ref": "http://tmi.mobi/agreement/base.agreement.schema.json"},
+    {
+      "properties" : {
+        "profile": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

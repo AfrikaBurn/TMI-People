@@ -46,7 +46,7 @@ class DefaultLoader extends core.processors.JsonApiProcessor{
   }
 
   /**
-   *
+   * Loads agreements targetted by the request
    * @param {object} req
    */
   loadTargetAgreements(req){
@@ -74,7 +74,7 @@ class DefaultLoader extends core.processors.JsonApiProcessor{
       (agreement, i) => {
         req.updates.agreements[i] = core.stores.Store.DIFF(
           agreement,
-          req.body.data[i],
+          req.body[i],
           ['mutable']
         )
       }

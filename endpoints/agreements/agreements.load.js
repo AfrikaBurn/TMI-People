@@ -5,7 +5,7 @@
 "use strict"
 
 
-class AgreementLoader extends core.processors.Processor{
+class AgreementLoader extends core.processors.JsonApiProcessor{
 
 
   /* ----- Routing ----- */
@@ -15,38 +15,74 @@ class AgreementLoader extends core.processors.Processor{
    * @inheritDoc
    */
   routes(path){
-    return {
-
-      '/': {
-        'use': [
-          (req, res, next) => {
-            this.endpoint.loadAgreedPositions(
-              [req.user],
-              ['administrator', 'moderator', 'member', 'guest']
-            )
-            next()
-          }
-        ],
-      },
-
-      [path]: {
-        'get|put|patch|delete': [
-          core.processors.Processor.PARSE_QUERY,
-          (req, res, next) => {
-
-            req.target = req.target || {}
-
-            req.target.agreements = this.endpoint.store.read(
-              req.user,
-              req.query,
-              ['id', 'owner']
-            ).data
-
-            next()
-          }
-        ]
+    return Object.assign(
+      super.routes(path),
+      {
+        '/': {
+          'use': [
+            (req, res, next) => {
+              this.endpoint.loadAgreedPositions(
+                [req.user],
+                ['administrator', 'moderator', 'member', 'guest']
+              )
+              next()
+            }
+          ],
+        }
       }
-    }
+    )
+  }
+
+  /**
+   * @inheritDoc
+   */
+  get(req, res){
+    this.loadTargetAgreements(req)
+  }
+
+  /**
+   * @inheritDoc
+   */
+  post(req, res){
+    req.target = req.target || {}
+    req.target.agreements = req.body
+  }
+
+  /**
+   * @inheritDoc
+   */
+  put(req, res){
+    this.loadTargetAgreements(req)
+  }
+
+  /**
+   * @inheritDoc
+   */
+  patch(req, res){
+    this.loadTargetAgreements(req)
+  }
+
+  /**
+   * @inheritDoc
+   */
+  delete(req, res){
+    this.loadTargetAgreements(req)
+  }
+
+  /**
+   * Loads agreements targetted by the request
+   * @param {object} req
+   */
+  loadTargetAgreements(req, res, next) {
+
+    req.target = req.target || {}
+
+    req.target.agreements = Object.keys(req.query) ? this.endpoint.store.read(
+      req.user,
+      req.query,
+      ['id', 'owner']
+    ).data : []
+
   }
 }
 

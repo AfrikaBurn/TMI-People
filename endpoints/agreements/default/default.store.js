@@ -5,11 +5,4 @@
 "use strict"
 
 
-const
-  MemoryStore = core.stores.MemoryStore
-
-
-class AgreementStore extends MemoryStore {}
-
-
-module.exports = AgreementStore
+module.exports = class DefaultAgreementStore extends core.stores.MemoryStore {}

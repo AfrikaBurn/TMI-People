@@ -34,6 +34,7 @@
       "isUniqueKey": true
     },
 
+    "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/user"},
     "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
 
     "status": {
@@ -89,11 +90,11 @@
       }
     },
 
-    "delegate": {
+    "defer": {
       "administration": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
       "moderation": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"}
     }
   },
 
-  "required": ["name", "description", "status"]
+  "required": ["name", "description", "exposure", "status"]
 }

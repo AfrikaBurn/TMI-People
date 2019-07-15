@@ -1,42 +1,17 @@
 /**
  * @file posts.load.js
- * Loads target posts.
+ * Loads target post types.
  */
 "use strict"
 
 
-class PostLoader extends core.processors.Processor{
-
-
-  /* ----- Routing ----- */
-
-
-  /**
-   * @inheritDoc
-   */
-  routes(path){
-    return {
-      [path]: {
-        'get|put|patch|delete': [
-          core.processors.Processor.PARSE_QUERY,
-          (req, res, next) => {
-            this.loadTargetPosts(req)
-            next()
-          }
-        ]
-      }
-    }
-  }
-
-
-  /* ----- Utility ----- */
-
+class PostLoader extends core.processors.UniformProcessor{
 
   /**
    * Load request target post IDs and owners.
    * @param {object} req Express request object
    */
-  loadTargetPosts(req){
+  process(req){
 
     req.target = req.target || {}
 

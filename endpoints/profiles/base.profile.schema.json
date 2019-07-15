@@ -5,11 +5,7 @@
   "type": "object",
   "title": "Profile Base",
 
-  "definitions": {
-    "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/uei"}
-  },
-
   "properties":{
-    "owner": {"$ref": "#/definitions/uei"}
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"}
   }
 }

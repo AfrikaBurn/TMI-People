@@ -1,6 +1,6 @@
 /**
  * @file posts.store.js
- * Post Store.
+ * Post Type Store.
  */
 "use strict"
 

@@ -32,7 +32,7 @@ class JsonApiUniformProcessor extends RestUniformProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.build = this.process(req, res)
+              if (!isNaN(req.params.id)) res.build = this.process(req, res)
               next()
             }
           ],
@@ -43,7 +43,7 @@ class JsonApiUniformProcessor extends RestUniformProcessor {
             JsonApiProcessor.PARSE_ID,
 
             (req, res, next) => {
-              res.build = this.process(req, res)
+              if (!isNaN(req.params.id)) res.build = this.process(req, res)
               next()
             }
           ]

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "51188261-ae08-4dc2-ad92-579c1ed2099b",
+		"_postman_id": "bd22c54e-ec1c-40e8-9a00-84b744ac1163",
 		"name": "tmi people",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -140,7 +140,7 @@
 									");",
 									"",
 									"for (let i=0; i<EXPECTED.length; i++){        ",
-									"    pm.test(EXPECTED[i].username + \" account\", ",
+									"    pm.test(EXPECTED[i].attributes.username + \" account\", ",
 									"        () => {",
 									"            pm.expect(jsonData.data[i]).to.eql(EXPECTED[i])",
 									"        }",
@@ -189,31 +189,36 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"name\": \"System\",",
-									"            \"description\": \"System operators of this tribe.\",",
-									"            \"status\": \"active\",",
-									"            \"owner\": {",
-									"                \"type\": \"user\",",
-									"                \"id\": -1",
-									"            },",
-									"            \"id\": 0",
+									"            \"type\": \"group\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"name\": \"System\",",
+									"                \"description\": \"System operators of this tribe.\",",
+									"                \"exposure\": {",
+									"                    \"visibility\": \"private\",",
+									"                    \"accessibility\": \"private\"",
+									"                },",
+									"                \"status\": \"active\",",
+									"                \"id\": 0",
+									"            }",
 									"        },",
 									"        {",
-									"            \"name\": \"Participants\",",
-									"            \"description\": \"Tribe participation group.\",",
-									"            \"status\": \"active\",",
-									"            \"owner\": {",
-									"                \"id\": -1",
-									"            },",
-									"            \"delegate\": {",
-									"                \"moderation\": {",
-									"                    \"id\": 0",
+									"            \"type\": \"group\",",
+									"            \"id\": 1,",
+									"            \"attributes\": {",
+									"                \"name\": \"Participants\",",
+									"                \"description\": \"Tribe participation group.\",",
+									"                \"exposure\": {",
+									"                    \"visibility\": \"public\",",
+									"                    \"accessibility\": \"public\"",
 									"                },",
-									"                \"administration\": {",
-									"                    \"id\": 0",
-									"                }",
-									"            },",
-									"            \"id\": 1",
+									"                \"delegate\": {",
+									"                    \"moderation\": 0,",
+									"                    \"administration\": 0",
+									"                },",
+									"                \"status\": \"active\",",
+									"                \"id\": 1",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -275,80 +280,152 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"owner\": {",
-									"                \"type\": \"group\",",
+									"            \"type\": \"agreement\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"name\": \"Administrator\",",
+									"                \"schema\": {",
+									"                    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"                    \"$id\": \"http://tmi.mobi/agreement/administrator/administrator.schema.json\",",
+									"                    \"type\": \"object\",",
+									"                    \"title\": \"Administrator Agreement\",",
+									"                    \"allOf\": [",
+									"                        {",
+									"                            \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
+									"                        }",
+									"                    ]",
+									"                },",
+									"                \"mutable\": [",
+									"                    \"status\"",
+									"                ],",
 									"                \"id\": 0",
-									"            },",
-									"            \"name\": \"administrator\",",
-									"            \"schema\": {",
-									"                \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
-									"                \"$id\": \"http://tmi.mobi/agreement/administrator/administrator.schema.json\",",
-									"                \"type\": \"object\",",
-									"                \"title\": \"Administrator Agreement\",",
-									"                \"allOf\": [",
-									"                    {",
-									"                        \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
-									"                    }",
-									"                ]",
-									"            },",
-									"            \"id\": 0",
+									"            }",
 									"        },",
 									"        {",
-									"            \"owner\": {",
-									"                \"type\": \"group\",",
-									"                \"id\": 0",
-									"            },",
-									"            \"name\": \"moderator\",",
-									"            \"schema\": {",
-									"                \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
-									"                \"$id\": \"http://tmi.mobi/schemas/agreement/default/moderator.json\",",
-									"                \"type\": \"object\",",
-									"                \"title\": \"Moderator Agreement\",",
-									"                \"allOf\": [",
-									"                    {",
-									"                        \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
-									"                    }",
-									"                ]",
-									"            },",
-									"            \"id\": 1",
+									"            \"type\": \"agreement\",",
+									"            \"id\": 1,",
+									"            \"attributes\": {",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"name\": \"Moderator\",",
+									"                \"schema\": {",
+									"                    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"                    \"$id\": \"http://tmi.mobi/schemas/agreement/default/moderator.json\",",
+									"                    \"type\": \"object\",",
+									"                    \"title\": \"Moderator Agreement\",",
+									"                    \"allOf\": [",
+									"                        {",
+									"                            \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
+									"                        }",
+									"                    ]",
+									"                },",
+									"                \"mutable\": [",
+									"                    \"status\"",
+									"                ],",
+									"                \"id\": 1",
+									"            }",
 									"        },",
 									"        {",
-									"            \"owner\": {",
-									"                \"type\": \"group\",",
-									"                \"id\": 0",
-									"            },",
-									"            \"name\": \"member\",",
-									"            \"schema\": {",
-									"                \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
-									"                \"$id\": \"http://tmi.mobi/agreement/default/member.agreement.schema.json\",",
-									"                \"type\": \"object\",",
-									"                \"title\": \"Membership Agreement\",",
-									"                \"allOf\": [",
-									"                    {",
-									"                        \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
-									"                    }",
-									"                ]",
-									"            },",
-									"            \"id\": 2",
+									"            \"type\": \"agreement\",",
+									"            \"id\": 2,",
+									"            \"attributes\": {",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"name\": \"Member\",",
+									"                \"schema\": {",
+									"                    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"                    \"$id\": \"http://tmi.mobi/agreement/default/member.agreement.schema.json\",",
+									"                    \"type\": \"object\",",
+									"                    \"title\": \"Membership Agreement\",",
+									"                    \"allOf\": [",
+									"                        {",
+									"                            \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
+									"                        }",
+									"                    ]",
+									"                },",
+									"                \"mutable\": [",
+									"                    \"status\"",
+									"                ],",
+									"                \"id\": 2",
+									"            }",
 									"        },",
 									"        {",
-									"            \"owner\": {",
-									"                \"type\": \"group\",",
-									"                \"id\": 0",
-									"            },",
-									"            \"name\": \"guest\",",
-									"            \"schema\": {",
-									"                \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
-									"                \"$id\": \"http://tmi.mobi/schemas/agreement/default/guest.json\",",
-									"                \"type\": \"object\",",
-									"                \"title\": \"Guest Agreement\",",
-									"                \"allOf\": [",
-									"                    {",
-									"                        \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
-									"                    }",
-									"                ]",
-									"            },",
-									"            \"id\": 3",
+									"            \"type\": \"agreement\",",
+									"            \"id\": 3,",
+									"            \"attributes\": {",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"name\": \"Guest\",",
+									"                \"schema\": {",
+									"                    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"                    \"$id\": \"http://tmi.mobi/schemas/agreement/default/guest.json\",",
+									"                    \"type\": \"object\",",
+									"                    \"title\": \"Guest Agreement\",",
+									"                    \"allOf\": [",
+									"                        {",
+									"                            \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
+									"                        }",
+									"                    ]",
+									"                },",
+									"                \"mutable\": [",
+									"                    \"status\"",
+									"                ],",
+									"                \"id\": 3",
+									"            }",
+									"        },",
+									"        {",
+									"            \"type\": \"agreement\",",
+									"            \"id\": 4,",
+									"            \"attributes\": {",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"name\": \"Privacy\",",
+									"                \"schema\": {",
+									"                    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"                    \"$id\": \"http://tmi.mobi/agreement/privacy/privacy.schema.json\",",
+									"                    \"type\": \"object\",",
+									"                    \"title\": \"Privacy Agreement\",",
+									"                    \"allOf\": [",
+									"                        {",
+									"                            \"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"",
+									"                        },",
+									"                        {",
+									"                            \"properties\": {",
+									"                                \"profile\": {",
+									"                                    \"$ref\": \"http://tmi.mobi/root.schema.json#/definitions/id\"",
+									"                                },",
+									"                                \"fields\": {",
+									"                                    \"type\": \"array\",",
+									"                                    \"items\": {",
+									"                                        \"type\": \"string\"",
+									"                                    }",
+									"                                }",
+									"                            }",
+									"                        }",
+									"                    ]",
+									"                },",
+									"                \"mutable\": [",
+									"                    \"status\"",
+									"                ],",
+									"                \"id\": 4",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -410,15 +487,20 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"promisor\": {",
-									"                \"type\": \"user\",",
-									"                \"id\": 1",
-									"            },",
-									"            \"promisee\": {",
-									"                \"type\": \"group\",",
+									"            \"type\": \"administrator\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"promisor\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": 1",
+									"                },",
+									"                \"promisee\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"status\": \"proposed\",",
 									"                \"id\": 0",
-									"            },",
-									"            \"id\": 0",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -481,15 +563,20 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"promisor\": {",
-									"                \"type\": \"user\",",
-									"                \"id\": 1",
-									"            },",
-									"            \"promisee\": {",
-									"                \"type\": \"group\",",
+									"            \"type\": \"moderator\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"promisor\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": 1",
+									"                },",
+									"                \"promisee\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"status\": \"proposed\",",
 									"                \"id\": 0",
-									"            },",
-									"            \"id\": 0",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -552,15 +639,20 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"promisor\": {",
-									"                \"type\": \"user\",",
-									"                \"id\": 1",
-									"            },",
-									"            \"promisee\": {",
-									"                \"type\": \"group\",",
+									"            \"type\": \"member\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"promisor\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": 1",
+									"                },",
+									"                \"promisee\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"status\": \"proposed\",",
 									"                \"id\": 0",
-									"            },",
-									"            \"id\": 0",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -623,15 +715,20 @@
 									"const ",
 									"    EXPECTED = [",
 									"        {",
-									"            \"promisor\": {",
-									"                \"type\": \"user\",",
-									"                \"id\": 1",
-									"            },",
-									"            \"promisee\": {",
-									"                \"type\": \"group\",",
+									"            \"type\": \"guest\",",
+									"            \"id\": 0,",
+									"            \"attributes\": {",
+									"                \"promisor\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": 1",
+									"                },",
+									"                \"promisee\": {",
+									"                    \"type\": \"group\",",
+									"                    \"id\": 0",
+									"                },",
+									"                \"status\": \"proposed\",",
 									"                \"id\": 0",
-									"            },",
-									"            \"id\": 0",
+									"            }",
 									"        }",
 									"    ]",
 									"",
@@ -948,7 +1045,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"username\": \"Authenticated\",\n\t\t\"email\": \"Tester@Tester.com\",\n\t\t\"password\": \"Authenticated\"\n\t}\n]"
+									"raw": "{\n    \"data\": [\n\t\t{\n\t\t\t\"attributes\": {\n\t\t\t\t\"username\": \"Authenticated\",\n\t\t\t\t\"email\": \"Tester@Tester.com\",\n\t\t\t\t\"password\": \"Authenticated\"\n\t\t\t}\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -1559,6 +1656,54 @@
 								"description": "Create a user"
 							},
 							"response": []
+						},
+						{
+							"name": "Delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
+										"exec": [
+											"pm.test(\"Should not be allowed\", () => pm.response.to.have.status(403))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:3000/agreements?name=test-agreement",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test-agreement"
+										}
+									]
+								},
+								"description": "Create a user"
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -1632,6 +1777,519 @@
 										"login"
 									]
 								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Agreements - Add tests",
+					"item": [
+						{
+							"name": "Administrator",
+							"item": [
+								{
+									"name": "Schema",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "59c07c9b-e95e-4c07-a1f4-c0a3112fb965",
+												"exec": [
+													"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+													"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json;schema"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "localhost:3000/agreements/administrator",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"agreements",
+												"administrator"
+											]
+										},
+										"description": "Retrieves the User schema"
+									},
+									"response": []
+								},
+								{
+									"name": "List",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5770fa0f-940e-461d-91fe-6bd024a98ed9",
+												"exec": [
+													"const ",
+													"    EXPECTED = [",
+													"        {",
+													"            \"type\": \"administrator\",",
+													"            \"id\": 0,",
+													"            \"attributes\": {",
+													"                \"promisor\": {",
+													"                    \"type\": \"user\",",
+													"                    \"id\": 1",
+													"                },",
+													"                \"promisee\": {",
+													"                    \"type\": \"group\",",
+													"                    \"id\": 0",
+													"                },",
+													"                \"status\": \"proposed\",",
+													"                \"id\": 0",
+													"            }",
+													"        }",
+													"    ]",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Response is an array of \" + EXPECTED.length, ",
+													"    () => {",
+													"        pm.expect(jsonData.data.length).to.eql(EXPECTED.length)",
+													"    }",
+													");",
+													"",
+													"for (let i=0; i<EXPECTED.length; i++){        ",
+													"    pm.test(EXPECTED[i].attributes.username + \" account\", ",
+													"        () => {",
+													"            pm.expect(jsonData.data[i]).to.eql(EXPECTED[i])",
+													"        }",
+													"    );",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "localhost:3000/agreements/administrator",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"agreements",
+												"administrator"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Find",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "299b0a6b-e338-4961-9626-d9e678e8e895",
+												"exec": [
+													"const ",
+													"    EXPECTED = [",
+													"        {",
+													"            \"type\": \"administrator\",",
+													"            \"id\": 0,",
+													"            \"attributes\": {",
+													"                \"promisor\": {",
+													"                    \"type\": \"user\",",
+													"                    \"id\": 1",
+													"                },",
+													"                \"promisee\": {",
+													"                    \"type\": \"group\",",
+													"                    \"id\": 0",
+													"                },",
+													"                \"status\": \"proposed\",",
+													"                \"id\": 0",
+													"            }",
+													"        }",
+													"    ]",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Response is an array of \" + EXPECTED.length, ",
+													"    () => {",
+													"        pm.expect(jsonData.data.length).to.eql(EXPECTED.length)",
+													"    }",
+													");",
+													"",
+													"for (let i=0; i<EXPECTED.length; i++){        ",
+													"    pm.test(EXPECTED[i].attributes.username + \" account\", ",
+													"        () => {",
+													"            pm.expect(jsonData.data[i]).to.eql(EXPECTED[i])",
+													"        }",
+													"    );",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "localhost:3000/agreements/administrator?id=0",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"agreements",
+												"administrator"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
+												"exec": [
+													"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+													"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"data\": [\n\t    {\n\t        \"type\": \"administrator\",\n\t        \"id\": 0,\n\t        \"attributes\": {\n\t            \"promisor\": {\n\t                \"type\": \"user\",\n\t                \"id\": 1\n\t            },\n\t            \"promisee\": {\n\t                \"type\": \"group\",\n\t                \"id\": 0\n\t            },\n\t            \"id\": 0,\n\t            \"status\": \"withdrawn\"\n\t        }\n\t    }\n\t]\n}"
+										},
+										"url": {
+											"raw": "localhost:3000/agreements/administrator/0",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"agreements",
+												"administrator",
+												"0"
+											]
+										},
+										"description": "Create a user"
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Schema",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "59c07c9b-e95e-4c07-a1f4-c0a3112fb965",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json;schema"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:3000/agreements",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									]
+								},
+								"description": "Retrieves the User schema"
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2de856bb-1fbd-474d-a355-5a4529b5426b",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:3000/agreements",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "633536e3-7bc6-4a5b-8705-46f448c2bb3c",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:3000/agreements?name=guest",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "guest"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(201))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"owner\": {\"type\": \"group\", \"id\": 0},\n\t\t\t\"author\": -1,\n\t\t\t\"name\": \"test-agreement\",\n\t\t\t\"schema\": {\n\t\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\t\n\t\t\t\t\"type\": \"object\",\n\t\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\t\n\t\t\t\t\"allOf\": [\n\t\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t\t],\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"newProp\": {\"type\": \"string\"}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "localhost:3000/agreements",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									]
+								},
+								"description": "Create a user"
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"owner\": {\"type\": \"group\", \"id\": 0},\n\t\t\t\"author\": -1,\n\t\t\t\"name\": \"test-agreement\",\n\t\t\t\"schema\": {\n\t\t\t\t\"$schema\": \"http://json-schema.org/draft-07/schema#\",\n\t\t\t\t\"$id\": \"http://tmi.mobi/schemas/agreement/test-agreement\",\n\t\t\t\t\n\t\t\t\t\"type\": \"object\",\n\t\t\t\t\"title\": \"Test Agreement\",\n\t\t\t\t\n\t\t\t\t\"allOf\": [\n\t\t\t\t\t{\"$ref\": \"http://tmi.mobi/agreement/base.agreement.schema.json\"}\n\t\t\t\t],\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"newProp\": {\"type\": \"boolean\"}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "localhost:3000/agreements?name=test-agreement",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test-agreement"
+										}
+									]
+								},
+								"description": "Create a user"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "644c628f-dc3c-4b5a-b886-51d5d9a68fac",
+										"exec": [
+											"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:3000/agreements?name=test-agreement",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"agreements"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test-agreement"
+										}
+									]
+								},
+								"description": "Create a user"
 							},
 							"response": []
 						}
@@ -1873,7 +2531,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"username\": \"Tester\",\n        \"email\": \"Tester@Tester.com\",\n        \"password\": \"Tester0\"\n\t}\n]"
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t        \"email\": \"Tester@Tester.com\",\n\t        \"password\": \"Tester0\"\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -1914,7 +2572,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"Tester\",\n  \"email\": \"a@b.com\",\n  \"password\": \"TEST\"\n}"
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t\t\t\"email\": \"a@b.com\",\n\t\t\t\"password\": \"TEST\"\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users?username=Tester",
@@ -1996,12 +2654,12 @@
 									"listen": "test",
 									"script": {
 										"id": "dc104a7b-b1ff-4bf0-8cca-25c7f1c7ab3c",
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status OK\", () => pm.response.to.have.status(201))",
 											"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2015,7 +2673,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 2\n\t\t}\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"type\": \"group\",\n\t\t\t\"id\": 1\n\t\t},\n\t    \"exposure\": {\n\t      \"visibility\": \"public\",\n\t      \"accessibility\": \"public\"\n\t    }\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/groups",
@@ -2030,6 +2688,103 @@
 								"description": "Create a user"
 							},
 							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Article",
+							"item": [
+								{
+									"name": "Create",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dc104a7b-b1ff-4bf0-8cca-25c7f1c7ab3c",
+												"exec": [
+													"pm.test(\"Status OK\", () => pm.response.to.have.status(201))",
+													"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "[\n\t{\n\t\t\"title\": \"Test Article\",\n\t\t\"body\": \"A little test is a Testicle.\",\n\t\t\"owner\": 1,\n\t\t\"author\": 1,\n\t\t\"parent\": 1,\n\t\t\"author\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 1\n\t\t}\n\t}\n]"
+										},
+										"url": {
+											"raw": "localhost:3000/posts/article",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"posts",
+												"article"
+											]
+										},
+										"description": "Create a user"
+									},
+									"response": []
+								},
+								{
+									"name": "List",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2de856bb-1fbd-474d-a355-5a4529b5426b",
+												"exec": [
+													"pm.test(\"Status OK\", () => pm.response.to.have.status(200))",
+													"pm.test(\"Response is an array\", pm.globals.get('BODY_IS_ARRAY'))",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "localhost:3000/posts/article",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"posts",
+												"article"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
 						}
 					],
 					"_postman_isSubFolder": true

@@ -175,10 +175,13 @@ MemoryStore.matches = (element, criteria) => {
 
   for(let property in criteria){
     if (typeof criteria[property] == 'object'){
-      if (!MemoryStore.matches(element[property], criteria[property]))
-        return false
+      if (Array.isArray(criteria[property])){
+        if (criteria[property].indexOf(element[property]) == -1) return false
+      } else {
+        if (!MemoryStore.matches(element[property], criteria[property])) return false
+      }
     } else {
-      if (element[property] != criteria[property]) return false
+      if (criteria[property] != element[property]) return false
     }
   }
 

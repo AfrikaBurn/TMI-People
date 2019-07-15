@@ -1,20 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://tmi.mobi/post/base.profile.schema.json",
+  "$id": "http://tmi.mobi/post/base.post.schema.json",
   "type": "object",
 
   "properties":{
 
     "id": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
-
-    "title": {
-      "title": "Title",
-      "Description": "Title of the post.",
-      "type": "string",
-      "pattern": "^(\\s?\\S+\\s?){1,20}$",
-      "errorMessage": "should only be 1 to 20 words",
-      "isUniqueKey": true
-    },
 
     "body": {
       "title": "Body",
@@ -25,6 +16,10 @@
       "isUniqueKey": true
     },
 
-    "owner": {"$ref": "#/definitions/uei"}
-  }
+    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"},
+    "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/participant"},
+    "parent": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/id"}
+  },
+
+  "required": ["owner", "author", "parent"]
 }

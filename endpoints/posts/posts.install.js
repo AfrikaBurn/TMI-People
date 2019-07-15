@@ -1,6 +1,6 @@
 /**
  * @file posts.install.js
- * Post endpoint installer.
+ * Post type endpoint installer.
  */
 "use strict"
 
@@ -47,17 +47,15 @@ class PostInstaller extends core.installers.Installer{
           this.endpoint.processors.execute.post(
             {
               user: { id: -1, is: { administrator: true }},
-              body: {
-                data: [
-                  {
-                    owner: {type: 'group', id: 0},
-                    name: name,
-                    schema: require(
-                      './install/' + machineName + '.post.schema.json'
-                    )
-                  }
-                ]
-              }
+              body: [
+                {
+                  name: name,
+                  author: -1,
+                  schema: require(
+                    './install/' + machineName + '.post.schema.json'
+                  )
+                }
+              ]
             }
           )
 
