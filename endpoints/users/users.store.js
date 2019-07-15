@@ -103,9 +103,11 @@ class UserStore extends core.stores.MemoryStore {
 
     var verified = false
 
-    super.read({}, {username: username}).data.forEach(
+    super.read({id: 0}, {username: username}, ['password', 'id']).data.forEach(
       (user) => {
-        if (PasswordHash.verify(password, user.password)) verified = user
+        if (PasswordHash.verify(password, user.password)){
+          verified = super.read({id: user.id}, {id: user.id}).data.shift()
+        }
       }
     )
 
