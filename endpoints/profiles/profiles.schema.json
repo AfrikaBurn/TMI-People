@@ -16,10 +16,10 @@
     },
 
     "author": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/user"},
-    "owner": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/group"},
+    "group": {"$ref": "http://tmi.mobi/root.schema.json#/definitions/group"},
 
     "schema": {"type": "object"}
   },
 
-  "required": ["name", "owner", "schema"]
+  "required": ["name", "author", "group", "schema"]
 }

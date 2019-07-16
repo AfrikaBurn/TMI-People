@@ -122,10 +122,7 @@ UserExecutor.LOGIN = (req, res, next) => {
 
           req.data = bootstrap.respond(
             req, res, 200,
-            Object.assign(
-              utility.clone(Processor.SUCCESS),
-              { data: user }
-            )
+            utility.response(Processor.SUCCESS, user)
           )
         }
       )

@@ -96,5 +96,5 @@
     }
   },
 
-  "required": ["name", "description", "exposure", "status"]
+  "required": ["name", "description", "author", "owner", "exposure", "status"]
 }

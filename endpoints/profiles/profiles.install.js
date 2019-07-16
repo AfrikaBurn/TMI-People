@@ -49,9 +49,9 @@ class ProfileInstaller extends core.installers.Installer{
               user: { id: -1, is: { administrator: true }},
               body: [
                 {
-                  author: -1,
-                  owner: 0,
                   name: name,
+                  author: -1,
+                  group: 0,
                   schema: require(
                     './install/' + machineName + '.profile.schema.json'
                   )

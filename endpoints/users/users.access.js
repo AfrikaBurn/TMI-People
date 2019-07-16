@@ -85,7 +85,7 @@ class UserAccess extends core.processors.JsonApiAccessProcessor {
    */
   put(req, res){
     req.user.is.anonymous ||
-    !(req.user.is.owner || req.user.is.administrator)
+    !(req.user.position.owner || req.user.is.administrator)
       ? AccessProcessor.DENY()
       : AccessProcessor.GRANT(req)
   }
@@ -95,7 +95,7 @@ class UserAccess extends core.processors.JsonApiAccessProcessor {
    */
   patch(req, res){
     req.user.is.anonymous ||
-    !(req.user.is.owner || req.user.is.administrator)
+    !(req.user.position.owner || req.user.is.administrator)
       ? AccessProcessor.DENY()
       : AccessProcessor.GRANT(req)
   }
@@ -105,7 +105,7 @@ class UserAccess extends core.processors.JsonApiAccessProcessor {
    */
   delete(req, res){
     req.user.is.anonymous ||
-    !(req.user.is.owner || req.user.is.administrator)
+    !(req.user.position.owner || req.user.is.administrator)
       ? AccessProcessor.DENY()
       : AccessProcessor.GRANT(req)
   }

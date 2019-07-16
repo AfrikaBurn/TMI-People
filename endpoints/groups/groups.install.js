@@ -61,6 +61,11 @@ GroupInstaller.SYSTEM_COLLECTIVES = [
   {
     name: 'System',
     description: 'System operators of this tribe.',
+    author: -1,
+    owner: {
+      type: 'user',
+      id: -1,
+    },
     exposure: {
       visibility: 'private',
       accessibility: 'private',
@@ -71,6 +76,11 @@ GroupInstaller.SYSTEM_COLLECTIVES = [
   {
     name: 'Participants',
     description: 'Tribe participation group.',
+    author: -1,
+    owner: {
+      type: 'user',
+      id: 1,
+    },
     exposure: {
       visibility: 'public',
       accessibility: 'public',

@@ -62,12 +62,14 @@ UserInstaller.SYSTEM_ACCOUNTS = [
     'username': 'Anonymous',
     'password': 'none',
     'status': 'active',
+    'exposure': 'private',
     'email': 'no-reply@system.com'
   },
   {
     'username': 'Administrator',
     'password': 'Administrator',
     'status': 'active',
+    'exposure': 'private',
     'email': 'no-reply@system.com'
   }
 ]

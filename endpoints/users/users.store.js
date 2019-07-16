@@ -69,7 +69,12 @@ class UserStore extends core.stores.MemoryStore {
       }
     )
 
-    return super.write(user, criteria, writeUsers, true)
+    writeUsers = super.write(user, criteria, writeUsers, true)
+    writeUsers.data.map(
+      (user) => user.password = '*'
+    )
+
+    return writeUsers
   }
 
   /**
@@ -90,7 +95,12 @@ class UserStore extends core.stores.MemoryStore {
       }
     )
 
-    return super.update(user, criteria, updateUsers, true)
+    updateUsers = super.update(user, criteria, updateUsers, true)
+    updateUsers.data.map(
+      (user) => user.password = '*'
+    )
+
+    return updateUsers
   }
 
   /**
