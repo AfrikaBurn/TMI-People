@@ -14,12 +14,12 @@ Post types, Posts, Profile types, Profiles and Users through the
 
 ## Entity relationships
 
-![People Entity Relationships](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Entity-Relationships.svg?sanitize=true)
+![People Entity Relationships](https://github.com/AfrikaBurn/TMI/blob/master/docs/svg/People-Entity-Relationships.svg?sanitize=true)
 
 
 ## Entity Classes
 
-![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/People-Entity-Classes.svg?sanitize=true)
+![People Class Diagram](https://github.com/AfrikaBurn/TMI/raw/master/docs/svg/People-Entity-Classes.svg?sanitize=true)
 
 
 ## Prerequisites
