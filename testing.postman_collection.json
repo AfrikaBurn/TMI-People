@@ -114,6 +114,7 @@
 									"                \"username\": \"Anonymous\",",
 									"                \"password\": \"*\",",
 									"                \"status\": \"active\",",
+									"                \"exposure\": \"private\",",
 									"                \"email\": \"no-reply@system.com\",",
 									"                \"id\": 0",
 									"            }",
@@ -125,6 +126,7 @@
 									"                \"username\": \"Administrator\",",
 									"                \"password\": \"*\",",
 									"                \"status\": \"active\",",
+									"                \"exposure\": \"private\",",
 									"                \"email\": \"no-reply@system.com\",",
 									"                \"id\": 1",
 									"            }",
@@ -194,6 +196,11 @@
 									"            \"attributes\": {",
 									"                \"name\": \"System\",",
 									"                \"description\": \"System operators of this tribe.\",",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": -1",
+									"                },",
 									"                \"exposure\": {",
 									"                    \"visibility\": \"private\",",
 									"                    \"accessibility\": \"private\"",
@@ -208,6 +215,11 @@
 									"            \"attributes\": {",
 									"                \"name\": \"Participants\",",
 									"                \"description\": \"Tribe participation group.\",",
+									"                \"author\": -1,",
+									"                \"owner\": {",
+									"                    \"type\": \"user\",",
+									"                    \"id\": 1",
+									"                },",
 									"                \"exposure\": {",
 									"                    \"visibility\": \"public\",",
 									"                    \"accessibility\": \"public\"",
@@ -1045,7 +1057,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"data\": [\n\t\t{\n\t\t\t\"attributes\": {\n\t\t\t\t\"username\": \"Authenticated\",\n\t\t\t\t\"email\": \"Tester@Tester.com\",\n\t\t\t\t\"password\": \"Authenticated\"\n\t\t\t}\n\t\t}\n\t]\n}"
+									"raw": "{\n    \"data\": [\n\t\t{\n\t\t\t\"attributes\": {\n\t\t\t\t\"username\": \"Authenticated\",\n\t\t\t\t\"email\": \"Tester@Tester.com\",\n\t\t\t\t\"password\": \"Authenticated\",\n\t\t\t\t\"exposure\": \"public\"\n\t\t\t}\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -2531,7 +2543,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t        \"email\": \"Tester@Tester.com\",\n\t        \"password\": \"Tester0\"\n\t\t}\n\t]\n}"
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t        \"email\": \"Tester@Tester.com\",\n\t        \"password\": \"Tester0\",\n\t        \"exposure\": \"public\"\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users",
@@ -2572,7 +2584,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t\t\t\"email\": \"a@b.com\",\n\t\t\t\"password\": \"TEST\"\n\t\t}\n\t]\n}"
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"username\": \"Tester\",\n\t\t\t\"email\": \"a@b.com\",\n\t\t\t\"password\": \"TEST\",\n\t\t\t\"exposure\": \"public\"\n\t\t}\n\t]\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/users?username=Tester",
@@ -2673,7 +2685,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"owner\": {\n\t\t\t\"type\": \"group\",\n\t\t\t\"id\": 1\n\t\t},\n\t    \"exposure\": {\n\t      \"visibility\": \"public\",\n\t      \"accessibility\": \"public\"\n\t    }\n\t}\n]"
+									"raw": "[\n\t{\n\t\t\"name\": \"Test Group\",\n\t\t\"description\": \"A little test is a Testicle.\",\n\t\t\"status\": \"active\",\n\t\t\"author\": 1,\n\t\t\"owner\": {\n\t\t\t\"type\": \"group\",\n\t\t\t\"id\": 1\n\t\t},\n\t    \"exposure\": {\n\t      \"visibility\": \"public\",\n\t      \"accessibility\": \"public\"\n\t    }\n\t}\n]"
 								},
 								"url": {
 									"raw": "localhost:3000/groups",
@@ -2724,7 +2736,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "[\n\t{\n\t\t\"title\": \"Test Article\",\n\t\t\"body\": \"A little test is a Testicle.\",\n\t\t\"owner\": 1,\n\t\t\"author\": 1,\n\t\t\"parent\": 1,\n\t\t\"author\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 1\n\t\t}\n\t}\n]"
+											"raw": "[\n\t{\n\t\t\"title\": \"Test Article\",\n\t\t\"body\": \"A little test is a Testicle.\",\n\t\t\"owner\": 1,\n\t\t\"parent\": 1,\n\t\t\"author\": {\n\t\t\t\"type\": \"user\",\n\t\t\t\"id\": 1\n\t\t},\n\t\t\"group\": -1\n\t}\n]"
 										},
 										"url": {
 											"raw": "localhost:3000/posts/article",
